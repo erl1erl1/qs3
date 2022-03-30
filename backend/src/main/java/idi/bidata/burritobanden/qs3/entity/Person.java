@@ -13,13 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "Person")
+@Table(name = "person")
 
 public class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "personid", nullable = false)
+    @Column(name = "person_id", nullable = false)
     private Long personId;
     private String name;
     private String role;
