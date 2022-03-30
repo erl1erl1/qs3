@@ -1,17 +1,13 @@
 package idi.bidata.burritobanden.qs3.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "subject")
 public class Subject {
     @Id
@@ -28,7 +24,37 @@ public class Subject {
     private Set<Person> enrolledStudents = new HashSet<>();
     private int assignments;
 
+
+
     public void enrollStudent(Person person){
         enrolledStudents.add(person);
+    }
+
+    public Long getSubjectId() {
+        return subjectId;
+    }
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public Set<Person> getEnrolledStudents() {
+        return enrolledStudents;
+    }
+
+    public int getAssignments() {
+        return assignments;
+    }
+
+    public void setSubjectId(Long subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public void setAssignments(int assignments) {
+        this.assignments = assignments;
     }
 }

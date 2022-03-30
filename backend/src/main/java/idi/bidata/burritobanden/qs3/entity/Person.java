@@ -6,16 +6,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Table(name = "person")
 
 public class Person {
@@ -24,14 +18,38 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long personId;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "enrolledStudents")
     private Set<Subject> subjects = new HashSet<>();
 
     private String name;
     private String role;
 
-    @JsonIgnore
-    public Set<Subject> getSubjects(){
+    public Long getPersonId() {
+        return personId;
+    }
+
+    public Set<Subject> getSubjects() {
         return subjects;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setPersonId(Long personId) {
+        this.personId = personId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
