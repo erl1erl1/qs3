@@ -1,10 +1,10 @@
 package idi.bidata.burritobanden.qs3.repository;
 
-import idi.bidata.burritobanden.qs3.entity.Subject;
+import idi.bidata.burritobanden.qs3.entity.Queue;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 
-public interface SubjectRepository extends CrudRepository<Subject, Long> {
+public interface QueueRepository extends CrudRepository<Queue, Long> {
 }
