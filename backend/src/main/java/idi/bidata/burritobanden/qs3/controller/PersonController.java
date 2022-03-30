@@ -14,12 +14,12 @@ public class PersonController {
 
     @Autowired private PersonService personService;
 
-    // Save operation
+    // Create operation
     @PostMapping("/persons")
     public Person saveUser(
             @Valid @RequestBody Person person)
     {
-        return personService.savePerson(person);
+        return personService.createPerson(person);
     }
 
     // Read operation

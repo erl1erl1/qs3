@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -13,10 +15,20 @@ import javax.persistence.*;
 @Table(name = "subject")
 public class Subject {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "subject_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subjectId;
     private String subjectName;
-    @OneToOne
-    private Assignment assignment;
+
+    @ManyToMany
+    @JoinTable(
+            name = "person_subject",
+            joinColumns = @JoinColumn(name = "subject_id"),
+            inverseJoinColumns = @JoinColumn(name = "person_id")
+    )
+    private Set<Person> enrolledStudents = new HashSet<>();
+    private int assignments;
+
+    public void enrollStudent(Person person){
+        enrolledStudents.add(person);
+    }
 }

@@ -1,5 +1,6 @@
 package idi.bidata.burritobanden.qs3.controller;
 
+import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.entity.Subject;
 import idi.bidata.burritobanden.qs3.service.SubjectService;
 import java.util.List;
@@ -14,12 +15,12 @@ public class SubjectController {
 
     @Autowired private SubjectService subjectService;
 
-    // Save operation
+    // Create operation
     @PostMapping("/subjects")
-    public Subject saveSubject(
+    public Subject createSubject(
             @Valid @RequestBody Subject subject)
     {
-        return subjectService.saveSubject(subject);
+        return subjectService.createSubject(subject);
     }
 
     // Read operation
@@ -38,6 +39,17 @@ public class SubjectController {
     {
         return subjectService.updateSubject(
                 subject, subjectId);
+    }
+
+    @PutMapping("/{subjectId}/students/{personId}")
+    public Subject enrollStudent(
+            @PathVariable Long subjectId,
+            @PathVariable Long personId
+    ) {
+        Subject subject = subjectService.findSubjectById(subjectId);
+        Person person = subjectService.findPersonById(personId);
+        subject.enrollStudent(person);
+        return subjectService.enrollStudent(subjectId, personId);
     }
 
     // Delete operation

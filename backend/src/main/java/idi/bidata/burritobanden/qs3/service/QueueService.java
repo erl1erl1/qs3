@@ -1,6 +1,7 @@
 package idi.bidata.burritobanden.qs3.service;
 
 import idi.bidata.burritobanden.qs3.entity.Queue;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

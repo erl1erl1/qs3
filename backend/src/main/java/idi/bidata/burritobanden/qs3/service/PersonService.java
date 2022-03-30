@@ -5,7 +5,9 @@ import idi.bidata.burritobanden.qs3.entity.Person;
 import java.util.List;
 
 public interface PersonService {
-    Person savePerson(Person person);
+    Person createPerson(Person person);
+
+    Person findPersonById(Long personId);
 
     List<Person> fetchPersonList();
 
