@@ -8,9 +8,9 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class QueueItemId implements Serializable {
+public class QueueId implements Serializable {
     @Getter @Setter
-    private Long queueId;
+    private Long subjectId;
     @Getter @Setter
     private Long personId;
 }
