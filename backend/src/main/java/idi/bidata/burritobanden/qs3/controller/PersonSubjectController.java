@@ -1,7 +1,7 @@
 package idi.bidata.burritobanden.qs3.controller;
 
 import idi.bidata.burritobanden.qs3.entity.PersonSubject;
-import idi.bidata.burritobanden.qs3.service.PersonService;
+import idi.bidata.burritobanden.qs3.service.PersonSubjectService;
 import java.util.List;
 // Importing required classes
 import javax.validation.Valid;
@@ -12,41 +12,41 @@ import org.springframework.web.bind.annotation.*;
 
 public class PersonSubjectController {
 
-    @Autowired private UserService userService;
+    @Autowired private PersonSubjectService personSubjectService;
 
     // Save operation
-    @PostMapping("/users")
-    public User saveUser(
-            @Valid @RequestBody User user)
+    @PostMapping("/personSubjects")
+    public PersonSubject savePersonSubject(
+            @Valid @RequestBody PersonSubject personSubject)
     {
-        return userService.saveUser(user);
+        return personSubjectService.savePersonSubject(personSubject);
     }
 
     // Read operation
-    @GetMapping("/users")
-    public List<User> fetchUserList()
+    @GetMapping("/personSubjects")
+    public List<PersonSubject> fetchPersonSubjectList()
     {
-        return userService.fetchUserList();
+        return personSubjectService.fetchPersonSubjectList();
     }
 
 
     // Update operation
-    @PutMapping("/users/{id}")
-    public User
-    updateUser(@RequestBody User user,
-               @PathVariable("id") Long userId)
+    @PutMapping("/personSubjects/{id}")
+    public PersonSubject
+    updateUser(@RequestBody PersonSubject personSubject,
+               @PathVariable("id") Long personSubjectId)
     {
-        return userService.updateUser(
-                user, userId);
+        return personSubjectService.updatePersonSubject(
+                personSubject, personSubjectId);
     }
 
     // Delete operation
-    @DeleteMapping("/users/{id}")
-    public String deleteUserById(@PathVariable("id")
-                                         Long userId)
+    @DeleteMapping("/personSubjects/{id}")
+    public String deletePersonSubjectById(@PathVariable("id")
+                                         Long personSubjectId)
     {
-        userService.deleteUserById(
-                userId);
+        personSubjectService.deletePersonSubjectById(
+                personSubjectId);
         return "Deleted Successfully";
     }
 }
