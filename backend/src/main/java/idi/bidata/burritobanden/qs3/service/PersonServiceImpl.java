@@ -32,6 +32,20 @@ public class PersonServiceImpl implements PersonService {
         return person;
     }
 
+    @Override
+    public Boolean authenticate(String username, String password) {
+        Person person = null;
+        try{
+            person = personRepository.getByUsername(username);
+            if(person.getUsername().equals(username) && person.getPassword().equals(password)){
+                return true;
+            }
+        } catch (Exception e){
+            logger.info(e.toString());
+        }
+        return false;
+    }
+
 
     @Override
     public List<Person> fetchPersonList() {

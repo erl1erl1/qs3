@@ -9,6 +9,8 @@ public interface PersonService {
 
     Person findPersonById(Long personId);
 
+    Boolean authenticate(String username, String password);
+
     List<Person> fetchPersonList();
 
     Person updatePerson(Person person, Long personId);

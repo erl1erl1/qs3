@@ -49,5 +49,4 @@ public class AssignmentController {
                 assignmentId);
         return "Deleted Successfully";
     }
-
 }
