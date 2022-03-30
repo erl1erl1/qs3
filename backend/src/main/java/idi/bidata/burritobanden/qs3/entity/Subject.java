@@ -17,5 +17,6 @@ public class Subject {
     @Column(name = "subject_id", nullable = false)
     private Long subjectId;
     private String subjectName;
-    private int assignmentNum;
+    @OneToOne
+    private Assignment assignment;
 }
