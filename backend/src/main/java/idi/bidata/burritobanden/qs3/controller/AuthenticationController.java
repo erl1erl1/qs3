@@ -5,18 +5,15 @@ import idi.bidata.burritobanden.qs3.model.authentication.AuthenticationRequest;
 import idi.bidata.burritobanden.qs3.model.authentication.AuthenticationResponse;
 import idi.bidata.burritobanden.qs3.service.PersonService;
 import idi.bidata.burritobanden.qs3.util.JWTUtil;
-import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
-import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/auth")
