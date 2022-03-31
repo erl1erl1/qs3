@@ -2,10 +2,7 @@
   <div v-show="activeUser !== null" id="nav">
     <!-- router here !-->
   </div>
-  <p v-if="activeUser !== null" id="username">
-    logged in as: <span style="color: cornflowerblue"> {{ activeUser.username }}</span>
-  </p>
-  <router-view class="padding" />
+  <router-view/>
 </template>
 
 <script>
@@ -50,17 +47,6 @@ export default {
   -webkit-padding-start: 0;
   -moz-padding-start: 0;
   padding-inline-start: 0;
-}
-
-.padding {
-  padding: 0 0 60px 0;
-}
-
-#username {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  margin: 2px 2px 5px 5px;
 }
 
 </style>

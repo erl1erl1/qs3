@@ -22,7 +22,7 @@ defineRule('min_max', (value, [min, max]) => {
         return `Maximum ${max} characters`
     }
     return true
-})
+});
 
 // Create app
 createApp(App)

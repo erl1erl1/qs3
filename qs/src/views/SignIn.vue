@@ -1,15 +1,22 @@
 <template>
   <img alt="logo" id="logo" src="@/assets/qs-dark.svg">
   <div id="form-container">
-    <h1>Sign in</h1>
+    <h1>Pålogging</h1>
     <Form @submit="onSubmit" v-slot="{ meta }">
-      <Field class="input" rules="required|alpha_num|min_max:3,10" name="username" type="text" placeholder="username" validateOnInput/>
-      <ErrorMessage name="username"/>
-      <Field class="input" rules="required" name="password" type="password" placeholder="password" validateOnInput/>
-      <button class="button" :disabled="!(meta.valid)">Sign in</button>
+      <div class="input-container">
+        <label>Brukernavn</label>
+        <Field class="input" rules="required|alpha_num" name="username" type="text" placeholder="brukernavn" validateOnInput/>
+        <ErrorMessage class="error" name="username"/>
+      </div>
+
+      <div class="input-container">
+        <label>Passord</label>
+        <Field class="input" rules="required" name="password" type="password" placeholder="passord" validateOnInput/>
+      </div>
+      <button class="button" :disabled="!(meta.valid)">Logg inn</button>
     </Form>
     <p v-if="!this.correctPassword" style="color: red">Incorrect credentials</p>
-    <p style="margin-bottom: 10px">Don't have an account yet? <router-link as="a" class="link" to="SignUp">Sign up</router-link></p>
+    <p style="margin-bottom: 10px">Ikke registrert? <router-link as="a" class="link" to="SignUp">Lag en bruker</router-link></p>
   </div>
 </template>
 
@@ -63,12 +70,9 @@ export default {
 
 <style scoped>
 #form-container {
-  width: 500px;
   min-height: 300px;
-  background-color: lavender;
   border-radius: 10px;
-  padding: 20px 20px 0 20px;
-  margin-top: 100px;
+  text-align: center;
 }
 
 #logo {
