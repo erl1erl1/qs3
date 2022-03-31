@@ -32,8 +32,6 @@ public class AuthenticationController {
     @Autowired
     private JWTUtil jwtUtil;
 
-    Logger logger = LoggerFactory.getLogger("LOGGER");
-
     @PostMapping("")
     public AuthenticationResponse createAuthToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
@@ -44,9 +42,7 @@ public class AuthenticationController {
             throw new Exception("Incorrect username or password");
         }
         final Person person = personService.findPersonByUsername(authenticationRequest.getUsername());
-        logger.info(person.toString());
         final String jwt = jwtUtil.generateToken(person);
-        logger.info(jwt);
         return new AuthenticationResponse(jwt);
     }
 }
