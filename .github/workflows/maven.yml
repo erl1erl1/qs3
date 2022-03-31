@@ -32,10 +32,6 @@ jobs:
       with:
 
         java-version: 1.8
-        
-    - name: Change directory
-      
-      run: cd backend
 
     - name: Compile code
 
@@ -65,10 +61,6 @@ jobs:
         with:
 
           java-version: 1.8
-          
-      - name: Change directory
-      
-        run: cd backend
 
       - name: Run unit tests
 
@@ -98,10 +90,6 @@ jobs:
         with:
 
           java-version: 1.8
-          
-      - name: Change directory
-      
-        run: cd backend  
 
       - name: Build with Maven
 
