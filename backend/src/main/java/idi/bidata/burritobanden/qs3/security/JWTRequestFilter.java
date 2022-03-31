@@ -48,7 +48,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
                 Person person = this.personService.findPersonByUsername(username);
-                authorities.add(new SimpleGrantedAuthority(person.getRole()));
+                authorities.add(new SimpleGrantedAuthority("USER"));
                 if (jwtUtil.validateToken(jwt, person)) {
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(person, null, authorities);
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -56,7 +56,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
                 }
             }
             filterChain.doFilter(request, response);
-        } catch (Exception e){
+        } catch (ServletException | IOException e){
             logger.info(e.toString());
         }
     }
