@@ -2,7 +2,6 @@ package idi.bidata.burritobanden.qs3.entity;
 
 import javax.persistence.*;
 
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,8 +17,14 @@ public class Assignment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "assignment_id", nullable = false)
-    private long assignmentId;
-    private long personId;
-    private long subjectId;
+    private Long assignmentId;
+
+    @Column(name = "person_id")
+    private Long personId;
+
+    @Column(name = "subject_id", nullable = false)
+    private Long subjectId;
+
+    @Column(name = "assignment_num", nullable = false)
     private int assignmentNum;
 }
