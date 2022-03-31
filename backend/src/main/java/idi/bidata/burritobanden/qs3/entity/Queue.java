@@ -1,6 +1,6 @@
 package idi.bidata.burritobanden.qs3.entity;
 
-import idi.bidata.burritobanden.qs3.entity.compositeKeys.QueueId;
+import idi.bidata.burritobanden.qs3.model.compositeKeys.QueueId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

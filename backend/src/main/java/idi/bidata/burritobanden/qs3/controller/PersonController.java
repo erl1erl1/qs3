@@ -15,7 +15,7 @@ public class PersonController {
     @Autowired private PersonService personService;
 
     // Create operation
-    @PostMapping("/persons")
+    @PostMapping("/persons/register")
     public Person saveUser(
             @Valid @RequestBody Person person)
     {

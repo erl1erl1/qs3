@@ -33,6 +33,11 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
+    public Person findPersonByUsername(String username) {
+        return personRepository.getByUsername(username);
+    }
+
+    @Override
     public Boolean authenticate(String username, String password) {
         Person person = null;
         try{

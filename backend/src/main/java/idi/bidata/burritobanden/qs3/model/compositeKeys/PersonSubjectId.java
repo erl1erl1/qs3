@@ -1,4 +1,4 @@
-package idi.bidata.burritobanden.qs3.entity.compositeKeys;
+package idi.bidata.burritobanden.qs3.model.compositeKeys;
 
 import lombok.*;
 
