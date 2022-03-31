@@ -59,6 +59,12 @@ label {
     margin-right: auto;
 }
 
+.form-container {
+    min-height: 300px;
+    border-radius: 10px;
+    text-align: center;
+}
+
 .input {
     outline: none;
     border-style: solid;
@@ -79,6 +85,12 @@ label {
     display: flex;
     flex-wrap: wrap;
     justify-content: left;
+}
+
+.logo {
+    width: 60%;
+    max-width: 400px;
+    margin: 2em 0 2em 0 ;
 }
 
 .menu-button {

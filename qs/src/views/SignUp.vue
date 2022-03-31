@@ -1,15 +1,33 @@
 <template>
-  <div id="form-container">
-    <h1>Sign up</h1>
+  <img alt="logo" class="logo" src="@/assets/qs-dark.svg">
+  <div class="form-container">
+    <h1>Registrer bruker</h1>
     <Form @submit="onSubmit" v-slot="{ meta }">
-      <Field class="input" rules="required|alpha_num|min_max:3,10" name="username" type="text" placeholder="username" validateOnInput/>
-      <ErrorMessage name="username"/>
-      <Field class="input" rules="required" name="password" type="password" placeholder="password" validateOnInput/>
-      <Field class="input" rules="required|confirmed:@password"  name="confirm" type="password" placeholder="confirm password" validateOnInput/>
-      <ErrorMessage name="confirm">Passwords must match</ErrorMessage>
+      <div class="input-container">
+        <label>Brukernavn</label>
+        <Field class="input" rules="required|alpha_num|min_max:3,16" name="username" type="text" placeholder="brukernavn" validateOnBlur/>
+        <span class="error">
+          <ErrorMessage name="username">Brukernavn må være mellom 3 og 16 karakterer langt</ErrorMessage>
+        </span>
+      </div>
+      <div class="input-container">
+        <label>Passord</label>
+        <Field class="input" rules="required" name="password" type="password" placeholder="passord" validateOnBlur/>
+        <span class="error">
+          <ErrorMessage class="error" name="password">Passord kan ikke være tomt</ErrorMessage>
+        </span>
+      </div>
+      <div class="input-container">
+        <label>Bekreft passord</label>
+        <Field class="input" rules="required|confirmed:@password"  name="confirm" type="password" placeholder="passord" validateOnInput/>
+        <span class="error">
+         <ErrorMessage class="error" name="confirm">Passordene samstemmer ikke</ErrorMessage>
+        </span>
+      </div>
+
       <button class="button" :disabled="!(meta.valid)">Sign in</button>
     </Form>
-    <p style="margin-bottom: 10px">Already have an account yet? <router-link as="a" class="link" to="/">Sign In</router-link></p>
+    <p style="margin-bottom: 10px">Har du allerede en bruker? <router-link as="a" class="link" to="/">Log inn</router-link></p>
   </div>
 </template>
 
@@ -48,14 +66,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-#form-container {
-  width: 500px;
-  min-height: 300px;
-  background-color: lightsteelblue;
-  border-radius: 10px;
-  padding: 20px 20px 20px 20px;
-  margin-top: 100px;
-}
-</style>
