@@ -6,6 +6,8 @@ import idi.bidata.burritobanden.qs3.model.authentication.AuthenticationResponse;
 import idi.bidata.burritobanden.qs3.service.PersonService;
 import idi.bidata.burritobanden.qs3.util.JWTUtil;
 import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
+
+import java.nio.charset.StandardCharsets;
 
 @RestController
 @RequestMapping("/auth")
@@ -28,8 +32,10 @@ public class AuthenticationController {
     @Autowired
     private JWTUtil jwtUtil;
 
+    Logger logger = LoggerFactory.getLogger("LOGGER");
+
     @PostMapping("")
-    public ResponseEntity<AuthenticationResponse> createAuthToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+    public AuthenticationResponse createAuthToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
@@ -38,7 +44,9 @@ public class AuthenticationController {
             throw new Exception("Incorrect username or password");
         }
         final Person person = personService.findPersonByUsername(authenticationRequest.getUsername());
+        logger.info(person.toString());
         final String jwt = jwtUtil.generateToken(person);
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        logger.info(jwt);
+        return new AuthenticationResponse(jwt);
     }
 }
