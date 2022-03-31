@@ -4,6 +4,13 @@
     <h1>Registrer bruker</h1>
     <Form @submit="onSubmit" v-slot="{ meta }">
       <div class="input-container">
+        <label>Fullt navn</label>
+        <Field class="input" rules="required|alpha_spaces" name="name" type="text" placeholder="Fullt navn" validateOnBlur/>
+        <span class="error">
+          <ErrorMessage name="name">Navn kan kun inneholde bokstaver</ErrorMessage>
+        </span>
+      </div>
+      <div class="input-container">
         <label>Brukernavn</label>
         <Field class="input" rules="required|alpha_num|min_max:3,16" name="username" type="text" placeholder="brukernavn" validateOnBlur/>
         <span class="error">
@@ -14,14 +21,14 @@
         <label>Passord</label>
         <Field class="input" rules="required" name="password" type="password" placeholder="passord" validateOnBlur/>
         <span class="error">
-          <ErrorMessage class="error" name="password">Passord kan ikke være tomt</ErrorMessage>
+          <ErrorMessage name="password">Passord kan ikke være tomt</ErrorMessage>
         </span>
       </div>
       <div class="input-container">
         <label>Bekreft passord</label>
         <Field class="input" rules="required|confirmed:@password"  name="confirm" type="password" placeholder="passord" validateOnInput/>
         <span class="error">
-         <ErrorMessage class="error" name="confirm">Passordene samstemmer ikke</ErrorMessage>
+         <ErrorMessage name="confirm">Passordene samstemmer ikke</ErrorMessage>
         </span>
       </div>
 
