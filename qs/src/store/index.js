@@ -39,6 +39,7 @@ const storeConfiguration = {
       return authService.signIn(payload).then(
         user => {
           context.commit('SIGN_IN_SUCCESS', user);
+          console.log(user.subjects)
           return Promise.resolve(user);
         },
         error => {
@@ -63,6 +64,9 @@ const storeConfiguration = {
   },
 
   getters: {
+    getSubjects(state){
+      return  state.user.subjects;
+    }
   },
 
   modules: {
