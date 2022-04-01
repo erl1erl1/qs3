@@ -26,8 +26,6 @@ export default {
 
   data() {
     return {
-      loading: true,
-      message: '',
       correctPassword: true
     }
   },
@@ -50,13 +48,7 @@ export default {
         },
         (error) => {
           this.correctPassword = false;
-          this.loading = false;
-          this.message =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+          console.log(error)
         }    
       )
     }

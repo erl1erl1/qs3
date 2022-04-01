@@ -28,34 +28,34 @@ const storeConfiguration = {
     },
     REGISTER_FAILURE(state) {
       state.status.loggedIn = false;
+    },
+    SET_ACTIVE_USER(state, user){
+      state.user = user;
     }
   },
 
   actions: {
-    addUser(context, user) {
-      context.commit('SET_PASSWORD', user)
-    },
-
-    validateUser(context, payload) {
-      const users = this.state.users;
-      // Check if user exist in database
-      if (!users.has(payload.username)) {
-        return false;
-      }
-
-      // Check if password is right
-      const registeredUser = users.get(payload.username)
-      return registeredUser.password === payload.password;
-    },
-
     signIn(context, payload){
       return authService.signIn(payload).then(
         user => {
-          context.commit('SIGN_IN_SUCCESS', user)
-          return Promise.resolve()
+          context.commit('SIGN_IN_SUCCESS', user);
+          return Promise.resolve(user);
         },
         error => {
           context.commit('SIGN_IN_FAILURE')
+          return Promise.reject(error);
+        }
+      )
+    },
+
+    signUp(context, payload){
+      return authService.register(payload).then(
+        response => {
+          context.commit('REGISTER_SUCCESS');
+          return Promise.resolve(response.data);
+        },
+        error => {
+          context.commit('REGISTER_FAILURE');
           return Promise.reject(error);
         }
       )

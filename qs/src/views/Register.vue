@@ -32,7 +32,7 @@
         </span>
       </div>
 
-      <button class="button" :disabled="!(meta.valid)">Sign in</button>
+      <button class="button" :disabled="!(meta.valid)">Registrer deg</button>
     </Form>
     <p style="margin-bottom: 10px">Har du allerede en bruker? <router-link as="a" class="link" to="/signin">Log inn</router-link></p>
   </div>
@@ -40,7 +40,6 @@
 
 <script>
 import { Form, Field, ErrorMessage } from 'vee-validate'
-import { mapActions } from 'vuex'
 
 export default {
   name: "Login",
@@ -58,17 +57,22 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'addUser'
-    ]),
-
-    onSubmit(values) {
+    onSubmit(value){
       const user = {
-        username: values.username,
-        password: values.password
+        "name": value.name,
+        "username": value.username,
+        "password" : value.password,
+        "role": "student"
       }
-      this.addUser(user)
-      this.$router.push('/')
+
+      this.$store.dispatch("signUp", user).then(
+        () => {
+          this.$router.push("/signIn")
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
     }
   }
 }
