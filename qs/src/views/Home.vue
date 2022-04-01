@@ -1,15 +1,20 @@
 <template>
-  <font-awesome-icon icon="book" size="6x" /> <br><br>
-  <font-awesome-icon icon="user-graduate" size="6x" /> <br><br>
-  <font-awesome-icon icon="gear" size="6x" />
+  <h1>Dine emner</h1>
+  <div id="subjects">
+    <SubjectTile/>
+  </div>
 </template>
 
 <script>
+import SubjectTile from "@/components/SubjectTile";
 export default {
-  name: "Home"
+  name: "Home",
+  components: {SubjectTile}
 }
 </script>
 
 <style scoped>
-
+#subjects {
+  margin: 10px 10% 10px 10%;
+}
 </style>
