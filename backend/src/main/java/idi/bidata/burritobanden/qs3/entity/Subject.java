@@ -15,15 +15,14 @@ import java.util.Set;
 @Table(name = "subject")
 public class Subject {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subject_id")
-    private Long subjectId;
+    private String subjectCode;
     private String subjectName;
 
     @ManyToMany
     @JoinTable(
             name = "person_subject",
-            joinColumns = @JoinColumn(name = "subject_id"),
+            joinColumns = @JoinColumn(name = "subject_code"),
             inverseJoinColumns = @JoinColumn(name = "person_id")
     )
     private Set<Person> enrolledStudents = new HashSet<>();
@@ -35,8 +34,8 @@ public class Subject {
         enrolledStudents.add(person);
     }
 
-    public Long getSubjectId() {
-        return subjectId;
+    public String getSubjectCode() {
+        return subjectCode;
     }
 
     public String getSubjectName() {
@@ -51,8 +50,8 @@ public class Subject {
         return assignments;
     }
 
-    public void setSubjectId(Long subjectId) {
-        this.subjectId = subjectId;
+    public void setSubjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
     }
 
     public void setSubjectName(String subjectName) {

@@ -1,6 +1,7 @@
 package idi.bidata.burritobanden.qs3.controller;
 
 import idi.bidata.burritobanden.qs3.entity.Person;
+import idi.bidata.burritobanden.qs3.model.authentication.AuthenticationRequest;
 import idi.bidata.burritobanden.qs3.service.PersonService;
 import java.util.List;
 // Importing required classes
@@ -20,6 +21,15 @@ public class PersonController {
             @Valid @RequestBody Person person)
     {
         return personService.createPerson(person);
+    }
+
+    @PostMapping("persons/login")
+    public Person getUser(@RequestBody AuthenticationRequest req){
+        Person person = personService.findPersonByUsername(req.getUsername());
+        if (req.getUsername().equals(person.getUsername()) && req.getUsername().equals(person.getPassword())){
+            return person;
+        }
+        return null;
     }
 
     // Read operation

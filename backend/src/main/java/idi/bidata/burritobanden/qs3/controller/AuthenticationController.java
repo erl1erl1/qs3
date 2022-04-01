@@ -40,6 +40,6 @@ public class AuthenticationController {
         }
         final Person person = personService.findPersonByUsername(authenticationRequest.getUsername());
         final String jwt = jwtUtil.generateToken(person);
-        return new AuthenticationResponse(jwt);
+        return new AuthenticationResponse(jwt, person);
     }
 }
