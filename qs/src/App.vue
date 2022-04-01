@@ -75,6 +75,7 @@ export default {
   display: inline-flex;
   margin-left: auto;
   align-content: baseline;
+  cursor: pointer;
 }
 
 #user-icon {
@@ -85,6 +86,7 @@ export default {
 #nav-logo {
   height: 80%;
   margin-right: auto;
+  cursor: pointer;
 }
 
 /* Since nav-menu is fixed, we need to restrict that space within relative positioning */
