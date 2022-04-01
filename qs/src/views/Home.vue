@@ -1,10 +1,8 @@
 <template>
   <h1>Dine emner</h1>
   <hr/>
-  <div id="subjects">
-    <SubjectTile subject-code="IDATT2105" subject-name="Full-stack applikasjonsutvikling"/>
-    <SubjectTile subject-code="IDATT2104" subject-name="Nettverksprogrammering"/>
-    <SubjectTile subject-code="IFYTT1001" subject-name="Fysikk"/>
+  <div id="subjects" v-for="s in getSubjects" v-bind:key="s.subjectCode">
+    <SubjectTile :subject-code="s.subjectCode" :subject-name="s.subjectName"></SubjectTile>
   </div>
 </template>
 
@@ -12,7 +10,12 @@
 import SubjectTile from "@/components/SubjectTile";
 export default {
   name: "Home",
-  components: {SubjectTile}
+  components: {SubjectTile},
+  computed: {
+    getSubjects(){
+      return this.$store.getters.getSubjects
+    }
+  }
 }
 </script>
 
@@ -23,6 +26,10 @@ hr {
   max-width: 900px;
   border: 0;
   border-top: 1px solid rgb(0, 0, 0, 0.2);
+}
+
+ul {
+  list-style-type: none;
 }
 
 #subjects {
