@@ -46,7 +46,7 @@ export default {
 
       this.$store.dispatch("signIn", user).then(
         () => {
-          this.$router.push("/signUp")
+          this.$router.push("/")
         },
         (error) => {
           this.correctPassword = false;
