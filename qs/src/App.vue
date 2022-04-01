@@ -1,13 +1,12 @@
 <template>
   <div v-show="activeUser !== null" id="nav">
-    <div v-if="onMobile" id="item-container">
+    <div id="item-container">
       <img alt="logo" src="@/assets/qs-light.svg" id="nav-logo"/>
       <div id="user">
         <font-awesome-icon id="user-icon" :icon="icon" :size="iconSize" fixed-width/>
         <p style="color: #f7a81b">NicolaiSivesind</p>
       </div>
     </div>
-    <div v-else>Hey</div>
   </div>
   <div id="nav-space"/>
   <router-view/>
@@ -15,6 +14,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { DESKTOP_BP } from "@/utils/constants";
 
 export default {
   created() {
@@ -37,7 +37,7 @@ export default {
   mounted() {
     // Reactively update if mobile device
     window.addEventListener('resize', () => {
-      this.onMobile = (window.innerWidth < 750)
+      this.onMobile = (window.innerWidth < DESKTOP_BP)
     })
   },
 
@@ -83,13 +83,23 @@ export default {
 }
 
 #nav-logo {
-  height: 60px;
+  height: 80%;
   margin-right: auto;
 }
 
-/* Since nav-menu is fixed, it wont take up space in body */
+/* Since nav-menu is fixed, we need to restrict that space within relative positioning */
 #nav-space {
-  height: 100px;
+  height: 70px;
+}
+
+@media screen and (min-width: 1000px){
+  #nav-space {
+    height: 60px;
+  }
+
+  #nav {
+    height: 50px;
+  }
 }
 
 </style>
