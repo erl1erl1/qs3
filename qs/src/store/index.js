@@ -1,21 +1,33 @@
 import { createStore as vuexCreateStore } from 'vuex'
+import authService from '../services/auth.service';
+
+const user = localStorage.getItem('user');
+const initialState = user
+  ? {status: { loggedIn: true }, user}
+  : {status: { loggedIn: false }, user: null};
 
 
 // Helpers
 const storeConfiguration = {
-  state: {
-    activeUser: null,
-    users: new Map,
-  },
+  state: initialState,
   mutations: {
-    SET_PASSWORD(state, user) {
-      state.users.set(user.username, {
-        username: user.username,
-        password: user.password
-      })
+    SIGN_IN_SUCCESS(state, user){
+      state.status.loggedIn = true;
+      state.user = user;
     },
-    SET_ACTIVE_USER(state, user) {
-      state.activeUser = user
+    SIGN_IN_FAILURE(state){
+      state.status.loggedIn = false;
+      state.user = null;
+    },
+    SIGN_OUT(state) {
+      state.status.loggedIn = false;
+      state.user = null;
+    },
+    REGISTER_SUCCESS(state) {
+      state.status.loggedIn = false;
+    },
+    REGISTER_FAILURE(state) {
+      state.status.loggedIn = false;
     }
   },
 
@@ -25,10 +37,10 @@ const storeConfiguration = {
     },
 
     validateUser(context, payload) {
-      const users = this.state.users
+      const users = this.state.users;
       // Check if user exist in database
       if (!users.has(payload.username)) {
-        return false
+        return false;
       }
 
       // Check if password is right
@@ -36,15 +48,21 @@ const storeConfiguration = {
       return registeredUser.password === payload.password;
     },
 
-    setActiveUser(context, payload) {
-      context.commit('SET_ACTIVE_USER', this.state.users.get(payload.username))
+    signIn(context, payload){
+      return authService.signIn(payload).then(
+        user => {
+          context.commit('SIGN_IN_SUCCESS', user)
+          return Promise.resolve()
+        },
+        error => {
+          context.commit('SIGN_IN_FAILURE')
+          return Promise.reject(error);
+        }
+      )
     }
   },
 
   getters: {
-    getUsers(state) {
-      return state.users
-    }
   },
 
   modules: {

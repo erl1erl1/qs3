@@ -14,19 +14,20 @@
       <button class="button" :disabled="!(meta.valid)">Logg inn</button>
     </Form>
     <p v-if="!this.correctPassword" style="color: red">Incorrect credentials</p>
-    <p style="margin-bottom: 10px">Har du ikke en bruker? <router-link as="a" class="link" to="SignUp">Registrer deg</router-link></p>
+    <p style="margin-bottom: 10px">Har du ikke en bruker? <router-link as="a" class="link" to="register">Registrer deg</router-link></p>
   </div>
 </template>
 
 <script>
 import { Form, Field} from 'vee-validate'
-import { mapActions } from 'vuex'
 
 export default {
   name: "Login",
 
   data() {
     return {
+      loading: true,
+      message: '',
       correctPassword: true
     }
   },
@@ -37,29 +38,27 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'validateUser',
-      'setActiveUser'
-    ]),
-
     onSubmit(value) {
       const user = {
-        username: value.username,
-        password: value.password
+        "username": value.username,
+        "password": value.password
       }
 
-      const app = this
-
-      this.validateUser(user).then(function (valid) {
-        console.log(valid)
-        if (valid) {
-          app.correctPassword = true
-          app.setActiveUser(user)
-          app.$router.push('/calculator')
-        } else {
-          app.correctPassword = false
-        }
-      });
+      this.$store.dispatch("signIn", user).then(
+        () => {
+          this.$router.push("/")
+        },
+        (error) => {
+          this.correctPassword = false;
+          this.loading = false;
+          this.message =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+        }    
+      )
     }
   }
 }

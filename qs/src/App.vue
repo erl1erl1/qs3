@@ -1,10 +1,15 @@
 <template>
   <div v-show="activeUser !== null" id="nav">
-    <!-- router here !-->
+    <div v-if="onMobile" id="item-container">
+      <img alt="logo" src="@/assets/qs-light.svg" id="nav-logo"/>
+      <div id="user">
+        <font-awesome-icon id="user-icon" :icon="icon" :size="iconSize" fixed-width/>
+        <p style="color: #f7a81b">NicolaiSivesind</p>
+      </div>
+    </div>
+    <div v-else>Hey</div>
   </div>
-  <font-awesome-icon icon="book" size="6x" /> <br><br>
-  <font-awesome-icon icon="user-graduate" size="6x" /> <br><br>
-  <font-awesome-icon icon="gear" size="6x" />
+  <div id="nav-space"/>
   <router-view/>
 </template>
 
@@ -22,43 +27,69 @@ export default {
   },
 
   data() {
-    return {}
+    return {
+      onMobile: Boolean,
+      iconSize: "xs",
+      icon: "user"
+    }
+  },
+
+  mounted() {
+    // Reactively update if mobile device
+    window.addEventListener('resize', () => {
+      this.onMobile = (window.innerWidth < 750)
+    })
   },
 
   computed: {
     ...mapState([
       'activeUser'
-    ])
+    ]),
   }
 }
 </script>
 <style>
 @import "styles/global-styles.css";
-
+</style>
+<style scoped>
 #nav {
-  position: relative;
-  grid-area: menu;
-  background-color: transparent;
-  border-radius: 0 0 8px 8px;
-  height: 100px;
+  position: fixed;
+  background-color: #102c40;
+  height: 70px;
+  width: 100vw;
+}
+
+#item-container {
+  height: 100%;
+  padding: 0 10px 0 10px;
   color: white;
   font-size: 18px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-margin-before: 0;
-  margin-block-start: 0;
-  -webkit-margin-after: 0;
-  margin-block-end: 0;
-  -webkit-padding-start: 0;
-  -moz-padding-start: 0;
-  padding-inline-start: 0;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+#user {
+  display: inline-flex;
+  margin-left: auto;
+  align-content: baseline;
+}
+
+#user-icon {
+  align-self: center;
+  margin: 0 3px 0 3px;
+}
+
+#nav-logo {
+  height: 60px;
+  margin-right: auto;
+}
+
+/* Since nav-menu is fixed, it wont take up space in body */
+#nav-space {
+  height: 100px;
 }
 
 </style>
