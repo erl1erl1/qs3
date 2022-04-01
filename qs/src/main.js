@@ -1,12 +1,8 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
-
 // Form Validation Rules
 import { defineRule } from 'vee-validate';
 import { required, email, alpha_spaces, alpha_num, numeric, confirmed } from '@vee-validate/rules';
 
+    // Presets
 defineRule('required', required);
 defineRule('email', email);
 defineRule('alpha_spaces', alpha_spaces);
@@ -14,7 +10,7 @@ defineRule('numeric', numeric);
 defineRule('alpha_num', alpha_num)
 defineRule('confirmed', confirmed)
 
-// custom
+    // Custom rules
 defineRule('min_max', (value, [min, max]) => {
     if (value.length < min) {
         return `You need at least ${min} characters`
@@ -24,8 +20,22 @@ defineRule('min_max', (value, [min, max]) => {
     return true
 });
 
+// Font Awesome Icons
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faBook, faGear, faUserGraduate } from '@fortawesome/free-solid-svg-icons'
+
+    // Add icons to library
+library.add(faBook, faGear, faUserGraduate)
+
 // Create app
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+
 createApp(App)
     .use(store)
     .use(router)
+    .component('font-awesome-icon', FontAwesomeIcon)
     .mount('#app')

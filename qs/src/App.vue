@@ -2,6 +2,9 @@
   <div v-show="activeUser !== null" id="nav">
     <!-- router here !-->
   </div>
+  <font-awesome-icon icon="book" size="6x" /> <br><br>
+  <font-awesome-icon icon="user-graduate" size="6x" /> <br><br>
+  <font-awesome-icon icon="gear" size="6x" />
   <router-view/>
 </template>
 
@@ -9,6 +12,15 @@
 import { mapState } from 'vuex'
 
 export default {
+  created() {
+    this.$store.commit('SET_ACTIVE_USER', {username: "username", password: "password"})
+    // ^^^ Comment out this line before production ^^^
+
+    if (this.activeUser === null) {
+      this.$router.push('/signin')
+    }
+  },
+
   data() {
     return {}
   },
