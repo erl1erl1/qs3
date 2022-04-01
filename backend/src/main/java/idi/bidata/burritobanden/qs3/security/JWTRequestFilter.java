@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+
 @Component
 public class JWTRequestFilter extends OncePerRequestFilter {
     Logger logger = LoggerFactory.getLogger("LOGGER");
