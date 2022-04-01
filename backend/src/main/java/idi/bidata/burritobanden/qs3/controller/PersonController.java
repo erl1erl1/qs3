@@ -5,6 +5,9 @@ import idi.bidata.burritobanden.qs3.service.PersonService;
 import java.util.List;
 // Importing required classes
 import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +16,14 @@ import org.springframework.web.bind.annotation.*;
 public class PersonController {
 
     @Autowired private PersonService personService;
+    Logger logger = LoggerFactory.getLogger(PersonController.class);
 
     // Create operation
     @PostMapping("/persons/register")
     public Person saveUser(
             @Valid @RequestBody Person person)
     {
+        logger.info("New request: " + person);
         return personService.createPerson(person);
     }
 
@@ -26,6 +31,7 @@ public class PersonController {
     @GetMapping("/persons")
     public List<Person> fetchPersonList()
     {
+        logger.info("Size: " + personService.fetchPersonList().size());
         return personService.fetchPersonList();
     }
 
