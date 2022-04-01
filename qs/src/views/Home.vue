@@ -12,7 +12,7 @@
 import SubjectTile from "@/components/SubjectTile";
 export default {
   name: "Home",
-  components: {SubjectTile}
+  components: { SubjectTile }
 }
 </script>
 
