@@ -2,9 +2,6 @@
   <div v-show="activeUser !== null" id="nav">
     <!-- router here !-->
   </div>
-  <font-awesome-icon icon="book" size="6x" /> <br><br>
-  <font-awesome-icon icon="user-graduate" size="6x" /> <br><br>
-  <font-awesome-icon icon="gear" size="6x" />
   <router-view/>
 </template>
 
@@ -36,7 +33,7 @@ export default {
 @import "styles/global-styles.css";
 
 #nav {
-  position: relative;
+  position: absolute;
   grid-area: menu;
   background-color: transparent;
   border-radius: 0 0 8px 8px;

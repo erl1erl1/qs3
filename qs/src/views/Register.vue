@@ -34,7 +34,7 @@
 
       <button class="button" :disabled="!(meta.valid)">Sign in</button>
     </Form>
-    <p style="margin-bottom: 10px">Har du allerede en bruker? <router-link as="a" class="link" to="/">Log inn</router-link></p>
+    <p style="margin-bottom: 10px">Har du allerede en bruker? <router-link as="a" class="link" to="/signin">Log inn</router-link></p>
   </div>
 </template>
 
