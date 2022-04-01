@@ -14,7 +14,7 @@
       <button class="button" :disabled="!(meta.valid)">Logg inn</button>
     </Form>
     <p v-if="!this.correctPassword" style="color: red">Incorrect credentials</p>
-    <p style="margin-bottom: 10px">Har du ikke en bruker? <router-link as="a" class="link" to="SignUp">Registrer deg</router-link></p>
+    <p style="margin-bottom: 10px">Har du ikke en bruker? <router-link as="a" class="link" to="register">Registrer deg</router-link></p>
   </div>
 </template>
 
