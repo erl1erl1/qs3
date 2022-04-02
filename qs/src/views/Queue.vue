@@ -19,16 +19,25 @@ export default {
       names: null
     }
   },
-  mounted(){
-    let queueItems = axios.get("http://localhost:8080/subjects/", {headers: authHeader()});
-    console.log(queueItems);
-  },
   computed: {
     ...mapGetters([
       'getActiveSubject',
     ]),
     subjectCode(){
       return this.$store.subject.subjectCode;
+    }
+  },
+   mounted(){
+    getQueue(subjectCode())
+    console.log(this.queueItems);
+  },
+  methods:{
+    getQueue(subjectCode){
+      axios.get("http://localhost:8080/subjects/" + subjectCode(), {headers: authHeader()}).then(
+      resp => {
+        this.queueItems = resp.data;
+      }
+    )
     }
   }
 }
