@@ -1,5 +1,6 @@
 package idi.bidata.burritobanden.qs3.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,12 +20,8 @@ public class Subject {
     private String subjectCode;
     private String subjectName;
 
-    @ManyToMany
-    @JoinTable(
-            name = "person_subject",
-            joinColumns = @JoinColumn(name = "subject_code"),
-            inverseJoinColumns = @JoinColumn(name = "person_id")
-    )
+    @JsonIgnore
+    @ManyToMany(mappedBy = "subjects")
     private Set<Person> enrolledStudents = new HashSet<>();
     private int assignments;
 

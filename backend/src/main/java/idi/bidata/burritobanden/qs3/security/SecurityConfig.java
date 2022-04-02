@@ -31,10 +31,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/persons/register").permitAll()
                 .antMatchers("/auth").permitAll()
+                .antMatchers("/console/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.headers().frameOptions().disable();
     }
 
     @Bean

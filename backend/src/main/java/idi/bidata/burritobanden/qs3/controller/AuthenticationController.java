@@ -5,8 +5,6 @@ import idi.bidata.burritobanden.qs3.model.authentication.AuthenticationRequest;
 import idi.bidata.burritobanden.qs3.model.authentication.AuthenticationResponse;
 import idi.bidata.burritobanden.qs3.service.PersonService;
 import idi.bidata.burritobanden.qs3.util.JWTUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.security.authentication.AuthenticationManager;

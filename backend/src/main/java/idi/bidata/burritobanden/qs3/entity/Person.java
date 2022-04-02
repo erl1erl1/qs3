@@ -4,8 +4,6 @@ import javax.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
@@ -19,14 +17,22 @@ public class Person {
     @Column(name = "person_id")
     private Long personId;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "enrolledStudents")
+    @ManyToMany
+    @JoinTable(
+            name = "person_subject",
+            joinColumns = @JoinColumn(name = "person_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_code")
+    )
     private Set<Subject> subjects = new HashSet<>();
 
     private String name;
     private String username;
     private String password;
     private String role;
+
+    public void addSubject(Subject subject){
+        subjects.add(subject);
+    }
 
     public Long getPersonId() {
         return personId;

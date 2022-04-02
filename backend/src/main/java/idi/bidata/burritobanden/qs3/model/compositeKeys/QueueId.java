@@ -10,7 +10,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class QueueId implements Serializable {
     @Getter @Setter
-    private Long subjectId;
+    private String subjectCode;
     @Getter @Setter
     private Long personId;
 }

@@ -10,15 +10,13 @@ import java.util.List;
 public interface SubjectService {
     Subject createSubject(Subject subject);
 
-    Subject findSubjectById(Long subjectId);
-
     Person findPersonById(Long personId);
 
     List<Subject> fetchSubjectList();
 
-    Subject updateSubject(Subject subject, Long subjectId);
+    Subject updateSubject(Subject subject, String subjectCode);
 
-    Subject enrollStudent(Long subjectId, Long personId);
+    Subject enrollStudent(String subjectCode, Long personId);
 
-    void deleteSubjectById(Long subjectId);
+    Subject findSubjectByCode(String subjectCode);
 }

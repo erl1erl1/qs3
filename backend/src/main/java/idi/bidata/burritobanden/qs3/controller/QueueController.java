@@ -2,6 +2,8 @@ package idi.bidata.burritobanden.qs3.controller;
 
 import idi.bidata.burritobanden.qs3.entity.Queue;
 import idi.bidata.burritobanden.qs3.service.QueueService;
+
+import java.util.Date;
 import java.util.List;
 // Importing required classes
 import javax.validation.Valid;
@@ -19,21 +21,27 @@ public class QueueController {
     public Queue saveQueue(
             @Valid @RequestBody Queue queue)
     {
+        queue.setDate(new Date());
+        queue.setApproved(false);
         return queueService.saveQueue(queue);
     }
 
     // Read operation
     @GetMapping("/queues")
-    public List<Queue> fetchUserList()
+    public List<Queue> fetchQueueList()
     {
         return queueService.fetchQueueList();
     }
 
+    @GetMapping("/queues/{subjectCode}")
+    public List<Queue> getQueueByCode(@PathVariable String subjectCode){
+        return queueService.getQueueByCode(subjectCode);
+    }
 
     // Update operation
     @PutMapping("/queues/{id}")
     public Queue
-    updateUser(@RequestBody Queue queue,
+    updateQueue(@RequestBody Queue queue,
                @PathVariable("id") Long queueId)
     {
         return queueService.updateQueue(
