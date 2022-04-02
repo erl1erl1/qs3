@@ -2,6 +2,8 @@ package idi.bidata.burritobanden.qs3.service.queue;
 
 import idi.bidata.burritobanden.qs3.entity.Queue;
 import idi.bidata.burritobanden.qs3.repository.QueueRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +35,12 @@ public class QueueServiceImpl implements QueueService{
 
     @Override
     public List<Queue> getQueueByCode(String subjectCode) {
-        return queueRepository.getAllBySubjectCode(subjectCode);
+        List<Queue> queues = new ArrayList<>();
+        queues = queueRepository.findAllBySubjectCode(subjectCode);
+        for(int i = 0; i < queues.size(); i++){
+            queues.get(i).setDate(Math.abs(queues.get(i).getDate()));
+        }
+        return queues;
     }
 
     // Update operation

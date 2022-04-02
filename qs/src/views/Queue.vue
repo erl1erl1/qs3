@@ -1,43 +1,44 @@
 <template>
-  <h1>{{  getActiveSubject.subjectName  }}</h1>
-  <div id="queue">
-    <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="2 min" task="Øving 2" type="Godkjenning"/>
+  <h1>{{  Test }}</h1>
+  <div id="queue" v-for="q in queueItems" v-bind:key="q.personId">
+    <QueueItem :name="q.name" :location="q.location" :queue-time="q.date" :task="q.assignmentId" :type="q.type"/>
   </div>
 </template>
 
 <script>
 import QueueItem from "@/components/QueueItem";
-import authHeader from "../services/header-token";
-import axios from 'axios';
 import { mapGetters } from "vuex";
 export default {
   name: "Queue",
   components: { QueueItem },
   data(){
     return {
-      queueItems: null,
-      names: null
+      queueItems: [],
+      names: null,
+      counter: 0
     }
   },
   computed: {
     ...mapGetters([
       'getActiveSubject',
     ]),
-    subjectCode(){
-      return this.$store.subject.subjectCode;
-    }
   },
-   mounted(){
-    getQueue(subjectCode())
-    console.log(this.queueItems);
+  mounted(){
+    this.updateQueue();
   },
-  methods:{
-    getQueue(subjectCode){
-      axios.get("http://localhost:8080/subjects/" + subjectCode(), {headers: authHeader()}).then(
-      resp => {
-        this.queueItems = resp.data;
+  methods: {
+    async updateQueue(){
+      await this.$store.dispatch('getQueue').then(resp => this.queueItems = resp.data);
+      for(let i = 0; i < this.queueItems.length; i++){
+        this.queueItems[i].name = await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => resp.data);
       }
-    )
+      console.log(this.queueItems[0]);
+    },
+    countSeconds(){
+      setTimeout(() => {
+        this.counter++;
+        this.countSeconds()
+      }, 1000);
     }
   }
 }

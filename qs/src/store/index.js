@@ -46,7 +46,6 @@ const storeConfiguration = {
       return authService.signIn(payload).then(
         user => {
           context.commit('SIGN_IN_SUCCESS', user);
-          console.log(user.subjects)
           return Promise.resolve(user);
         },
         error => {
@@ -73,7 +72,6 @@ const storeConfiguration = {
       return axios.get("http://localhost:8080/subjects/" + payload.subjectCode, {headers: authHeader()}).then(
         response => {
           context.commit('SET_SUBJECT', response.data);
-          console.log(response.data);
           return Promise.resolve(response.data);
         },
         error => {
@@ -81,7 +79,14 @@ const storeConfiguration = {
           return Promise.reject(error);
         }
       )
+    },
 
+    getQueue(context){
+      return axios.get("http://localhost:8080/queues/" + context.state.subject.subjectCode, { headers: authHeader() }).then(resp => resp);
+    },
+
+    getName(context, userId){
+      return axios.get("http://localhost:8080/persons/" + userId + "/name", { headers: authHeader() }).then(resp => resp);
     }
   },
 
@@ -90,7 +95,6 @@ const storeConfiguration = {
       return  state.user.subjects;
     },
     getActiveSubject(state){
-      console.log(state.subject)
       return state.subject;
     }
   },

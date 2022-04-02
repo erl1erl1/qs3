@@ -20,7 +20,6 @@ export default {
   },
   methods: {
     setSubject(value){
-      console.log(value)
       let subject = {
         "subjectCode": value
       }
