@@ -1,7 +1,7 @@
 package idi.bidata.burritobanden.qs3.controller;
 
 import idi.bidata.burritobanden.qs3.entity.Queue;
-import idi.bidata.burritobanden.qs3.service.QueueService;
+import idi.bidata.burritobanden.qs3.service.queue.QueueService;
 
 import java.util.Date;
 import java.util.List;

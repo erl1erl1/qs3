@@ -11,6 +11,11 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The Subject class represents a subject. Lombok is not used here either, also because of the many-to-many relation.
+ * We avoid an infinite loop when rendering subjects by not including the enrolled students in the JSON-object.
+ * This is done by the @JsonIgnore.
+ */
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name = "subject")

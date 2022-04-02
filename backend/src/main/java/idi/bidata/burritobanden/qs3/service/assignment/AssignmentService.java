@@ -1,4 +1,4 @@
-package idi.bidata.burritobanden.qs3.service;
+package idi.bidata.burritobanden.qs3.service.assignment;
 
 import idi.bidata.burritobanden.qs3.entity.Assignment;
 

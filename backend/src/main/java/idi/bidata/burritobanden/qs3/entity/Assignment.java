@@ -7,6 +7,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The Assignment entity represents an assignment, "øving", in the backend. Lombok tags are used for constructor,
+ * getters and setters.
+ */
 @Entity
 @Data
 @NoArgsConstructor
@@ -14,6 +18,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name = "assignment")
 public class Assignment {
+    // Generate id for the object and define it as the primary key.
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "assignment_id", nullable = false)

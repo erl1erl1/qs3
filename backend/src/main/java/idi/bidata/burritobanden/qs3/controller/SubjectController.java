@@ -2,7 +2,7 @@ package idi.bidata.burritobanden.qs3.controller;
 
 import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.entity.Subject;
-import idi.bidata.burritobanden.qs3.service.SubjectService;
+import idi.bidata.burritobanden.qs3.service.subject.SubjectService;
 import java.util.List;
 // Importing required classes
 import javax.validation.Valid;
@@ -23,6 +23,10 @@ public class SubjectController {
         return subjectService.createSubject(subject);
     }
 
+    @GetMapping("/subjects/{subjectCode}")
+    public Subject getSubject(@PathVariable String subjectCode){
+        return subjectService.findSubjectByCode(subjectCode);
+    }
     // Read operation
     @GetMapping("/subjects")
     public List<Subject> fetchSubjectList()

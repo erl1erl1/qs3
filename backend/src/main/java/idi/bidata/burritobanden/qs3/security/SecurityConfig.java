@@ -1,7 +1,6 @@
 package idi.bidata.burritobanden.qs3.security;
 
 
-import idi.bidata.burritobanden.qs3.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

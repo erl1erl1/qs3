@@ -1,4 +1,4 @@
-package idi.bidata.burritobanden.qs3.service;
+package idi.bidata.burritobanden.qs3.service.person;
 
 import idi.bidata.burritobanden.qs3.entity.Person;
 
