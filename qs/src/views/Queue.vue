@@ -23,7 +23,7 @@
     </section>
     <section id="queue">
       <QueueItem v-for="q in queueItems" v-bind:key="q.personId"
-          :name="q.name" :location="q.location" :queue-time="q.date" :task="q.assignmentId" :type="q.type"/>
+                 :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type"/>
       <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17 min" task="Øving 2" type="Godkjenning" position="1"/>
       <QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7 min" task="Øving 5" type="Hjelp" position="2"/>
       <QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1 min" task="Øving 3" type="Godkjenning" position="3"/>
@@ -59,12 +59,6 @@ export default {
       for(let i = 0; i < this.queueItems.length; i++){
         this.queueItems[i].name = await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => resp.data);
       }
-    },
-    countSeconds(){
-      setTimeout(() => {
-        this.counter++;
-        this.countSeconds()
-      }, 1000);
     }
   }
 }

@@ -3,6 +3,7 @@ package idi.bidata.burritobanden.qs3.controller;
 import idi.bidata.burritobanden.qs3.entity.Queue;
 import idi.bidata.burritobanden.qs3.service.queue.QueueService;
 
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 // Importing required classes
@@ -21,7 +22,7 @@ public class QueueController {
     public Queue saveQueue(
             @Valid @RequestBody Queue queue)
     {
-        queue.setDate(new Date());
+        queue.setTime(LocalTime.now().toString());
         queue.setApproved(false);
         return queueService.saveQueue(queue);
     }
