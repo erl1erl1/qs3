@@ -30,35 +30,14 @@ public class SubjectController {
         return subjectService.fetchSubjectList();
     }
 
-
-    // Update operation
-    @PutMapping("/subjects/{id}")
-    public Subject
-    updateUser(@RequestBody Subject subject,
-               @PathVariable("id") Long subjectId)
-    {
-        return subjectService.updateSubject(
-                subject, subjectId);
-    }
-
-    @PutMapping("/{subjectId}/students/{personId}")
+    @PutMapping("/{subjectCode}/students/{personId}")
     public Subject enrollStudent(
-            @PathVariable Long subjectId,
+            @PathVariable String subjectCode,
             @PathVariable Long personId
     ) {
-        Subject subject = subjectService.findSubjectById(subjectId);
+        Subject subject = subjectService.findSubjectByCode(subjectCode);
         Person person = subjectService.findPersonById(personId);
         subject.enrollStudent(person);
-        return subjectService.enrollStudent(subjectId, personId);
-    }
-
-    // Delete operation
-    @DeleteMapping("/subjects/{id}")
-    public String deleteUserById(@PathVariable("id")
-                                         Long subjectId)
-    {
-        subjectService.deleteSubjectById(
-                subjectId);
-        return "Deleted Successfully";
+        return subjectService.enrollStudent(subjectCode, personId);
     }
 }

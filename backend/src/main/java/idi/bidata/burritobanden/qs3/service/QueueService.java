@@ -10,6 +10,8 @@ public interface QueueService {
 
     List<Queue> fetchQueueList();
 
+    List<Queue> getQueueByCode(String subjectCode);
+
     Queue updateQueue(Queue queue, Long queueId);
 
     void deleteQueueById(Long queueId);

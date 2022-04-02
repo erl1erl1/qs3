@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
-    public Person getByUsername(String username);
+    Person getByUsername(String username);
 }

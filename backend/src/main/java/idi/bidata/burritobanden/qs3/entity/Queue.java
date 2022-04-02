@@ -19,11 +19,13 @@ public class Queue {
     @Column(name = "person_id", nullable = false)
     private Long personId;
     @Id
-    @Column(name = "subject_id", nullable = false)
-    private Long subjectId;
+    @Column(name = "subject_code", nullable = false)
+    private String subjectCode;
     private Date date;
 
     @Column(name = "assignment_id")
     private Long assignmentId;
     private String location;
+    private String type;
+    private boolean approved;
 }

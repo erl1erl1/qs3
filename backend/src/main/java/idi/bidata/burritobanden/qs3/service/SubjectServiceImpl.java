@@ -30,10 +30,10 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
-    public Subject updateSubject(Subject subject, Long subjectId) {
+    public Subject updateSubject(Subject subject, String subjectCode) {
         Subject _subject = null;
         try{
-            _subject = subjectRepository.getById(subjectId);
+            _subject = subjectRepository.findBySubjectCode(subjectCode);
             _subject.setSubjectName(subject.getSubjectName());
             _subject.setAssignments(subject.getAssignments());
             _subject = subjectRepository.save(_subject);
@@ -44,13 +44,14 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
-    public Subject enrollStudent(Long subjectId, Long personId){
+    public Subject enrollStudent(String subjectCode, Long personId){
         Subject subject = null;
         Person person = null;
         try{
-            subject = subjectRepository.getById(subjectId);
+            subject = subjectRepository.findBySubjectCode(subjectCode);
             person = personService.findPersonById(personId);
             subject.enrollStudent(person);
+            person.addSubject(subject);
             subject = subjectRepository.save(subject);
         } catch (Exception e){
             logger.info(e.toString());
@@ -59,16 +60,8 @@ public class SubjectServiceImpl implements SubjectService{
     }
 
     @Override
-    public void deleteSubjectById(Long subjectId) {
-
-    }
-
-    @Override
-    public Subject findSubjectById(Long subjectId){
-        if (subjectRepository.findById(subjectId).isPresent()){
-            return subjectRepository.findById(subjectId).get();
-        }
-        return null;
+    public Subject findSubjectByCode(String subjectCode) {
+        return subjectRepository.findBySubjectCode(subjectCode);
     }
 
     @Override

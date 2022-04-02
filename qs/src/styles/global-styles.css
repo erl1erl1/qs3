@@ -57,7 +57,7 @@ label {
 }
 
 .form-container {
-    min-height: 300px;
+    min-height: 150px;
     border-radius: 10px;
     text-align: center;
 }
@@ -99,4 +99,12 @@ label {
 
 .link:hover {
     color: #f9cc7e;
+}
+.form {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    row-gap: 20px;
+    width: 300px;
 }

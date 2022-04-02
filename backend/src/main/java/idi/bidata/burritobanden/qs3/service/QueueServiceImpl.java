@@ -28,7 +28,12 @@ public class QueueServiceImpl implements QueueService{
     @Override
     public List<Queue> fetchQueueList() {
 
-        return (List<Queue>) queueRepository.findAll();
+        return queueRepository.findAll();
+    }
+
+    @Override
+    public List<Queue> getQueueByCode(String subjectCode) {
+        return queueRepository.getAllBySubjectCode(subjectCode);
     }
 
     // Update operation
@@ -39,7 +44,7 @@ public class QueueServiceImpl implements QueueService{
 
         try{
             quDB.setPersonId(queue.getPersonId());
-            quDB.setSubjectId(queue.getSubjectId());
+            quDB.setSubjectCode(queue.getSubjectCode());
             quDB.setDate(queue.getDate());
             quDB.setAssignmentId(queue.getAssignmentId());
             quDB.setLocation(queue.getLocation());
