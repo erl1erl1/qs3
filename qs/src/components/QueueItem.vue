@@ -13,7 +13,7 @@
       </div>
       <div class="field">
         <font-awesome-icon icon="handshake" class="field-icon" size="sm"/>
-        <p>2 min</p>
+        <p>Godkjenning</p>
       </div>
     </div>
   </div>

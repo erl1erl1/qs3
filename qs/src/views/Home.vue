@@ -17,11 +17,6 @@ export default {
     ...mapGetters([
         'getSubjects',
     ]),
-    /*
-    getSubjects(){
-      return this.$store.getters.getSubjects
-    }
-    */
   }
 }
 </script>
