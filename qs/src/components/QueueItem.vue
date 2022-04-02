@@ -5,15 +5,19 @@
     <div id="content">
       <div class="field">
         <font-awesome-icon icon="location-dot" class="field-icon" size="sm"/>
-        <p>Bord 18</p>
+        <p>{{ location }}</p>
       </div>
       <div class="field">
         <font-awesome-icon icon="clock" class="field-icon" size="sm"/>
-        <p>2 min</p>
+        <p>{{ queueTime }}</p>
+      </div>
+      <div class="field">
+        <font-awesome-icon icon="list-check" class="field-icon" size="sm"/>
+        <p>{{ task }}</p>
       </div>
       <div class="field">
         <font-awesome-icon icon="handshake" class="field-icon" size="sm"/>
-        <p>Godkjenning</p>
+        <p>{{ type }}</p>
       </div>
     </div>
   </div>
@@ -25,13 +29,20 @@
 
 <script>
 export default {
-  name: "QueueItem"
+  name: "QueueItem",
+
+  props: {
+    location: String,
+    queueTime: Number,
+    task: String,
+    type: String
+  }
 }
 </script>
 
 <style scoped>
 p {
-  margin: 5px 1px 5px 2px;
+  margin: 1px 1px 1px 2px;
 }
 
 #actions {
@@ -43,15 +54,16 @@ p {
 }
 
 #container {
-  min-height: 100px;
+  min-height: 60px;
   min-width: 310px;
   width: 80%;
   max-width: 700px;
+  margin: 0 auto 0 auto;
   background-color: whitesmoke;
   border: solid 1px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 80% 20%;
 }
 
 .field-icon {
@@ -63,7 +75,7 @@ p {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0 5px 5px 5px;
+  margin: 0 5px 0 5px;
 }
 
 #clock {
@@ -71,7 +83,10 @@ p {
 }
 
 #queue-info {
-  margin: 0 10px 0 10px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin: 0 0 0 10px;
 }
 
 #name {
@@ -81,7 +96,8 @@ p {
 #content {
   display: flex;
   justify-content: left;
-  align-items: start;
-
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-bottom: 7px;
 }
 </style>
