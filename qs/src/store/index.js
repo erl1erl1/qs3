@@ -3,7 +3,7 @@ import { createStore as vuexCreateStore } from 'vuex'
 import authService from '../services/auth.service';
 import authHeader from '../services/header-token';
 
-const user = localStorage.getItem('user');
+const user = localStorage.getItem('token');
 const initialState = user
   ? {status: { loggedIn: true }, user, subject: null}
   : {status: { loggedIn: false }, user: null, subject: null};

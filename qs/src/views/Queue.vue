@@ -1,8 +1,8 @@
 <template>
   <div id="container">
     <div id="header">
-      <h2>{{ this.queueItems[0].subjectCode }}</h2>
-      <h3>Full-stack applikasjonsutvikling</h3>
+      <h2>{{ this.subjectCode }}</h2>
+      <h3>{{  this.subjectName  }}</h3>
     </div>
     <hr>
     <section>
@@ -22,11 +22,11 @@
       <button class="button">Øvinger</button>
     </section>
     <section id="queue">
-      <QueueItem v-for="q in queueItems" v-bind:key="q.personId"
-                 :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type"/>
-      <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17 min" task="Øving 2" type="Godkjenning" position="1"/>
-      <QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7 min" task="Øving 5" type="Hjelp" position="2"/>
-      <QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1 min" task="Øving 3" type="Godkjenning" position="3"/>
+      <QueueItem v-for="(q, index) in queueItems" v-bind:key="q.personId"
+                 :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type" :position="index+1"/>
+      <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17 min" task="2" type="Godkjenning" position="2"/>
+      <QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7 min" task=5 type="Hjelp" position="3"/>
+      <QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1 min" task="2" type="Godkjenning" position="4"/>
     </section>
   </div>
 </template>
@@ -42,7 +42,9 @@ export default {
       queueItems: [],
       names: null,
       counter: 0,
-      inQueue: false
+      inQueue: false,
+      subjectName: null,
+      subjectCode: null
     }
   },
   computed: {
@@ -56,6 +58,8 @@ export default {
   methods: {
     async updateQueue(){
       await this.$store.dispatch('getQueue').then(resp => this.queueItems = resp.data);
+      this.subjectName = this.queueItems[0].subjectName;
+      this.subjectCode = this.queueItems[0].subjectCode;
       for(let i = 0; i < this.queueItems.length; i++){
         this.queueItems[i].name = await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => resp.data);
       }

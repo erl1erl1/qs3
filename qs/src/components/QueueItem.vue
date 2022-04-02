@@ -6,7 +6,7 @@
       <section>
         <div class="field">
           <font-awesome-icon icon="list-check" class="field-icon" size="sm"/>
-          <p>{{ task }}</p>
+          <p>Øving{{ task }}</p>
         </div>
         <div class="field">
           <font-awesome-icon icon="handshake" class="field-icon" size="sm"/>
