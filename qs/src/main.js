@@ -23,10 +23,18 @@ defineRule('min_max', (value, [min, max]) => {
 // Font Awesome Icons
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faBook, faUser, faUserGraduate } from '@fortawesome/free-solid-svg-icons'
+import {
+    faBook, faUser, faUserGraduate,
+    faLocationDot, faClock, faCircleXmark,
+    faHandshake
+} from '@fortawesome/free-solid-svg-icons'
 
     // Add icons to library
-library.add(faBook, faUser, faUserGraduate)
+library.add(
+    faBook, faUser, faUserGraduate,
+    faLocationDot, faClock, faCircleXmark,
+    faHandshake
+)
 
 // Create app
 import { createApp } from 'vue'

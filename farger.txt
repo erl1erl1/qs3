@@ -4,3 +4,6 @@ Blå:
 Oransje:
 	Vanlig:	#f7a81b
 	Lys:	#f9cc7e
+
+Rød:
+	Vanlig:	#af292f
