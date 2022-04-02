@@ -20,7 +20,7 @@
         </div>
         <div class="field">
           <font-awesome-icon icon="clock" class="field-icon" size="sm"/>
-          <p>{{ queueTime }}</p>
+          <p>{{ queueTime }} min</p>
         </div>
       </section>
     </div>
@@ -38,7 +38,7 @@ export default {
   props: {
     name: String,
     location: String,
-    queueTime: Number,
+    queueTime: String,
     task: String,
     type: String
   }

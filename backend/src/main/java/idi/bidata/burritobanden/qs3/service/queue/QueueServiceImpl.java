@@ -3,6 +3,10 @@ package idi.bidata.burritobanden.qs3.service.queue;
 import idi.bidata.burritobanden.qs3.entity.Queue;
 import idi.bidata.burritobanden.qs3.repository.QueueRepository;
 
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +41,12 @@ public class QueueServiceImpl implements QueueService{
     public List<Queue> getQueueByCode(String subjectCode) {
         List<Queue> queues = new ArrayList<>();
         queues = queueRepository.findAllBySubjectCode(subjectCode);
-      
+        for (Queue queue : queues) {
+            LocalTime time = LocalTime.parse(queue.getTime());
+            LocalTime now = LocalTime.now();
+            Duration duration = Duration.between(time, now);
+            queue.setTime(String.valueOf(duration.toMinutes()));
+        }
         return queues;
     }
 
@@ -50,7 +59,7 @@ public class QueueServiceImpl implements QueueService{
         try{
             quDB.setPersonId(queue.getPersonId());
             quDB.setSubjectCode(queue.getSubjectCode());
-            quDB.setDate(queue.getDate());
+            quDB.setTime(queue.getTime());
             quDB.setAssignmentId(queue.getAssignmentId());
             quDB.setLocation(queue.getLocation());
         } catch (Exception e) {

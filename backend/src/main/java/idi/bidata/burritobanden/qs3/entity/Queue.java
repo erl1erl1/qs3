@@ -21,7 +21,7 @@ public class Queue {
     @Id
     @Column(name = "subject_code", nullable = false)
     private String subjectCode;
-    private Date date;
+    private String time;
     private Long assignmentId;
     private String location;
     private String type;

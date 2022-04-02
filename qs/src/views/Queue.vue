@@ -1,7 +1,7 @@
 <template>
-  <h1>{{  this.queueItems[0].subjectCode  }}</h1>
+  <h1>{{ }}</h1>
   <div id="queue" v-for="q in queueItems" v-bind:key="q.personId">
-    <QueueItem :name="q.name" :location="q.location" :queue-time="q.date" :task="q.assignmentId" :type="q.type"/>
+    <QueueItem :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type"/>
   </div>
 </template>
 
@@ -14,8 +14,6 @@ export default {
   data(){
     return {
       queueItems: [],
-      names: null,
-      counter: 0
     }
   },
   computed: {
@@ -32,12 +30,6 @@ export default {
       for(let i = 0; i < this.queueItems.length; i++){
         this.queueItems[i].name = await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => resp.data);
       }
-    },
-    countSeconds(){
-      setTimeout(() => {
-        this.counter++;
-        this.countSeconds()
-      }, 1000);
     }
   }
 }
