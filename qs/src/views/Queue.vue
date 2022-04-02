@@ -1,7 +1,7 @@
 <template>
   <div id="container">
     <div id="header">
-      <h2>IDATT2105</h2>
+      <h2>{{ this.queueItems[0].subjectCode }}</h2>
       <h3>Full-stack applikasjonsutvikling</h3>
     </div>
     <hr>
@@ -22,6 +22,8 @@
       <button class="button">Øvinger</button>
     </section>
     <section id="queue">
+      <QueueItem v-for="q in queueItems" v-bind:key="q.personId"
+          :name="q.name" :location="q.location" :queue-time="q.date" :task="q.assignmentId" :type="q.type"/>
       <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17 min" task="Øving 2" type="Godkjenning" position="1"/>
       <QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7 min" task="Øving 5" type="Hjelp" position="2"/>
       <QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1 min" task="Øving 3" type="Godkjenning" position="3"/>
@@ -31,13 +33,38 @@
 
 <script>
 import QueueItem from "@/components/QueueItem";
+import { mapGetters } from "vuex";
 export default {
   name: "Queue",
   components: { QueueItem },
-
-  data() {
+  data(){
     return {
+      queueItems: [],
+      names: null,
+      counter: 0,
       inQueue: false
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'getActiveSubject',
+    ]),
+  },
+  mounted(){
+    this.updateQueue();
+  },
+  methods: {
+    async updateQueue(){
+      await this.$store.dispatch('getQueue').then(resp => this.queueItems = resp.data);
+      for(let i = 0; i < this.queueItems.length; i++){
+        this.queueItems[i].name = await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => resp.data);
+      }
+    },
+    countSeconds(){
+      setTimeout(() => {
+        this.counter++;
+        this.countSeconds()
+      }, 1000);
     }
   }
 }

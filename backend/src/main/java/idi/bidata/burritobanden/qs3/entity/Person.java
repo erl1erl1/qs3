@@ -1,22 +1,27 @@
 package idi.bidata.burritobanden.qs3.entity;
 
 import javax.persistence.*;
-
 import java.util.HashSet;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
+/**
+ * The Person entity represents a user. Class name User is not used because of JPA having its own User-class.
+ * Lombok is not used in this class because of the many-to-many relationship with "person_subject".
+ * @see idi.bidata.burritobanden.qs3.entity.Subject
+ */
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name = "person")
-
 public class Person {
-
+    // Generate id for the object and define it as the primary key.
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "person_id")
     private Long personId;
 
+    // Many-to-many relation
     @ManyToMany
     @JoinTable(
             name = "person_subject",

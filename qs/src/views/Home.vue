@@ -2,7 +2,7 @@
   <h1>Dine emner</h1>
   <hr/>
   <div id="subjects" v-for="s in getSubjects" v-bind:key="s.subjectCode">
-    <SubjectTile :subject-code="s.subjectCode" :subject-name="s.subjectName"></SubjectTile>
+    <SubjectTile :subject-code="s.subjectCode" :subject-name="s.subjectName" @click="setSubject(s.subjectCode)"></SubjectTile>
   </div>
 </template>
 
@@ -17,6 +17,22 @@ export default {
     ...mapGetters([
         'getSubjects',
     ]),
+  },
+  methods: {
+    setSubject(value){
+      let subject = {
+        "subjectCode": value
+      }
+
+      this.$store.dispatch('setSubject', subject).then(
+        () => {
+          this.$router.push("/queue");
+        },
+        error => {
+          console.log(error);
+        }
+      )
+    }
   }
 }
 </script>

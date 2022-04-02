@@ -2,7 +2,7 @@ package idi.bidata.burritobanden.qs3.controller;
 
 import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.model.authentication.AuthenticationRequest;
-import idi.bidata.burritobanden.qs3.service.PersonService;
+import idi.bidata.burritobanden.qs3.service.person.PersonService;
 import java.util.List;
 // Importing required classes
 import javax.validation.Valid;
@@ -43,6 +43,12 @@ public class PersonController {
     {
         logger.info("Size: " + personService.fetchPersonList().size());
         return personService.fetchPersonList();
+    }
+
+    @GetMapping("/persons/{id}/name")
+    public String getName(@PathVariable Long id){
+        Person person = personService.findPersonById(id);
+        return person.getName();
     }
 
 

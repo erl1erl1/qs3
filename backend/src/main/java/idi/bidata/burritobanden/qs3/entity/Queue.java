@@ -22,8 +22,6 @@ public class Queue {
     @Column(name = "subject_code", nullable = false)
     private String subjectCode;
     private Date date;
-
-    @Column(name = "assignment_id")
     private Long assignmentId;
     private String location;
     private String type;

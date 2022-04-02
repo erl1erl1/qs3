@@ -1,8 +1,9 @@
-package idi.bidata.burritobanden.qs3.service;
+package idi.bidata.burritobanden.qs3.service.subject;
 
 import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.entity.Subject;
 import idi.bidata.burritobanden.qs3.repository.SubjectRepository;
+import idi.bidata.burritobanden.qs3.service.person.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

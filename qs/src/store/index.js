@@ -1,11 +1,12 @@
+import axios from 'axios';
 import { createStore as vuexCreateStore } from 'vuex'
 import authService from '../services/auth.service';
+import authHeader from '../services/header-token';
 
 const user = localStorage.getItem('user');
 const initialState = user
-  ? {status: { loggedIn: true }, user}
-  : {status: { loggedIn: false }, user: null};
-
+  ? {status: { loggedIn: true }, user, subject: null}
+  : {status: { loggedIn: false }, user: null, subject: null};
 
 // Helpers
 const storeConfiguration = {
@@ -31,6 +32,12 @@ const storeConfiguration = {
     },
     SET_ACTIVE_USER(state, user){
       state.user = user;
+    },
+    SET_SUBJECT(state, subject){
+      state.subject = subject;
+    },
+    SET_SUBJECT_FALURE(state){
+      state.subject = null;
     }
   },
 
@@ -39,7 +46,6 @@ const storeConfiguration = {
       return authService.signIn(payload).then(
         user => {
           context.commit('SIGN_IN_SUCCESS', user);
-          console.log(user.subjects)
           return Promise.resolve(user);
         },
         error => {
@@ -60,12 +66,36 @@ const storeConfiguration = {
           return Promise.reject(error);
         }
       )
+    },
+
+    setSubject(context, payload){
+      return axios.get("http://localhost:8080/subjects/" + payload.subjectCode, {headers: authHeader()}).then(
+        response => {
+          context.commit('SET_SUBJECT', response.data);
+          return Promise.resolve(response.data);
+        },
+        error => {
+          context.commit('SET_SUBJECT_FAILURE');
+          return Promise.reject(error);
+        }
+      )
+    },
+
+    getQueue(context){
+      return axios.get("http://localhost:8080/queues/" + context.state.subject.subjectCode, { headers: authHeader() }).then(resp => resp);
+    },
+
+    getName(context, userId){
+      return axios.get("http://localhost:8080/persons/" + userId + "/name", { headers: authHeader() }).then(resp => resp);
     }
   },
 
   getters: {
     getSubjects(state){
       return  state.user.subjects;
+    },
+    getActiveSubject(state){
+      return state.subject;
     }
   },
 

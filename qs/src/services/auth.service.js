@@ -9,7 +9,7 @@ class AuthService {
             }
         ).then(response => {
             if(response.data.jwt) {
-                localStorage.setItem('user', JSON.stringify(response.data));
+                localStorage.setItem('user', JSON.stringify(response.data.jwt));
             }
             return response.data.person;
         });

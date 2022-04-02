@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 
 public interface QueueRepository extends JpaRepository<Queue, Long> {
-    List<Queue> getAllBySubjectCode(String subjectCode);
+    List<Queue> findAllBySubjectCode(String subjectCode);
 }
