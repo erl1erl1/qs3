@@ -1,5 +1,5 @@
 <template>
-  <h1>Full-stack applikasjonsutvikling</h1>
+  <h1>{{  getActiveSubject.subjectName  }}</h1>
   <div id="queue">
     <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="2 min" task="Øving 2" type="Godkjenning"/>
   </div>
@@ -7,6 +7,9 @@
 
 <script>
 import QueueItem from "@/components/QueueItem";
+import authHeader from "../services/header-token";
+import axios from 'axios';
+import { mapGetters } from "vuex";
 export default {
   name: "Queue",
   components: { QueueItem },
@@ -17,7 +20,16 @@ export default {
     }
   },
   mounted(){
-    queueItems = axios.get("http://localhost:8080/subjects/")
+    let queueItems = axios.get("http://localhost:8080/subjects/", {headers: authHeader()});
+    console.log(queueItems);
+  },
+  computed: {
+    ...mapGetters([
+      'getActiveSubject',
+    ]),
+    subjectCode(){
+      return this.$store.subject.subjectCode;
+    }
   }
 }
 </script>
