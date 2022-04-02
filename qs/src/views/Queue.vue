@@ -28,7 +28,7 @@ export default {
     }
   },
    mounted(){
-    getQueue(subjectCode())
+
     console.log(this.queueItems);
   },
   methods:{

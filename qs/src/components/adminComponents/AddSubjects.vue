@@ -43,6 +43,7 @@
     </Form>
     <p v-if="this.SUBMIT_FAIL" style="color: red">Klarte ikke å legge til fag!</p>
   </div>
+  <hr/>
 </template>
 <script>
 import { Form, Field, ErrorMessage} from 'vee-validate'
