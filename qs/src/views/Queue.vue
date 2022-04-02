@@ -1,7 +1,7 @@
 <template>
   <h1>Full-stack applikasjonsutvikling</h1>
   <div id="queue">
-    <QueueItem/>
+    <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="2 min" task="Øving 2" type="Godkjenning"/>
     <QueueItem/>
     <QueueItem/>
   </div>

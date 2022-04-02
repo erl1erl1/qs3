@@ -1,7 +1,7 @@
 <template>
 <div id="container">
   <div id="queue-info">
-    <h3 id="name">Nicolai Thorer Sivesind</h3>
+    <h3 id="name">{{ name }}</h3>
     <div id="content">
       <div class="field">
         <font-awesome-icon icon="location-dot" class="field-icon" size="sm"/>
@@ -32,6 +32,7 @@ export default {
   name: "QueueItem",
 
   props: {
+    name: String,
     location: String,
     queueTime: Number,
     task: String,
