@@ -3,22 +3,26 @@
   <div id="queue-info">
     <h3 id="name">{{ name }}</h3>
     <div id="content">
-      <div class="field">
-        <font-awesome-icon icon="location-dot" class="field-icon" size="sm"/>
-        <p>{{ location }}</p>
-      </div>
-      <div class="field">
-        <font-awesome-icon icon="clock" class="field-icon" size="sm"/>
-        <p>{{ queueTime }}</p>
-      </div>
-      <div class="field">
-        <font-awesome-icon icon="list-check" class="field-icon" size="sm"/>
-        <p>{{ task }}</p>
-      </div>
-      <div class="field">
-        <font-awesome-icon icon="handshake" class="field-icon" size="sm"/>
-        <p>{{ type }}</p>
-      </div>
+      <section>
+        <div class="field">
+          <font-awesome-icon icon="list-check" class="field-icon" size="sm"/>
+          <p>{{ task }}</p>
+        </div>
+        <div class="field">
+          <font-awesome-icon icon="handshake" class="field-icon" size="sm"/>
+          <p>{{ type }}</p>
+        </div>
+      </section>
+      <section>
+        <div class="field">
+          <font-awesome-icon icon="location-dot" class="field-icon" size="sm"/>
+          <p>{{ location }}</p>
+        </div>
+        <div class="field">
+          <font-awesome-icon icon="clock" class="field-icon" size="sm"/>
+          <p>{{ queueTime }}</p>
+        </div>
+      </section>
     </div>
   </div>
   <div id="actions">
@@ -44,6 +48,9 @@ export default {
 <style scoped>
 p {
   margin: 1px 1px 1px 2px;
+}
+
+section {
 }
 
 #actions {
@@ -97,8 +104,15 @@ p {
 #content {
   display: flex;
   justify-content: left;
+  flex-direction: row;
   align-items: flex-start;
   flex-wrap: wrap;
   margin-bottom: 7px;
+}
+
+@media screen and (min-width: 750px) {
+  section {
+    display: flex;
+  }
 }
 </style>
