@@ -37,9 +37,7 @@ public class QueueServiceImpl implements QueueService{
     public List<Queue> getQueueByCode(String subjectCode) {
         List<Queue> queues = new ArrayList<>();
         queues = queueRepository.findAllBySubjectCode(subjectCode);
-        for(int i = 0; i < queues.size(); i++){
-            queues.get(i).setDate(Math.abs(queues.get(i).getDate()));
-        }
+      
         return queues;
     }
 

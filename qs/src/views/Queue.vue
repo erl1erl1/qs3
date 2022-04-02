@@ -23,8 +23,14 @@ export default {
       'getActiveSubject',
     ]),
   },
+<<<<<<< HEAD
   mounted(){
     this.updateQueue();
+=======
+   mounted(){
+
+    console.log(this.queueItems);
+>>>>>>> b3021be6fb4b97d5d6dd487836bfc8d0c636324c
   },
   methods: {
     async updateQueue(){

@@ -3,61 +3,89 @@
     <h1>Administrator</h1>
     <hr/>
     <h2>Legg til fag</h2>
-    <Form @submit="onSubmit">
+    <Form @submit="onSubmit" v-slot="{ meta }">
       <div class="input-container">
         <label>Fagkode</label>
         <Field class="input" rules="required|alpha_num" name="subjectCode" type="number" placeholder="Fagkode" validateOnInput/>
+        <span class="error">
+          <ErrorMessage name="subjectCode">Fag må ha en fagkode</ErrorMessage>
+        </span>
       </div>
       <div class="input-container">
         <label>Fagnavn</label>
         <Field class="input" rules="required" name="subjectName" type="text" placeholder="Fagnavn" validateOnInput/>
+        <span class="error">
+          <ErrorMessage name="subjectName">Fag må ha et navn</ErrorMessage>
+        </span>
       </div>
       <div class="input-container">
         <label>Lærere</label>
-        <Field class="input" rules="required" name="teachers" type="text" placeholder="Lærere" validateOnInput/>
+        <Field class="input" name="teachers" type="text" placeholder="Lærere" validateOnInput/>
       </div>
       <div class="input-container">
         <label>Øvingslærere</label>
-        <Field class="input" name="studentAssistent" type="text" placeholder="Øvingslærere" validateOnInput/>
+        <Field class="input" name="studentAssistants" type="text" placeholder="Øvingslærere" validateOnInput/>
       </div>
       <div class="input-container">
         <label>Studenter</label>
-        <Field class="input" name="student" type="text" placeholder="Studenter" validateOnInput/>
+        <Field class="input" name="enrolledStudents" type="text" placeholder="Studenter" validateOnInput/>
       </div>
       <label for="csvInput" id="labelCsv">Legg til med CSV</label>
       <input type="file" accept=".csv" name="csvInput" id="csvInput" />
       <div class="input-container">
         <label>Antall øvinger</label>
-        <Field class="input" rules="required" name="exercises" type="number" placeholder="Øvinger" validateOnInput/>
+        <Field class="input" rules="required" name="assignments" type="number" placeholder="Øvinger" validateOnInput/>
+        <span class="error">
+          <ErrorMessage name="assignments">Angi antall øvinger</ErrorMessage>
+        </span>
       </div>
-      <button class="button">Legg til</button>
+      <button class="button" :disabled="!(meta.valid)">Legg til</button>
     </Form>
+    <p v-if="this.SUBMIT_FAIL" style="color: red">Klarte ikke å legge til fag!</p>
   </div>
+  <hr/>
 </template>
 <script>
-import { Form, Field} from 'vee-validate'
+import { Form, Field, ErrorMessage} from 'vee-validate'
+import axios from "axios";
+import authHeader from "@/services/header-token";
 
 export default {
-  name: "Admin",
+  name: "AddSubject",
 
   data() {
     return {
+      SUBMIT_FAIL: false
     }
   },
 
   components: {
     Form,
     Field,
+    ErrorMessage,
   },
 
   methods: {
     onSubmit(value) {
       const subject = {
         "subjectCode": value.subjectCode,
-        "subjectName": value.subjectName
+        "subjectName": value.subjectName,
+        "teachers": value.teachers,
+        "studentAssistants": value.studentAssistants,
+        "enrolledStudents": value.enrolledStudents,
+        "assignments": value.assignments
       }
-      this.subject = subject;
-    }
+
+      axios.post("http://localhost:8080/subjects",
+          {subject},
+          {headers: authHeader()}
+      ).then(response => {
+        console.log(response)
+      }).catch(error => {
+        this.SUBMIT_FAIL = true;
+        console.log(error)
+      })
+    },
   }
 }
 </script>
