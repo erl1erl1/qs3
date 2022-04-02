@@ -1,9 +1,31 @@
 <template>
-  <h1>Full-stack applikasjonsutvikling</h1>
-  <div id="queue">
-    <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="2 min" task="Øving 2" type="Godkjenning"/>
-    <QueueItem/>
-    <QueueItem/>
+  <div id="container">
+    <div id="header">
+      <h2>IDATT2105</h2>
+      <h3>Full-stack applikasjonsutvikling</h3>
+    </div>
+    <hr>
+    <section>
+      <p v-if="inQueue">Din posisjon:</p>
+      <p v-else>Antall personer i køen:</p>
+      <div  id="size-nums">
+        <div v-if="inQueue">
+          <font-awesome-icon icon="hashtag" size="4x"/>
+          <p class="pos-num">22/30</p>
+        </div>
+        <p v-else class="pos-num">30</p>
+      </div>
+    </section>
+    <section id="buttons">
+      <button v-if="!inQueue" class="button" id="join">Bli med i kø</button>
+      <button v-else class="button" id="leave">Forlat kø</button>
+      <button class="button">Øvinger</button>
+    </section>
+    <section id="queue">
+      <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17 min" task="Øving 2" type="Godkjenning" position="1"/>
+      <QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7 min" task="Øving 5" type="Hjelp" position="2"/>
+      <QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1 min" task="Øving 3" type="Godkjenning" position="3"/>
+    </section>
   </div>
 </template>
 
@@ -11,13 +33,82 @@
 import QueueItem from "@/components/QueueItem";
 export default {
   name: "Queue",
-  components: { QueueItem }
+  components: { QueueItem },
+
+  data() {
+    return {
+      inQueue: false
+    }
+  }
 }
 </script>
 
 <style scoped>
+p {
+  margin: 0 0 0 3px;
+}
+
+h2 {
+  margin: 0;
+}
+
+h3 {
+  margin-top: 0;
+  margin-bottom: 3px;
+  color: #f7a81b;
+}
+
+
+h1 {
+  margin-bottom: 7px;
+}
+
+.pos-num {
+  font-size: 70px;
+  font-weight: bold;
+  margin: 0 0 0 3px;
+}
+
+#container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+#header {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+#size-nums {
+  margin: -10px auto 0 auto;
+  display: inline-flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  color: #f7a81b;
+}
+
+#buttons {
+  display: flex;
+  gap: 10px;
+}
+
+#join {
+  background-color: #102c40;
+}
+
+#leave {
+  background-color: #bd2452;
+}
+
 #queue {
-  margin: 30px 10% 10px 10%;
+  margin: 15px 10% 10px 10%;
   width: 80%;
   display: flex;
   justify-content: center;

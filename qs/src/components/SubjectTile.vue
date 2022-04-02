@@ -1,5 +1,5 @@
 <template>
-<div id="container">
+<div id="subject-container">
   <h2>{{ subjectCode }}</h2>
   <h3>{{ subjectName }}</h3>
 </div>
@@ -13,7 +13,6 @@ export default {
   props: {
     subjectCode: String,
     subjectName: String,
-
   }
 }
 </script>
@@ -29,7 +28,7 @@ h3 {
   color: #f7a81b;
 }
 
-#container {
+#subject-container {
   background-color: whitesmoke;
   min-height: 100px;
   border: solid 1px rgba(0, 0, 0, 0.1);
@@ -41,7 +40,7 @@ h3 {
 }
 
 @media screen and (min-width: 1000px){
-  #container:hover {
+  #subject-container:hover {
 
   }
 }

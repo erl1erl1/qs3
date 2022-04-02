@@ -1,5 +1,5 @@
 <template>
-<div id="container">
+<div id="queue-container">
   <div id="queue-info">
     <h3 id="name">{{ name }}</h3>
     <div id="content">
@@ -25,8 +25,9 @@
       </section>
     </div>
   </div>
-  <div id="actions">
-    <font-awesome-icon id="clock" icon="circle-xmark" size="2xl"/>
+  <div id="item-position">
+    <font-awesome-icon id="leave" icon="hashtag" size="lg"/>
+    <p id="item-num">{{ position }}</p>
   </div>
 </div>
 </template>
@@ -38,9 +39,10 @@ export default {
   props: {
     name: String,
     location: String,
-    queueTime: Number,
+    queueTime: String,
     task: String,
-    type: String
+    type: String,
+    position: String
   }
 }
 </script>
@@ -53,15 +55,21 @@ p {
 section {
 }
 
-#actions {
+#item-position {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  color: darkgray;
 }
 
-#container {
+#item-position > #item-num {
+  font-size: 22px;
+  font-weight: 500;
+}
+
+#queue-container {
   min-height: 60px;
   min-width: 310px;
   width: 80%;
@@ -86,8 +94,8 @@ section {
   margin: 0 5px 0 5px;
 }
 
-#clock {
-  color: #af292f;
+#leave {
+  color: darkgray;
 }
 
 #queue-info {

@@ -1,1 +1,1 @@
-export const DESKTOP_BP = 1000;
+export const DESKTOP_BP = 750;

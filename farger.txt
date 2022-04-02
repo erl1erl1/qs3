@@ -6,4 +6,4 @@ Oransje:
 	Lys:	#f9cc7e
 
 Rød:
-	Vanlig:	#af292f
+	Vanlig:	#bd2452

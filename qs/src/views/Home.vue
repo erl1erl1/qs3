@@ -12,7 +12,7 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "Home",
-  components: {SubjectTile},
+  components: { SubjectTile },
   computed: {
     ...mapGetters([
         'getSubjects',
@@ -22,12 +22,9 @@ export default {
 </script>
 
 <style scoped>
-hr {
-  min-width: 310px;
-  width: 90%;
-  max-width: 900px;
-  border: 0;
-  border-top: 1px solid rgb(0, 0, 0, 0.2);
+
+h1 {
+  margin-bottom: 7px;
 }
 
 ul {

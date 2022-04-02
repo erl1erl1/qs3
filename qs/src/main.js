@@ -26,14 +26,14 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
     faBook, faUser, faUserGraduate,
     faLocationDot, faClock, faCircleXmark,
-    faHandshake, faListCheck
+    faHandshake, faListCheck, faHashtag
 } from '@fortawesome/free-solid-svg-icons'
 
     // Add icons to library
 library.add(
     faBook, faUser, faUserGraduate,
     faLocationDot, faClock, faCircleXmark,
-    faHandshake, faListCheck
+    faHandshake, faListCheck, faHashtag
 )
 
 // Create app

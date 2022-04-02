@@ -13,6 +13,14 @@ body {
     color: #2c3e50;
 }
 
+hr {
+    min-width: 310px;
+    width: 90%;
+    max-width: 900px;
+    border: 0;
+    border-top: 1px solid rgb(0, 0, 0, 0.2);
+}
+
 Form {
     display: inline-flex;
     flex-direction: column;
@@ -29,7 +37,7 @@ label {
 
 /* Classes */
 .button {
-    padding: 10px 5px 10px 5px;
+    padding: 10px 15px 10px 15px;
     background-color: #f7a81b;
     border: none;
     border-radius: 5px;
@@ -100,6 +108,7 @@ label {
 .link:hover {
     color: #f9cc7e;
 }
+
 .form {
     display: inline-flex;
     flex-direction: column;

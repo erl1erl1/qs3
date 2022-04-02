@@ -94,13 +94,14 @@ export default {
   height: 70px;
 }
 
-@media screen and (min-width: 1000px){
+@media screen and (min-width: 750px){
   #nav-space {
     height: 60px;
   }
 
   #nav {
     height: 50px;
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.3);
   }
 }
 
