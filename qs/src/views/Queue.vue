@@ -1,5 +1,5 @@
 <template>
-  <h1>{{  Test }}</h1>
+  <h1>{{  this.queueItems[0].subjectCode  }}</h1>
   <div id="queue" v-for="q in queueItems" v-bind:key="q.personId">
     <QueueItem :name="q.name" :location="q.location" :queue-time="q.date" :task="q.assignmentId" :type="q.type"/>
   </div>
@@ -23,14 +23,8 @@ export default {
       'getActiveSubject',
     ]),
   },
-<<<<<<< HEAD
   mounted(){
     this.updateQueue();
-=======
-   mounted(){
-
-    console.log(this.queueItems);
->>>>>>> b3021be6fb4b97d5d6dd487836bfc8d0c636324c
   },
   methods: {
     async updateQueue(){
@@ -38,7 +32,6 @@ export default {
       for(let i = 0; i < this.queueItems.length; i++){
         this.queueItems[i].name = await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => resp.data);
       }
-      console.log(this.queueItems[0]);
     },
     countSeconds(){
       setTimeout(() => {
