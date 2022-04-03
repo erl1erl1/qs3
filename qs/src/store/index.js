@@ -85,16 +85,16 @@ const storeConfiguration = {
       return axios.get("http://localhost:8080/queues/" + context.state.subject.subjectCode, { headers: authHeader() }).then(resp => resp);
     },
 
-    getName(userId){
-      return axios.get("http://localhost:8080/persons/" + userId + "/name", { headers: authHeader() }).then(resp => resp);
+    getName(context, userId){
+      return axios.get("http://localhost:8080/persons/" + userId + "/name", { headers: authHeader() }).then(resp => resp.data);
     },
 
     getUser(context){
       return context.state.user;
     },
 
-    deleteQueueItem(payload){
-      return axios.delete("http://localhost:8080/queues/" + payload.subjectCode + "/" + payload.personId);
+    deleteQueueItem(context, payload){  
+      return axios.delete("http://localhost:8080/queues/" + payload.subjectCode + "/" + payload.personId, { headers: authHeader() });
     }
   },
 
