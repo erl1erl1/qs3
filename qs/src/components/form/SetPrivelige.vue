@@ -1,7 +1,7 @@
 <template>
   <div class="form-container">
     <h2>Gi rettigheter</h2>
-    <Form @submit="onSubmit" v-slot="{ meta }">
+    <Form @submit="onSubmit" v-slot="{ meta }" :initial-values="initialValues" >
       <TextInput label="Brukernavn" name="username" placeholder="Brukernavn" type="text"
                  rules="required|alpha_num" error-message="Du må skrive et brukernavn"/>
       <div class="input-container">
@@ -12,7 +12,6 @@
           <option value="Emneansvarlig">Emneansvarlig</option>
         </Field>
       </div>
-
       <button class="button" :disabled="!(meta.valid)">Gi rettigheter</button>
     </Form>
     <p v-if="this.SUBMIT_FAIL" style="color: red">Klarte ikke å legge til</p>
@@ -33,6 +32,9 @@ export default {
   data() {
     return {
       SUBMIT_FAIL: false,
+      initialValues: {
+        role: "Student"
+      }
     }
   },
 

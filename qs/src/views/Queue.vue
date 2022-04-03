@@ -1,5 +1,9 @@
 <template>
   <div id="container">
+    <div v-show="showJoinQueue" id="jq-container">
+      <div id="jq-bg" @click="toggleJoinQueue"></div>
+      <JoinQueue :task-amount=taskAmount />
+    </div>
     <div id="header">
       <h2>{{ this.subjectCode }}</h2>
     </div>
@@ -16,7 +20,7 @@
       </div>
     </section>
     <section id="buttons">
-      <button v-if="!inQueue" class="button" id="join">Bli med i kø</button>
+      <button v-if="!inQueue" class="button" id="join" @click="toggleJoinQueue">Bli med i kø</button>
       <button v-else class="button" id="leave" @click="deleteQueueItem">Forlat kø</button>
       <button class="button">Øvinger</button>
     </section>
@@ -30,9 +34,11 @@
 <script>
 import QueueItem from "@/components/QueueItem";
 import { mapGetters } from "vuex";
+import JoinQueue from "@/components/form/JoinQueue";
+
 export default {
   name: "Queue",
-  components: { QueueItem },
+  components: {JoinQueue, QueueItem },
   data(){
     return {
       queueItems: [],
@@ -42,23 +48,29 @@ export default {
       inQueue: false,
       subjectName: null,
       subjectCode: null,
-      currentUser: null
+      currentUser: null,
+      showJoinQueue: false,
+      taskAmount: 8,
     }
   },
+
   computed: {
     ...mapGetters([
       'getUser',
     ]),
   },
+
   mounted(){
     this.setUser();
     this.getQueue();
     this.updateQueue();
   },
+
   created() {
     setInterval(() =>
       this.updateQueue(), 15000);
   },
+
   methods: {
     async updateQueue(){
       //Get queue items
@@ -97,6 +109,7 @@ export default {
           }
         }
     },
+
     checkIfUserInQueue(){
       for(let i = 0; i < this.queueItems.length; i++){
         if(this.queueItems[i].personId == this.currentUser.personId){
@@ -106,6 +119,7 @@ export default {
         this.inQueue = false;
       }
     },
+
     onSubmit(value){
       const queueItem = {
         "personId": this.currentUser.personId,
@@ -114,10 +128,11 @@ export default {
         "location": value.location,
         "type": value.type
       }
-
       console.log(queueItem)
+    },
 
-
+    toggleJoinQueue() {
+      this.showJoinQueue = !this.showJoinQueue
     }
   }
 }
@@ -155,6 +170,25 @@ h1 {
   flex-direction: column;
   justify-content: center;
   flex-wrap: nowrap;
+}
+
+#jq-container {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#jq-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.8);
+  z-index: 5;
 }
 
 #header {
