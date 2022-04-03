@@ -95,6 +95,10 @@ const storeConfiguration = {
 
     deleteQueueItem(context, payload){  
       return axios.delete("http://localhost:8080/queues/" + payload.subjectCode + "/" + payload.personId, { headers: authHeader() });
+    },
+
+    submitQueueItem(context, payload){
+      return axios.post("http://localhost:8080/queues", payload, { headers: authHeader() })
     }
   },
 

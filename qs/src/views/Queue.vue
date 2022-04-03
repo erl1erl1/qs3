@@ -12,7 +12,7 @@
           <font-awesome-icon icon="hashtag" size="4x"/>
           <p class="pos-num">{{  this.queueItems.map(function(e) { return e.personId}).indexOf(this.currentUser.personId)  }} / {{  this.queueItems.length  }}</p>
         </div>
-        <p v-else class="{{  this.queueItems.length  }}">30</p>
+        <p v-else class="pos-num">{{  this.queueItems.length  }}</p>
       </div>
     </section>
     <section id="buttons">
@@ -105,6 +105,19 @@ export default {
         }
         this.inQueue = false;
       }
+    },
+    onSubmit(value){
+      const queueItem = {
+        "personId": this.currentUser.personId,
+        "subjectCode": this.subjectCode,
+        "assignmentId": value.assignmentId,
+        "location": value.location,
+        "type": value.type
+      }
+
+      console.log(queueItem)
+
+
     }
   }
 }
