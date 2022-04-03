@@ -62,4 +62,9 @@ export default {
 hr {
   margin-top: 25px;
 }
+
+input[type=file]::file-selector-button {
+  margin-top: 5px;
+  padding: 5px 10px 5px 10px;
+}
 </style>
