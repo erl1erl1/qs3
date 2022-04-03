@@ -1,14 +1,13 @@
 <template>
   <div class="form-container">
-    <h2>Arkiver fag</h2>
+    <h2>Slett fag</h2>
     <Form>
       <div class="input-container">
         <label>Fagkode</label>
-        <Field class="input" rules="required|alpha_num" name="subjectCodeSave" type="number" placeholder="Fagkode" validateOnInput/>
+        <Field rules="required|alpha_num" name="subjectCodeDelete" type="number" placeholder="Fagkode" validateOnInput/>
       </div>
-      <button class="button">Slett</button>
+      <button>Slett</button>
     </Form>
-    <hr/>
   </div>
 </template>
 

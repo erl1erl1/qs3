@@ -1,16 +1,20 @@
 <template>
   <div class="form-container">
-    <h2>Legg til student/lærer</h2>
+    <h2>Gi rettigheter</h2>
     <Form>
       <div class="input-container">
-        <label>Student mail</label>
-        <Field class="input" name="studentMail" type="email" placeholder="Email" validateOnInput/>
+        <label>Brukernavn</label>
+        <Field name="studentMail" type="email" placeholder="Email" validateOnInput/>
       </div>
       <div class="input-container">
-        <label>Lærer mail</label>
-        <Field class="input" name="teacherMail" type="email" placeholder="Email" validateOnInput/>
+        <label>Rolle</label>
+        <Field as="select" name="role" type="text" validateOnInput>
+          <option value="Student" selected>Student</option>
+          <option value="Øvingslærer">Øvingslærer</option>
+          <option value="Emneansvarlig">Emneansvarlig</option>
+        </Field>
       </div>
-      <button class="button">Slett</button>
+      <button>Gi rettigheter</button>
     </Form>
     <hr/>
   </div>

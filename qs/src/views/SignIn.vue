@@ -5,13 +5,13 @@
     <Form @submit="onSubmit" v-slot="{ meta }">
       <div class="input-container">
         <label>Brukernavn</label>
-        <Field class="input" rules="required|alpha_num" name="username" type="text" placeholder="brukernavn" validateOnInput/>
+        <Field rules="required|alpha_num" name="username" type="text" placeholder="brukernavn" validateOnInput/>
       </div>
       <div class="input-container">
         <label>Passord</label>
-        <Field class="input" rules="required" name="password" type="password" placeholder="passord" validateOnInput/>
+        <Field rules="required" name="password" type="password" placeholder="passord" validateOnInput/>
       </div>
-      <button class="button" :disabled="!(meta.valid)">Logg inn</button>
+      <button :disabled="!(meta.valid)">Logg inn</button>
     </Form>
     <p v-if="!this.correctPassword" style="color: red">Incorrect credentials</p>
     <p style="margin-bottom: 10px">Har du ikke en bruker? <router-link as="a" class="link" to="register">Registrer deg</router-link></p>

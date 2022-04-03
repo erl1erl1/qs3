@@ -35,42 +35,7 @@ label {
     padding: 3px 2px 3px 2px;
 }
 
-/* Classes */
-.button {
-    padding: 10px 15px 10px 15px;
-    background-color: #f7a81b;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 18px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: 0.1s;
-}
-
-.button:hover {
-    background-color: #7875D7;
-}
-
-.button:disabled, .button:disabled:hover {
-    background-color: #f7a81b;
-    opacity: 0.6;
-    cursor: default;
-}
-
-.error {
-    color: red;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.form-container {
-    min-height: 150px;
-    border-radius: 10px;
-    text-align: center;
-}
-
-.input {
+input {
     outline: none;
     border-style: solid;
     border-color: lightgray;
@@ -83,6 +48,46 @@ label {
     font-size: 16px;
     font-weight: 500;
     padding: 2px 0 2px 0;
+}
+
+button {
+    padding: 10px 15px 10px 15px;
+    background-color: #f7a81b;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+button:hover {
+    background-color: #7875D7;
+}
+
+button:disabled, button:disabled:hover {
+    background-color: #f7a81b;
+    opacity: 0.6;
+    cursor: default;
+}
+
+select {
+    position: relative;
+    color: #102c40;
+}
+
+/* Classes */
+.error {
+    color: red;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.form-container {
+    min-height: 150px;
+    border-radius: 10px;
+    text-align: center;
 }
 
 .input-container {
@@ -107,13 +112,4 @@ label {
 
 .link:hover {
     color: #f9cc7e;
-}
-
-.form {
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    row-gap: 20px;
-    width: 300px;
 }

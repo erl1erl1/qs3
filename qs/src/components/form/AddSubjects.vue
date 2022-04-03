@@ -6,40 +6,32 @@
     <Form @submit="onSubmit" v-slot="{ meta }">
       <div class="input-container">
         <label>Fagkode</label>
-        <Field class="input" rules="required|alpha_num" name="subjectCode" type="number" placeholder="Fagkode" validateOnInput/>
+        <Field rules="required|alpha_num" name="subjectCode" type="number" placeholder="Fagkode" validateOnInput/>
         <span class="error">
           <ErrorMessage name="subjectCode">Fag må ha en fagkode</ErrorMessage>
         </span>
       </div>
       <div class="input-container">
         <label>Fagnavn</label>
-        <Field class="input" rules="required" name="subjectName" type="text" placeholder="Fagnavn" validateOnInput/>
+        <Field rules="required" name="subjectName" type="text" placeholder="Fagnavn" validateOnInput/>
         <span class="error">
           <ErrorMessage name="subjectName">Fag må ha et navn</ErrorMessage>
         </span>
       </div>
       <div class="input-container">
-        <label>Lærere</label>
-        <Field class="input" name="teachers" type="text" placeholder="Lærere" validateOnInput/>
-      </div>
-      <div class="input-container">
-        <label>Øvingslærere</label>
-        <Field class="input" name="studentAssistants" type="text" placeholder="Øvingslærere" validateOnInput/>
-      </div>
-      <div class="input-container">
         <label>Studenter</label>
-        <Field class="input" name="enrolledStudents" type="text" placeholder="Studenter" validateOnInput/>
+        <Field name="enrolledStudents" type="text" placeholder="Studenter" validateOnInput/>
       </div>
       <label for="csvInput" id="labelCsv">Legg til med CSV</label>
       <input type="file" accept=".csv" name="csvInput" id="csvInput" />
       <div class="input-container">
         <label>Antall øvinger</label>
-        <Field class="input" rules="required" name="assignments" type="number" placeholder="Øvinger" validateOnInput/>
+        <Field rules="required" name="assignments" type="number" placeholder="Øvinger" validateOnInput/>
         <span class="error">
           <ErrorMessage name="assignments">Angi antall øvinger</ErrorMessage>
         </span>
       </div>
-      <button class="button" :disabled="!(meta.valid)">Legg til</button>
+      <button :disabled="!(meta.valid)">Legg til</button>
     </Form>
     <p v-if="this.SUBMIT_FAIL" style="color: red">Klarte ikke å legge til fag!</p>
   </div>
