@@ -26,8 +26,6 @@
       <button class="button" :disabled="!(meta.valid)">Legg til</button>
     </Form>
     <p v-if="this.SUBMIT_FAIL" style="color: red">Klarte ikke å legge til</p>
-    <p v-if="this.SUBMIT_FAIL_FIELDS" style="color: red">Du kan ikke legge til lærer og student samtidig</p>
-    <p v-if="this.SUBMIT_FAIL_NULL" style="color: red">Du må legge til lærer eller student</p>
     <hr/>
   </div>
 </template>
@@ -43,8 +41,6 @@ export default {
   data() {
     return {
       SUBMIT_FAIL: false,
-      SUBMIT_FAIL_FIELDS: false,
-      SUBMIT_FAIL_NULL: false,
     }
   },
 

@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 
 public interface SubjectRepository extends JpaRepository<Subject, Long> {
     Subject findBySubjectCode(String subjectCode);
+
 }

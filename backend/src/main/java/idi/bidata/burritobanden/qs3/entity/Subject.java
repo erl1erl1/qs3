@@ -36,6 +36,8 @@ public class Subject {
         enrolledStudents.add(person);
     }
 
+    public void enrollPerson(Person person) {enrolledStudents.add(person);}
+
     public String getSubjectCode() {
         return subjectCode;
     }

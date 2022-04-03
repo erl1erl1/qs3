@@ -70,9 +70,6 @@ export default {
       const subject = {
         "subjectCode": value.subjectCode,
         "subjectName": value.subjectName,
-        "teachers": value.teachers,
-        "studentAssistants": value.studentAssistants,
-        "enrolledStudents": value.enrolledStudents,
         "assignments": value.assignments
       }
 
