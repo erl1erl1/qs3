@@ -4,7 +4,8 @@
       <img alt="logo" src="@/assets/qs-light.svg" id="nav-logo"/>
       <div id="user">
         <font-awesome-icon id="user-icon" :icon="icon" :size="iconSize" fixed-width/>
-        <p style="color: #f7a81b">NicolaiSivesind</p>
+        <p v-if="this.activeUser" style="color: #f7a81b">{{this.activeUser}}</p>
+        <p v-else></p>
       </div>
     </div>
   </div>
