@@ -1,7 +1,7 @@
 <template>
   <div class="input-container">
     <label>{{ label }}</label>
-    <Field :rules="rules" :name="name" :type="type" :placeholder="placeholder" :validateOnInput=validateOnInput />
+    <Field class="input" :rules="rules" :name="name" :type="type" :placeholder="placeholder" :validateOnInput=validateOnInput />
     <span class="error">
       <ErrorMessage :name="name">{{ errorMessage }}</ErrorMessage>
     </span>
@@ -32,5 +32,7 @@ export default {
 </script>
 
 <style scoped>
-
+hr {
+  margin-top: 25px;
+}
 </style>

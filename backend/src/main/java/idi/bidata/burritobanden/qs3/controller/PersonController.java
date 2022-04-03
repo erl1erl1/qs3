@@ -62,6 +62,13 @@ public class PersonController {
                 person, personId);
     }
 
+    // Update person by username
+    @PutMapping("persons/{username}/{role}")
+    public Person updatePersonByUsername(@PathVariable("username") String username,
+                                         @PathVariable("role") String role) {
+        return personService.updatePersonByUsername(username, role);
+    }
+
     // Delete operation
     @DeleteMapping("/persons/{id}")
     public String deletePersonById(@PathVariable("id")

@@ -86,4 +86,17 @@ public class PersonServiceImpl implements PersonService {
             logger.info(e.toString());
         }
     }
+
+    // Updates a persons role by username
+    @Override
+    public Person updatePersonByUsername(String username, String role) {
+        Person _person = personRepository.getByUsername(username);
+        try{
+            _person.setUsername(username);
+            _person.setRole(role);
+        } catch (Exception e){
+            logger.info(e.toString());
+        }
+        return personRepository.save(_person);
+    }
 }

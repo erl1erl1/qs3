@@ -1,13 +1,13 @@
 <template>
-  <div id="inputs">
-    <AddSubjects/>
-    <AddStudentOrTeacher/>
-    <DeleteSubject/>
-  </div>
+  <h1>Administrator</h1>
+  <hr id="hr-title"/>
+  <AddSubjects/>
+  <AddStudentOrTeacher/>
+  <DeleteSubject/>
 </template>
 <script>
-import AddSubjects from "../components/form/AddSubjects";
-import AddStudentOrTeacher from "../components/form/AddStudentOrTeacher";
+import AddSubjects from "../components/form/AddSubject";
+import AddStudentOrTeacher from "../components/form/SetPrivelige";
 import DeleteSubject from "../components/form/DeleteSubject";
 
 export default {
@@ -19,5 +19,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#hr-title {
+  margin-top: -15px;
+}
+</style>
 
 
