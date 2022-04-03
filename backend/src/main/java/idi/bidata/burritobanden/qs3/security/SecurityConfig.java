@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/persons/register").permitAll()
                 .antMatchers("/auth").permitAll()
                 .antMatchers("/console/**").permitAll()
+                .antMatchers("/swagger-ui/**", "/javainuse-openapi/**").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
