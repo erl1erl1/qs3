@@ -1,61 +1,65 @@
 <template>
   <div class="form-container">
     <h2>Legg til student/lærer</h2>
-    <Form>
+    <Form @submit="onSubmit" v-slot="{ meta }">
       <div class="input-container">
-        <label>Student mail</label>
-        <Field class="input" name="studentMail" type="email" placeholder="Email" validateOnInput/>
+        <label>Student brukernavn</label>
+        <Field class="input" name="studentMail" type="username" placeholder="Brukernavn" validateOnInput/>
+        <span class="error">
+          <ErrorMessage name="studentMail">Angi lærer eller student</ErrorMessage>
+        </span>
       </div>
       <div class="input-container">
-        <label>Lærer mail</label>
-        <Field class="input" name="teacherMail" type="email" placeholder="Email" validateOnInput/>
+        <label>Lærer brukernavn</label>
+        <Field class="input" name="teacherMail" type="username" placeholder="Brukernavn" validateOnInput/>
+        <span class="error">
+          <ErrorMessage name="teacherMail">Angi lærer eller student</ErrorMessage>
+        </span>
       </div>
-      <button class="button">Slett</button>
+      <div class="input-container">
+        <label>Fagkode</label>
+        <Field class="input" rules="required" name="subjectCode" type="alpha_num" placeholder="Fagkode" validateOnInput/>
+        <span class="error">
+          <ErrorMessage name="subjectCode">Angi en fagkode</ErrorMessage>
+        </span>
+      </div>
+      <button class="button" :disabled="!(meta.valid)">Legg til</button>
     </Form>
+    <p v-if="this.SUBMIT_FAIL" style="color: red">Klarte ikke å legge til</p>
+    <p v-if="this.SUBMIT_FAIL_FIELDS" style="color: red">Du kan ikke legge til lærer og student samtidig</p>
+    <p v-if="this.SUBMIT_FAIL_NULL" style="color: red">Du må legge til lærer eller student</p>
     <hr/>
   </div>
 </template>
 <script>
-import { Form, Field} from 'vee-validate'
-import axios from "axios";
-import authHeader from "@/services/header-token";
+import { Form, Field, ErrorMessage} from 'vee-validate'
+// import axios from "axios";
+// import authHeader from "../../services/header-token";
 
 export default {
   name: "AddSubject",
 
+
   data() {
     return {
-      SUBMIT_FAIL: false
+      SUBMIT_FAIL: false,
+      SUBMIT_FAIL_FIELDS: false,
+      SUBMIT_FAIL_NULL: false,
     }
   },
 
   components: {
     Form,
     Field,
+    ErrorMessage,
   },
 
   methods: {
-    onSubmit(value) {
-      const subject = {
-        "subjectCode": value.subjectCode,
-        "subjectName": value.subjectName,
-        "teachers": value.teachers,
-        "studentAssistants": value.studentAssistants,
-        "enrolledStudents": value.enrolledStudents,
-        "assignments": value.assignments
-      }
+    onSubmit() {
 
-      axios.post("http://localhost:8080/subjects",
-          {subject},
-          {headers: authHeader()}
-      ).then(response => {
-        console.log(response)
-      }).catch(error => {
-        this.SUBMIT_FAIL = true;
-        console.log(error)
-      })
-    },
-  }
+    }
+  },
+
 }
 </script>
 <style scoped>

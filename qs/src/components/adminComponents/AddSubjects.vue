@@ -6,7 +6,7 @@
     <Form @submit="onSubmit" v-slot="{ meta }">
       <div class="input-container">
         <label>Fagkode</label>
-        <Field class="input" rules="required|alpha_num" name="subjectCode" type="number" placeholder="Fagkode" validateOnInput/>
+        <Field class="input" rules="required|alpha_num" name="subjectCode" type="alpha_num" placeholder="Fagkode" validateOnInput/>
         <span class="error">
           <ErrorMessage name="subjectCode">Fag må ha en fagkode</ErrorMessage>
         </span>
@@ -48,7 +48,7 @@
 <script>
 import { Form, Field, ErrorMessage} from 'vee-validate'
 import axios from "axios";
-import authHeader from "@/services/header-token";
+import authHeader from "../../services/header-token";
 
 export default {
   name: "AddSubject",

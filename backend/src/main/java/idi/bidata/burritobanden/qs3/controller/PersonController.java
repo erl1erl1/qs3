@@ -71,4 +71,10 @@ public class PersonController {
                 personId);
         return "Deleted Successfully";
     }
+
+    @GetMapping("/persons/{username}")
+    public Long getUserId(@PathVariable String username) {
+            Person req = personService.findPersonByUsername(username);
+            return req.getPersonId();
+    }
 }
