@@ -4,26 +4,16 @@
     <hr/>
     <h2>Legg til fag</h2>
     <Form @submit="onSubmit" v-slot="{ meta }">
-      <div class="input-container">
-        <label>Fagkode</label>
-        <Field rules="required|alpha_num" name="subjectCode" type="number" placeholder="Fagkode" validateOnInput/>
-        <span class="error">
-          <ErrorMessage name="subjectCode">Fag må ha en fagkode</ErrorMessage>
-        </span>
-      </div>
-      <div class="input-container">
-        <label>Fagnavn</label>
-        <Field rules="required" name="subjectName" type="text" placeholder="Fagnavn" validateOnInput/>
-        <span class="error">
-          <ErrorMessage name="subjectName">Fag må ha et navn</ErrorMessage>
-        </span>
-      </div>
-      <div class="input-container">
+      <TextInput label="Fagkode" name="subjectCode" placeholder="Fagkode" type="text"
+                 rules="required|alpha_num" error-message="Fag må ha en fagkode"/>
+      <TextInput label="Fagnavn" name="subjectName" placeholder="Fagnavn" type="text"
+                 rules="required|alpha_spaces" error-message="Fag må ha en fagkode"/>
+      <div class="input-container" id="csv">
         <label>Studenter</label>
-        <Field name="enrolledStudents" type="text" placeholder="Studenter" validateOnInput/>
+        <Field name="file" v-slot="{ handleChange, handleBlur }">
+          <input type="file" accept=".csv" name="csvInput" id="csv-button" @change="handleChange" @blur="handleBlur">
+        </Field>
       </div>
-      <label for="csvInput" id="labelCsv">Legg til med CSV</label>
-      <input type="file" accept=".csv" name="csvInput" id="csvInput" />
       <div class="input-container">
         <label>Antall øvinger</label>
         <Field rules="required" name="assignments" type="number" placeholder="Øvinger" validateOnInput/>
@@ -41,6 +31,7 @@
 import { Form, Field, ErrorMessage} from 'vee-validate'
 import axios from "axios";
 import authHeader from "../../services/header-token";
+import TextInput from "@/components/form/TextInput";
 
 export default {
   name: "AddSubject",
@@ -52,6 +43,7 @@ export default {
   },
 
   components: {
+    TextInput,
     Form,
     Field,
     ErrorMessage,
@@ -94,7 +86,6 @@ hr {
   padding: 3px 2px 3px 2px;
   text-align: right;
   color: #f7a81b;
-  margin-top: -20px;
   font-size: small;
 }
 </style>
