@@ -2,7 +2,7 @@ package idi.bidata.burritobanden.qs3.controller;
 
 import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.model.authentication.AuthenticationRequest;
-import idi.bidata.burritobanden.qs3.service.person.PersonService;
+import idi.bidata.burritobanden.qs3.person.person.PersonService;
 import java.util.List;
 import javax.validation.Valid;
 import org.slf4j.Logger;
@@ -62,14 +62,14 @@ public class PersonController {
                 person, personId);
     }
 
-    // Update person by username
+    // Update persons role based on the username.
     @PutMapping("persons/{username}/{role}")
     public Person updatePersonByUsername(@PathVariable("username") String username,
                                          @PathVariable("role") String role) {
         return personService.updatePersonByUsername(username, role);
     }
 
-    // Delete operation
+    // Delete a person by ID.
     @DeleteMapping("/persons/{id}")
     public String deletePersonById(@PathVariable("id")
                                          Long personId)

@@ -3,7 +3,7 @@ package idi.bidata.burritobanden.qs3.controller;
 import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.model.authentication.AuthenticationRequest;
 import idi.bidata.burritobanden.qs3.model.authentication.AuthenticationResponse;
-import idi.bidata.burritobanden.qs3.service.person.PersonService;
+import idi.bidata.burritobanden.qs3.person.person.PersonService;
 import idi.bidata.burritobanden.qs3.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

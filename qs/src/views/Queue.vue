@@ -28,6 +28,9 @@
     <section id="queue">
       <QueueItem v-for="(q, index) in queueItems" v-bind:key="q.personId"
                  :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type" :position="index+1"/>
+      <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17" task="2" type="Godkjenning" position="2" getting-help is-assistant/>
+      <QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7" task=5 type="Hjelp" position="3" is-assistant/>
+      <QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1" task="2" type="Godkjenning" position="4" is-assistant/>
     </section>
   </div>
 </template>
@@ -39,7 +42,7 @@ import JoinQueue from "@/components/form/JoinQueue";
 
 export default {
   name: "Queue",
-  components: {JoinQueue, QueueItem },
+  components: { JoinQueue, QueueItem },
   data(){
     return {
       queueItems: [],
@@ -76,7 +79,7 @@ export default {
     async updateQueue(){
       //Get queue items
       await this.$store.dispatch('getQueue').then(resp => this.newQueueItems = resp.data);
-      if(this.newQueueItems != this.queueItems){
+      if(this.newQueueItems !== this.queueItems){
         this.queueItems = this.newQueueItems;
         this.getNames();
         this.checkIfUserInQueue();

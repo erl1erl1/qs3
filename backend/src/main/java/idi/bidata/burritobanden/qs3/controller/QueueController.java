@@ -1,7 +1,7 @@
 package idi.bidata.burritobanden.qs3.controller;
 
 import idi.bidata.burritobanden.qs3.entity.Queue;
-import idi.bidata.burritobanden.qs3.service.queue.QueueService;
+import idi.bidata.burritobanden.qs3.person.queue.QueueService;
 import java.time.LocalTime;
 import java.util.List;
 import javax.validation.Valid;

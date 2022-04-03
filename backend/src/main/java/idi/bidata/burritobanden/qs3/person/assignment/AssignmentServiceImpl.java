@@ -1,14 +1,17 @@
-package idi.bidata.burritobanden.qs3.service.assignment;
+package idi.bidata.burritobanden.qs3.person.assignment;
 
 import idi.bidata.burritobanden.qs3.entity.Assignment;
 import idi.bidata.burritobanden.qs3.repository.AssignmentRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Service implementation for Assignment. The service is used for business functionalities.
+ * The @Service tag lets Spring context autodetect the class.
+ */
 @Service
 public class AssignmentServiceImpl implements AssignmentService {
 
@@ -18,20 +21,20 @@ public class AssignmentServiceImpl implements AssignmentService {
     Logger logger = LoggerFactory.getLogger("LOGGER");
 
 
-    //Save operation
+    // Creates an assignment.
     @Override
     public Assignment saveAssignment(Assignment assignment) {
         return assignmentRepository.save(assignment);
     }
 
-    //Read operation
+    // Fetches list of assignments.
     @Override
     public List<Assignment> fetchAssignmentList() {
         return (List<Assignment>)
                 assignmentRepository.findAll();
     }
 
-    // Update operation
+    // Updates an assignment by the assignment ID.
     @Override
     public Assignment updateAssignment(Assignment assignment, Long assignmentId) {
 
@@ -47,6 +50,7 @@ public class AssignmentServiceImpl implements AssignmentService {
         return assignmentRepository.save(assDB);
     }
 
+    // Deletes an assignment by ID.
     @Override
     public void deleteAssignmentById(Long assignmentId) {
         assignmentRepository.deleteById(assignmentId);

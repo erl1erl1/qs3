@@ -1,4 +1,4 @@
-package idi.bidata.burritobanden.qs3.service.person;
+package idi.bidata.burritobanden.qs3.person.person;
 
 import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.repository.PersonRepository;
@@ -58,7 +58,7 @@ public class PersonServiceImpl implements PersonService {
         return false;
     }
 
-    // Fetches person list.
+    // Fetches list of persons.
     @Override
     public List<Person> fetchPersonList() {
         return personRepository.findAll();
