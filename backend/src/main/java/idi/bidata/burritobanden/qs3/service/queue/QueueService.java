@@ -14,5 +14,5 @@ public interface QueueService {
 
     Queue updateQueue(Queue queue, Long queueId);
 
-    void deleteQueueById(Long queueId);
+    void deleteQueue(String subjectCode, Long personId);
 }

@@ -85,8 +85,16 @@ const storeConfiguration = {
       return axios.get("http://localhost:8080/queues/" + context.state.subject.subjectCode, { headers: authHeader() }).then(resp => resp);
     },
 
-    getName(context, userId){
+    getName(userId){
       return axios.get("http://localhost:8080/persons/" + userId + "/name", { headers: authHeader() }).then(resp => resp);
+    },
+
+    getUser(context){
+      return context.state.user;
+    },
+
+    deleteQueueItem(payload){
+      return axios.delete("http://localhost:8080/queues/" + payload.subjectCode + "/" + payload.personId);
     }
   },
 
@@ -96,6 +104,9 @@ const storeConfiguration = {
     },
     getActiveSubject(state){
       return state.subject;
+    },
+    getUser(state){
+      return state.user;
     }
   },
 

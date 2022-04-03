@@ -18,7 +18,7 @@
     </section>
     <section id="buttons">
       <button v-if="!inQueue" class="button" id="join">Bli med i kø</button>
-      <button v-else class="button" id="leave">Forlat kø</button>
+      <button v-else class="button" id="leave" @click="deleteQueueItem">Forlat kø</button>
       <button class="button">Øvinger</button>
     </section>
     <section id="queue">
@@ -44,15 +44,17 @@ export default {
       counter: 0,
       inQueue: false,
       subjectName: null,
-      subjectCode: null
+      subjectCode: null,
+      currentUser: null
     }
   },
   computed: {
     ...mapGetters([
-      'getActiveSubject',
+      'getUser',
     ]),
   },
   mounted(){
+    this.setUser();
     this.updateQueue();
   },
   methods: {
@@ -63,6 +65,24 @@ export default {
       for(let i = 0; i < this.queueItems.length; i++){
         this.queueItems[i].name = await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => resp.data);
       }
+      console.log(this.queueItems[0].personId)
+      console.log(this.currentUser.personId)
+      for(let i = 0; i < this.queueItems.length; i++){
+        if(this.queueItems[i].personId == this.currentUser.personId){
+          this.inQueue = true;
+        }
+      }
+    },
+    async setUser(){
+      this.currentUser = await this.$store.dispatch('getUser');
+    },
+    async deleteQueueItem(){
+      let details = {
+        "subjectCode": this.subjectCode,
+        "personId": this.personId
+      }
+      await this.$store.dispatch('deleteQueueItem', details);
+      this.updateQueue();
     }
   }
 }

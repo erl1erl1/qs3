@@ -70,7 +70,7 @@ public class QueueServiceImpl implements QueueService{
 
     //Delete operation
     @Override
-    public void deleteQueueById(Long queueId) {
-        queueRepository.deleteById(queueId);
+    public void deleteQueue(String subjectCode, Long personId) {
+        queueRepository.deleteBySubjectCodeAndPersonId(subjectCode, personId);
     }
 }
