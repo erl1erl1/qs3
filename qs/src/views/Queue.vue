@@ -11,7 +11,7 @@
     <hr>
     <section>
       <p v-if="inQueue">Din posisjon:</p>
-      <p v-else>Antall personer i køen:</p>
+        <p v-else>Antall personer i køen:</p>
       <div  id="size-nums">
         <div v-if="inQueue">
           <font-awesome-icon icon="hashtag" size="4x"/>
@@ -21,16 +21,14 @@
       </div>
     </section>
     <section id="buttons">
-      <button v-if="!inQueue" class="button" id="join" @click="toggleJoinQueue">Bli med i kø</button>
-      <button v-else class="button" id="leave" @click="deleteQueueItem">Forlat kø</button>
-      <button class="button">Øvinger</button>
+      <button v-if="!inQueue" class="button" id="join" @click="toggleJoinQueue" :disabled="isAssistant">Bli med i kø</button>
+      <button v-else class="button" id="leave" @click="deleteQueueItem" :disabled="isAssistant">Forlat kø</button>
+      <button class="button" :disabled="isAssistant">Øvinger</button>
     </section>
     <section id="queue">
       <QueueItem v-for="(q, index) in queueItems" v-bind:key="q.personId"
-                 :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type" :position="index+1"/>
-      <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17" task="2" type="Godkjenning" position="2" getting-help is-assistant/>
-      <QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7" task=5 type="Hjelp" position="3" is-assistant/>
-      <QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1" task="2" type="Godkjenning" position="4" is-assistant/>
+                 :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type" 
+                 :position="index+1" :getting-help="q.beingHelped" :is-assistant="isAssistant" :personId="q.personId"/>
     </section>
   </div>
 </template>
@@ -53,6 +51,7 @@ export default {
       subjectCode: null,
       currentUser: null,
       showJoinQueue: false,
+      isAssistant: false
     }
   },
 
@@ -67,12 +66,13 @@ export default {
     this.setUser();
     this.getQueue();
     this.updateQueue();
+    this.isAssistant = this.getUser.role === 'Øvingslærer';
   },
 
   created() {
     this.getQueue();
     setInterval(() =>
-      this.updateQueue(), 15000);
+      this.updateQueue(), 5000);
   },
 
   methods: {
@@ -87,8 +87,7 @@ export default {
       }
     },
     async setUser(){
-      this.currentUser = await this.$store.dispatch('getUser')
-      console.log(this.currentUser)
+      this.currentUser = this.getUser;
     },
     async deleteQueueItem(){
       let details = {

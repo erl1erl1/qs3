@@ -96,8 +96,8 @@ const storeConfiguration = {
       return axios.get("http://localhost:8080/persons/" + userId + "/name", { headers: authHeader() }).then(resp => resp.data);
     },
 
-    getUser(context){
-      return context.state.user;
+    getUserId(context, username){
+      return axios.get("http://localhost:8080/persons/" + username + "/id",  { headers: authHeader() }).then(resp => resp.data);
     },
 
     deleteQueueItem(context, payload){  
