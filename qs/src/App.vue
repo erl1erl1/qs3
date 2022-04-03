@@ -68,12 +68,6 @@ export default {
     window.removeEventListener("scroll", this.onScroll, true)
   },
 
-  computed: {
-    ...mapState([
-      'user'
-    ]),
-  },
-
   methods: {
     onScroll() {
       this.pageOffset = window.pageYOffset
