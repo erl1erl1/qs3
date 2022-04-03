@@ -80,8 +80,7 @@ select {
 /* Classes */
 .error {
     color: red;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 3px auto 0 auto;
 }
 
 .form-container {
