@@ -1,20 +1,20 @@
-package idi.bidata.burritobanden.qs3.service.queue;
+package idi.bidata.burritobanden.qs3.person.queue;
 
 import idi.bidata.burritobanden.qs3.entity.Queue;
 import idi.bidata.burritobanden.qs3.repository.QueueRepository;
-
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Service implementation for Queue. The service is used for business functionalities.
+ * The @Service tag lets Spring context autodetect the class.
+ */
 @Service
 public class QueueServiceImpl implements QueueService{
 
@@ -23,20 +23,21 @@ public class QueueServiceImpl implements QueueService{
 
     Logger logger = LoggerFactory.getLogger("LOGGER");
 
-    //Save operation
+    // Creates a Queue entity.
     @Override
     public Queue saveQueue(Queue queue) {
 
         return queueRepository.save(queue);
     }
 
-    //Read operation
+    // Fetches list of Queues.
     @Override
     public List<Queue> fetchQueueList() {
 
         return queueRepository.findAll();
     }
 
+    // Get que entity by subject code.
     @Override
     public List<Queue> getQueueByCode(String subjectCode) {
         List<Queue> queues = new ArrayList<>();
@@ -50,7 +51,7 @@ public class QueueServiceImpl implements QueueService{
         return queues;
     }
 
-    // Update operation
+    // Updates Queue entity by ID.
     @Override
     public Queue updateQueue(Queue queue, Long queueId) {
 
@@ -68,7 +69,7 @@ public class QueueServiceImpl implements QueueService{
         return queueRepository.save(quDB);
     }
 
-    //Delete operation
+    //Deletes queue entity by ID.
     @Override
     public void deleteQueue(String subjectCode, Long personId) {
         queueRepository.deleteBySubjectCodeAndPersonId(subjectCode, personId);

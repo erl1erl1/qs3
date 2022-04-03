@@ -2,7 +2,7 @@ package idi.bidata.burritobanden.qs3.controller;
 
 import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.entity.Subject;
-import idi.bidata.burritobanden.qs3.service.subject.SubjectService;
+import idi.bidata.burritobanden.qs3.person.subject.SubjectService;
 import java.util.List;
 import javax.validation.Valid;
 import org.slf4j.Logger;

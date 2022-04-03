@@ -1,7 +1,7 @@
 package idi.bidata.burritobanden.qs3.security;
 
 import idi.bidata.burritobanden.qs3.entity.Person;
-import idi.bidata.burritobanden.qs3.service.person.PersonService;
+import idi.bidata.burritobanden.qs3.person.person.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

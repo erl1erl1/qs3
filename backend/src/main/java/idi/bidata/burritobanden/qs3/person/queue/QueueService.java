@@ -1,10 +1,11 @@
-package idi.bidata.burritobanden.qs3.service.queue;
+package idi.bidata.burritobanden.qs3.person.queue;
 
 import idi.bidata.burritobanden.qs3.entity.Queue;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
+/**
+ * Service interface for Queue.
+ */
 public interface QueueService {
     Queue saveQueue(Queue queue);
 
