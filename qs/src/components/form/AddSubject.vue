@@ -1,7 +1,5 @@
 <template>
   <div class="form-container">
-    <h1>Administrator</h1>
-    <hr/>
     <h2>Legg til fag</h2>
     <Form @submit="onSubmit" v-slot="{ meta }">
       <TextInput label="Fagkode" name="subjectCode" placeholder="Fagkode" type="text"
@@ -14,21 +12,16 @@
           <input type="file" accept=".csv" name="csvInput" id="csv-button" @change="handleChange" @blur="handleBlur">
         </Field>
       </div>
-      <div class="input-container">
-        <label>Antall øvinger</label>
-        <Field rules="required" name="assignments" type="number" placeholder="Øvinger" validateOnInput/>
-        <span class="error">
-          <ErrorMessage name="assignments">Angi antall øvinger</ErrorMessage>
-        </span>
-      </div>
-      <button :disabled="!(meta.valid)">Legg til</button>
+      <TextInput label="Antalløvinger" name="assignments" placeholder="Øvinger" type="number"
+                 rules="required|numeric" error-message="Må være ett tall"/>
+      <button class="button" :disabled="!(meta.valid)">Legg til</button>
     </Form>
     <p v-if="this.SUBMIT_FAIL" style="color: red">Klarte ikke å legge til fag!</p>
   </div>
   <hr/>
 </template>
 <script>
-import { Form, Field, ErrorMessage} from 'vee-validate'
+import { Form, Field } from 'vee-validate'
 import axios from "axios";
 import authHeader from "../../services/header-token";
 import TextInput from "@/components/form/TextInput";
@@ -46,7 +39,6 @@ export default {
     TextInput,
     Form,
     Field,
-    ErrorMessage,
   },
 
   methods: {
@@ -68,24 +60,6 @@ export default {
 </script>
 <style scoped>
 hr {
-  min-width: 310px;
-  width: 90%;
-  max-width: 900px;
-  border: 0;
-  border-top: 1px solid rgb(0, 0, 0, 0.2);
-  margin-top: 15px;
-}
-#csvInput {
-  opacity: 0;
-  position: absolute;
-  z-index: 0;
-  margin-top: -10px;
-}
-#labelCsv {
-  font-weight: 700;
-  padding: 3px 2px 3px 2px;
-  text-align: right;
-  color: #f7a81b;
-  font-size: small;
+  margin-top: 25px;
 }
 </style>
