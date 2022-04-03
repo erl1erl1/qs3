@@ -39,9 +39,7 @@ export default {
       onMobile: Boolean,
       iconSize: "xs",
       icon: "user",
-<<<<<<< HEAD
-      currentUser: null
-=======
+      currentUser: null,
       pageOffset: window.pageYOffset,
     }
   },
@@ -53,7 +51,6 @@ export default {
       } else {
         document.getElementById("nav").style.top = "0";
       }
->>>>>>> 2a7c3df3dae2ba4ecaa90b1970af21769576b5bb
     }
   },
 
@@ -70,24 +67,21 @@ export default {
   beforeUnmount() {
     window.removeEventListener("scroll", this.onScroll, true)
   },
-<<<<<<< HEAD
-  methods: {
-    signOut(){
-      this.$store.dispatch('signOut');
-      this.$router.push("/signin")
-=======
 
   computed: {
     ...mapState([
-      'activeUser'
+      'user'
     ]),
   },
 
   methods: {
     onScroll() {
       this.pageOffset = window.pageYOffset
->>>>>>> 2a7c3df3dae2ba4ecaa90b1970af21769576b5bb
-    }
+    },
+    signOut(){
+      this.$store.dispatch('signOut');
+      this.$router.push("/signin")
+    }  
   }
 
 }
