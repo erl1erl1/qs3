@@ -35,7 +35,7 @@ label {
     padding: 3px 2px 3px 2px;
 }
 
-input, select {
+input, .input, select, .select {
     outline: none;
     border-style: solid;
     border-color: lightgray;
@@ -50,7 +50,11 @@ input, select {
     padding: 2px 0 2px 0;
 }
 
-button {
+input[type=file], .file-input {
+    border: none;
+}
+
+button, .button, input[type=file]::file-selector-button {
     padding: 10px 15px 10px 15px;
     background-color: #f7a81b;
     border: none;
@@ -62,17 +66,17 @@ button {
     transition: 0.1s;
 }
 
-button:hover {
+button:hover, .button:hover {
     background-color: #7875D7;
 }
 
-button:disabled, button:disabled:hover {
+button:disabled, .button:disabled, button:disabled:hover, .button:disabled:hover {
     background-color: #f7a81b;
     opacity: 0.6;
     cursor: default;
 }
 
-select {
+select, .select {
     position: relative;
     color: #102c40;
 }
@@ -93,7 +97,6 @@ select {
     width: 300px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
 }
 
 .logo {

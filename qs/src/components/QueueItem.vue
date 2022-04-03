@@ -40,9 +40,9 @@ export default {
     name: String,
     location: String,
     queueTime: String,
-    task: String,
+    task: Number,
     type: String,
-    position: String
+    position: Number
   }
 }
 </script>

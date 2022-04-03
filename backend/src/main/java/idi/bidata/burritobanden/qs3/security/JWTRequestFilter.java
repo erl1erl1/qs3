@@ -56,6 +56,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 }
             }
+            response.setHeader("Access-Control-Allow-Origin", "*");
             filterChain.doFilter(request, response);
         } catch (ServletException | IOException e){
             logger.info(e.toString());

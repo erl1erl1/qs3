@@ -2,7 +2,6 @@
   <div id="container">
     <div id="header">
       <h2>{{ this.subjectCode }}</h2>
-      <h3>{{  this.subjectName  }}</h3>
     </div>
     <hr>
     <section>
@@ -11,9 +10,9 @@
       <div  id="size-nums">
         <div v-if="inQueue">
           <font-awesome-icon icon="hashtag" size="4x"/>
-          <p class="pos-num">22/30</p>
+          <p class="pos-num">{{  this.queueItems.map(function(e) { return e.personId}).indexOf(this.currentUser.personId)  }} / {{  this.queueItems.length  }}</p>
         </div>
-        <p v-else class="pos-num">30</p>
+        <p v-else class="{{  this.queueItems.length  }}">30</p>
       </div>
     </section>
     <section id="buttons">
@@ -24,9 +23,6 @@
     <section id="queue">
       <QueueItem v-for="(q, index) in queueItems" v-bind:key="q.personId"
                  :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type" :position="index+1"/>
-      <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17 min" task="2" type="Godkjenning" position="2"/>
-      <QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7 min" task=5 type="Hjelp" position="3"/>
-      <QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1 min" task="2" type="Godkjenning" position="4"/>
     </section>
   </div>
 </template>
@@ -40,6 +36,7 @@ export default {
   data(){
     return {
       queueItems: [],
+      newQueueItems: [],
       names: null,
       counter: 0,
       inQueue: false,
@@ -55,34 +52,59 @@ export default {
   },
   mounted(){
     this.setUser();
+    this.getQueue();
     this.updateQueue();
+  },
+  created() {
+    setInterval(() =>
+      this.updateQueue(), 15000);
   },
   methods: {
     async updateQueue(){
-      await this.$store.dispatch('getQueue').then(resp => this.queueItems = resp.data);
-      this.subjectName = this.queueItems[0].subjectName;
-      this.subjectCode = this.queueItems[0].subjectCode;
-      for(let i = 0; i < this.queueItems.length; i++){
-        this.queueItems[i].name = await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => resp.data);
+      //Get queue items
+      await this.$store.dispatch('getQueue').then(resp => this.newQueueItems = resp.data);
+      if(this.newQueueItems != this.queueItems){
+        this.queueItems = this.newQueueItems;
+        this.getNames();
+        this.checkIfUserInQueue();
+        return;
       }
-      console.log(this.queueItems[0].personId)
-      console.log(this.currentUser.personId)
-      for(let i = 0; i < this.queueItems.length; i++){
-        if(this.queueItems[i].personId == this.currentUser.personId){
-          this.inQueue = true;
-        }
-      }
+
+      //Check if current user is in queue
+      //<QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17 min" task="2" type="Godkjenning" position="2"/>
+      //<QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7 min" task=5 type="Hjelp" position="3"/>
+      //<QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1 min" task="2" type="Godkjenning" position="4"/>
     },
     async setUser(){
-      this.currentUser = await this.$store.dispatch('getUser');
+      await this.$store.dispatch('getUser').then(resp => this.currentUser = resp);
     },
     async deleteQueueItem(){
       let details = {
         "subjectCode": this.subjectCode,
-        "personId": this.personId
+        "personId": this.currentUser.personId
       }
       await this.$store.dispatch('deleteQueueItem', details);
       this.updateQueue();
+    },
+    async getQueue(){
+      await this.$store.dispatch('getQueue').then(resp => this.queueItems = resp.data);
+      this.subjectCode = this.queueItems[0].subjectCode;
+    },
+    async getNames(){
+      for(let i = 0; i < this.queueItems.length; i++){
+          if(!(typeof this.queueItems[i].name == 'string')){
+            await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => this.queueItems[i].name = resp);
+          }
+        }
+    },
+    checkIfUserInQueue(){
+      for(let i = 0; i < this.queueItems.length; i++){
+        if(this.queueItems[i].personId == this.currentUser.personId){
+          this.inQueue = true;
+          return;
+        }
+        this.inQueue = false;
+      }
     }
   }
 }

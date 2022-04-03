@@ -41,11 +41,6 @@ export default {
 </script>
 <style scoped>
 hr {
-  min-width: 310px;
-  width: 90%;
-  max-width: 900px;
-  border: 0;
-  border-top: 1px solid rgb(0, 0, 0, 0.2);
-  margin-top: 15px;
+  margin-top: 25px;
 }
 </style>
