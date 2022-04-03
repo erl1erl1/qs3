@@ -1,9 +1,11 @@
-package idi.bidata.burritobanden.qs3.service.assignment;
+package idi.bidata.burritobanden.qs3.person.assignment;
 
 import idi.bidata.burritobanden.qs3.entity.Assignment;
-
 import java.util.List;
 
+/**
+ * Service interface for Assignment.
+ */
 public interface AssignmentService {
     // Save operation
     Assignment saveAssignment(Assignment assignment);

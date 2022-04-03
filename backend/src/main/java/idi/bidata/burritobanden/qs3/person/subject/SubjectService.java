@@ -1,12 +1,13 @@
-package idi.bidata.burritobanden.qs3.service.subject;
+package idi.bidata.burritobanden.qs3.person.subject;
 
 import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.entity.Subject;
-import org.hibernate.engine.transaction.jta.platform.internal.SunOneJtaPlatform;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Service interface for Subject.
+ */
 public interface SubjectService {
     Subject createSubject(Subject subject);
 

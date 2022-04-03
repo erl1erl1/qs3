@@ -1,16 +1,19 @@
-package idi.bidata.burritobanden.qs3.service.subject;
+package idi.bidata.burritobanden.qs3.person.subject;
 
 import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.entity.Subject;
 import idi.bidata.burritobanden.qs3.repository.SubjectRepository;
-import idi.bidata.burritobanden.qs3.service.person.PersonService;
+import idi.bidata.burritobanden.qs3.person.person.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
+/**
+ * Service implementation for Subject. The service is used for business functionalities.
+ * The @Service tag lets Spring context autodetect the class.
+ */
 @Service
 public class SubjectServiceImpl implements SubjectService{
     @Autowired
@@ -20,6 +23,7 @@ public class SubjectServiceImpl implements SubjectService{
 
     Logger logger = LoggerFactory.getLogger("LOGGER");
 
+    //Creates a subject.
     @Override
     public Subject createSubject(Subject subject) {
         Subject subject1 = new Subject();
@@ -29,11 +33,13 @@ public class SubjectServiceImpl implements SubjectService{
         return subjectRepository.save(subject1);
     }
 
+    // Fetches list of subjects.
     @Override
     public List<Subject> fetchSubjectList() {
         return subjectRepository.findAll();
     }
 
+    // Updates a subject by subject code.
     @Override
     public Subject updateSubject(Subject subject, String subjectCode) {
         Subject _subject = null;
@@ -48,6 +54,7 @@ public class SubjectServiceImpl implements SubjectService{
         return _subject;
     }
 
+    // Adds a student entity to to a subject entity.
     @Override
     public Subject enrollStudent(String subjectCode, Long personId){
         Subject subject = null;
@@ -64,21 +71,25 @@ public class SubjectServiceImpl implements SubjectService{
         return subject;
     }
 
+    // Finds subject by subject code and returns the subject entity.
     @Override
     public Subject findSubjectByCode(String subjectCode) {
         return subjectRepository.findBySubjectCode(subjectCode);
     }
 
+    //Finds person by ID and returns the person entity.
     @Override
     public Person findPersonById(Long personId) {
         return personService.findPersonById(personId);
     }
 
+    //Finds person by username and returns the person entity.
     @Override
     public Person findPersonByUsername(String username) {
         return personService.findPersonByUsername(username);
     }
 
+    // Adds person to subject entity by ID.
     @Override
     public Subject enrollPersonId(String username, String role, String subjectCode ) {
         Person person;
@@ -95,6 +106,7 @@ public class SubjectServiceImpl implements SubjectService{
         return subject;
     }
 
+    // Deletes subject entity by its subject code.
     @Override
     public void deleteSubjectByCode(String subjectCode) {
         subjectRepository.delete(subjectRepository.findBySubjectCode(subjectCode));
