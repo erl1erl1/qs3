@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { Form, Field} from 'vee-validate'
+import {Field, Form} from 'vee-validate'
 
 export default {
   name: "Admin",
@@ -30,12 +30,11 @@ export default {
 
   methods: {
     onSubmit(value) {
-      const subject = {
-        "subjectCode": value.subjectCode,
-        "subjectName": value.subjectName
+      this.subject = {
+        subjectCode: value.subjectCode,
+        subjectName: value.subjectName
       }
-      this.subject = subject;
-    }
+    },
   }
 }
 </script>

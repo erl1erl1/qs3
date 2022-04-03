@@ -25,15 +25,17 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {
     faBook, faUser, faUserGraduate,
-    faLocationDot, faClock, faCircleXmark,
-    faHandshake, faListCheck, faHashtag
+    faLocationDot, faClock, faRightFromBracket,
+    faHandshake, faListCheck, faHashtag, faCheckSquare,
+    faHandHoldingMedical, faCircleStop
 } from '@fortawesome/free-solid-svg-icons'
 
     // Add icons to library
 library.add(
     faBook, faUser, faUserGraduate,
-    faLocationDot, faClock, faCircleXmark,
-    faHandshake, faListCheck, faHashtag
+    faLocationDot, faClock, faRightFromBracket,
+    faHandshake, faListCheck, faHashtag,
+    faCheckSquare, faHandHoldingMedical, faCircleStop
 )
 
 // Create app

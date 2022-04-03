@@ -47,7 +47,10 @@ export default {
       axios.post("http://localhost:8080/subjects",
           {"subjectCode": value.subjectCode,
             "subjectName": value.subjectName,
-            "assignments": value.assignments},
+            "assignments": value.assignments,
+            "Students": this.csvToArray(value.csvInput)
+          },
+
           {headers: authHeader()}
       ).then(response => {
         console.log(response)
@@ -56,6 +59,34 @@ export default {
         console.log(error)
       })
     },
+
+    csvToArray(csvFile) {
+      console.log(csvFile)
+      // Read file
+      const input = csvFile.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        const text = e.target.result;
+        document.write(text);
+      };
+      reader.readAsText(input);
+
+      // Convert to Array
+      const result = reader.result
+      console.log(result)
+      const delim = ", "
+      const headers = result.slice(0, result.indexOf("\n")).split(delim);
+      const rows = result.slice(result.indexOf("\n") + 1).split("\n");
+
+      return rows.map(function (row) {
+        const values = row.split(delim);
+        return headers.reduce(function (object, header, index) {
+          object[header] = values[index];
+          return object;
+        }, {});
+      })
+    }
   }
 }
 </script>
