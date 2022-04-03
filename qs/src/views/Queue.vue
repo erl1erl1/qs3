@@ -40,7 +40,6 @@ export default {
       names: null,
       counter: 0,
       inQueue: false,
-      subjectName: null,
       subjectCode: null,
       currentUser: null
     }

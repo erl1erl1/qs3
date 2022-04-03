@@ -1,10 +1,10 @@
 <template>
-  <div v-show="activeUser !== null" id="nav">
+  <div v-show="user !== null" id="nav">
     <div id="item-container">
       <img alt="logo" src="@/assets/qs-light.svg" id="nav-logo"/>
       <div id="user">
-        <font-awesome-icon id="user-icon" :icon="icon" :size="iconSize" fixed-width/>
-        <p v-if="this.activeUser" style="color: #f7a81b">{{this.activeUser}}</p>
+        <font-awesome-icon id="user-icon" :icon="icon" :size="iconSize" fixed-width @click="signOut"/>
+        <p v-if="this.user" style="color: #f7a81b">{{this.user.name}}</p>
         <p v-else></p>
       </div>
     </div>
@@ -19,19 +19,27 @@ import { DESKTOP_BP } from "@/utils/constants";
 
 export default {
   created() {
-    this.$store.commit('SET_ACTIVE_USER', {username: "username", password: "password"})
+    //this.$store.commit('SET_ACTIVE_USER', {username: "username", password: "password"})
     // ^^^ Comment out this line before production ^^^
-
-    if (this.activeUser === null) {
-      this.$router.push('/signin')
+    if (this.user == null || this.user == 'undefined') {
+      this.$router.push("/signin")
+    } else{
+      this.$router.push("/")
     }
+  },
+
+  computed: {
+    ...mapState([
+      'user',
+    ]),
   },
 
   data() {
     return {
       onMobile: Boolean,
       iconSize: "xs",
-      icon: "user"
+      icon: "user",
+      currentUser: null
     }
   },
 
@@ -41,11 +49,11 @@ export default {
       this.onMobile = (window.innerWidth < DESKTOP_BP)
     })
   },
-
-  computed: {
-    ...mapState([
-      'activeUser'
-    ]),
+  methods: {
+    signOut(){
+      this.$store.dispatch('signOut');
+      this.$router.push("/signin")
+    }
   }
 }
 </script>

@@ -10,13 +10,16 @@ class AuthService {
         ).then(response => {
             if(response.data.jwt) {
                 localStorage.setItem('token', JSON.stringify(response.data.jwt));
+                localStorage.setItem('user', JSON.stringify(response.data.person));
             }
             return response.data.person;
         });
     }
 
     signOut(){
+        localStorage.removeItem('user');
         localStorage.removeItem('token');
+        return true;
     }
 
     register(user){
