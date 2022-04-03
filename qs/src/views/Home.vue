@@ -33,6 +33,9 @@ export default {
         }
       )
     }
+  },
+  mounted(){
+    this.getSubjects
   }
 }
 </script>

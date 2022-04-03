@@ -42,7 +42,6 @@ export default {
       this.$store.dispatch("signIn", user).then(
         () => {
           this.$router.push("/")
-          this.$forceUpdate();
         },
         (error) => {
           this.correctPassword = false;
