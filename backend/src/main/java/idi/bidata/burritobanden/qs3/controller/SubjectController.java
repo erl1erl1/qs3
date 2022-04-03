@@ -6,12 +6,17 @@ import idi.bidata.burritobanden.qs3.service.subject.SubjectService;
 import java.util.List;
 // Importing required classes
 import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 
 public class SubjectController {
+
+    Logger logger = LoggerFactory.getLogger("LOGGER");
 
     @Autowired private SubjectService subjectService;
 
@@ -43,5 +48,27 @@ public class SubjectController {
         Person person = subjectService.findPersonById(personId);
         subject.enrollStudent(person);
         return subjectService.enrollStudent(subjectCode, personId);
+    }
+
+    @PutMapping("/{username}/{role}/{subjectCode}")
+    public Subject enrollPersonId(
+            @PathVariable String username,
+            @PathVariable String role,
+            @PathVariable String subjectCode
+    ) {
+        return subjectService.enrollPersonId(username, role, subjectCode);
+    }
+
+    @DeleteMapping("/{subjectCode}")
+    public String deleteSubject(
+            @PathVariable String subjectCode
+    ) {
+        try {
+            subjectService.deleteSubjectByCode(subjectCode);
+            return "DELETE_SUCCESSFUL";
+        } catch (Exception e) {
+            logger.info(e.toString());
+        }
+        return null;
     }
 }

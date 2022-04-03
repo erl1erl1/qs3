@@ -19,4 +19,10 @@ public interface SubjectService {
     Subject enrollStudent(String subjectCode, Long personId);
 
     Subject findSubjectByCode(String subjectCode);
+
+    Person findPersonByUsername(String username);
+
+    Subject enrollPersonId(String username, String role, String subjectCode );
+
+    void deleteSubjectByCode(String subjectCode);
 }

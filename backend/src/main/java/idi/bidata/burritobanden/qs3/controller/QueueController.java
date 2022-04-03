@@ -1,6 +1,7 @@
 package idi.bidata.burritobanden.qs3.controller;
 
 import idi.bidata.burritobanden.qs3.entity.Queue;
+import idi.bidata.burritobanden.qs3.model.compositeKeys.QueueId;
 import idi.bidata.burritobanden.qs3.service.queue.QueueService;
 
 import java.time.LocalTime;
@@ -50,12 +51,10 @@ public class QueueController {
     }
 
     // Delete operation
-    @DeleteMapping("/queues/{id}")
-    public String deleteQueueById(@PathVariable("id")
-                                         Long queueId)
+    @DeleteMapping("/queues/{subjectCode}/{personId}")
+    public String deleteQueueById(@PathVariable("subjectCode") String subjectCode, @PathVariable ("personId") Long personId)
     {
-        queueService.deleteQueueById(
-                queueId);
+        queueService.deleteQueue(subjectCode, personId);
         return "Deleted Successfully";
     }
 }

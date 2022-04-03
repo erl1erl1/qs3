@@ -69,4 +69,30 @@ public class SubjectServiceImpl implements SubjectService{
     public Person findPersonById(Long personId) {
         return personService.findPersonById(personId);
     }
+
+    @Override
+    public Person findPersonByUsername(String username) {
+        return personService.findPersonByUsername(username);
+    }
+
+    @Override
+    public Subject enrollPersonId(String username, String role, String subjectCode ) {
+        Person person;
+        Subject subject = null;
+        try {
+            person = findPersonByUsername(username);
+            person.setRole(role);
+            subject = subjectRepository.findBySubjectCode(subjectCode);
+            subject.enrollPerson(person);
+            person.addSubject(subject);
+        } catch (Exception e) {
+            logger.info(e.toString());
+        }
+        return subject;
+    }
+
+    @Override
+    public void deleteSubjectByCode(String subjectCode) {
+        subjectRepository.delete(subjectRepository.findBySubjectCode(subjectCode));
+    }
 }

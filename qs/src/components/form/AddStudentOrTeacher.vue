@@ -1,6 +1,6 @@
 <template>
   <div class="form-container">
-    <h2>Gi rettigheter</h2>
+    <h2>Sett brukertype</h2>
     <Form>
       <div class="input-container">
         <label>Brukernavn</label>
@@ -8,7 +8,7 @@
       </div>
       <div class="input-container">
         <label>Rolle</label>
-        <Field as="select" name="role" type="text" validateOnInput>
+        <Field as="select" name="role" validateOnInput>
           <option value="Student" selected>Student</option>
           <option value="Øvingslærer">Øvingslærer</option>
           <option value="Emneansvarlig">Emneansvarlig</option>
@@ -16,20 +16,22 @@
       </div>
       <button>Gi rettigheter</button>
     </Form>
+    <p v-if="this.SUBMIT_FAIL" style="color: red">Klarte ikke å legge til</p>
     <hr/>
   </div>
 </template>
 <script>
-import { Form, Field} from 'vee-validate'
-import axios from "axios";
-import authHeader from "@/services/header-token";
+import { Form, Field } from 'vee-validate'
+// import axios from "axios";
+// import authHeader from "../../services/header-token";
 
 export default {
   name: "AddSubject",
 
+
   data() {
     return {
-      SUBMIT_FAIL: false
+      SUBMIT_FAIL: false,
     }
   },
 
@@ -39,27 +41,11 @@ export default {
   },
 
   methods: {
-    onSubmit(value) {
-      const subject = {
-        "subjectCode": value.subjectCode,
-        "subjectName": value.subjectName,
-        "teachers": value.teachers,
-        "studentAssistants": value.studentAssistants,
-        "enrolledStudents": value.enrolledStudents,
-        "assignments": value.assignments
-      }
+    onSubmit() {
 
-      axios.post("http://localhost:8080/subjects",
-          {subject},
-          {headers: authHeader()}
-      ).then(response => {
-        console.log(response)
-      }).catch(error => {
-        this.SUBMIT_FAIL = true;
-        console.log(error)
-      })
-    },
-  }
+    }
+  },
+
 }
 </script>
 <style scoped>

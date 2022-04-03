@@ -76,6 +76,5 @@ public class PersonServiceImpl implements PersonService {
         } catch (Exception e){
             logger.info(e.toString());
         }
-
     }
 }

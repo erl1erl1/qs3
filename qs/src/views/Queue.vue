@@ -1,8 +1,8 @@
 <template>
   <div id="container">
     <div id="header">
-      <h2>{{ this.queueItems[0].subjectCode }}</h2>
-      <h3>Full-stack applikasjonsutvikling</h3>
+      <h2>{{ this.subjectCode }}</h2>
+      <h3>{{  this.subjectName  }}</h3>
     </div>
     <hr>
     <section>
@@ -18,15 +18,15 @@
     </section>
     <section id="buttons">
       <button v-if="!inQueue" class="button" id="join">Bli med i kø</button>
-      <button v-else class="button" id="leave">Forlat kø</button>
+      <button v-else class="button" id="leave" @click="deleteQueueItem">Forlat kø</button>
       <button class="button">Øvinger</button>
     </section>
     <section id="queue">
-      <QueueItem v-for="q in queueItems" v-bind:key="q.personId"
-                 :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type"/>
-      <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17 min" task="Øving 2" type="Godkjenning" position="1"/>
-      <QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7 min" task="Øving 5" type="Hjelp" position="2"/>
-      <QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1 min" task="Øving 3" type="Godkjenning" position="3"/>
+      <QueueItem v-for="(q, index) in queueItems" v-bind:key="q.personId"
+                 :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type" :position="index+1"/>
+      <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17 min" task="2" type="Godkjenning" position="2"/>
+      <QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7 min" task=5 type="Hjelp" position="3"/>
+      <QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1 min" task="2" type="Godkjenning" position="4"/>
     </section>
   </div>
 </template>
@@ -42,23 +42,47 @@ export default {
       queueItems: [],
       names: null,
       counter: 0,
-      inQueue: false
+      inQueue: false,
+      subjectName: null,
+      subjectCode: null,
+      currentUser: null
     }
   },
   computed: {
     ...mapGetters([
-      'getActiveSubject',
+      'getUser',
     ]),
   },
   mounted(){
+    this.setUser();
     this.updateQueue();
   },
   methods: {
     async updateQueue(){
       await this.$store.dispatch('getQueue').then(resp => this.queueItems = resp.data);
+      this.subjectName = this.queueItems[0].subjectName;
+      this.subjectCode = this.queueItems[0].subjectCode;
       for(let i = 0; i < this.queueItems.length; i++){
         this.queueItems[i].name = await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => resp.data);
       }
+      console.log(this.queueItems[0].personId)
+      console.log(this.currentUser.personId)
+      for(let i = 0; i < this.queueItems.length; i++){
+        if(this.queueItems[i].personId == this.currentUser.personId){
+          this.inQueue = true;
+        }
+      }
+    },
+    async setUser(){
+      this.currentUser = await this.$store.dispatch('getUser');
+    },
+    async deleteQueueItem(){
+      let details = {
+        "subjectCode": this.subjectCode,
+        "personId": this.personId
+      }
+      await this.$store.dispatch('deleteQueueItem', details);
+      this.updateQueue();
     }
   }
 }

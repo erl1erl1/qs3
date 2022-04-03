@@ -11,4 +11,5 @@ import java.util.List;
 
 public interface QueueRepository extends JpaRepository<Queue, Long> {
     List<Queue> findAllBySubjectCode(String subjectCode);
+    void deleteBySubjectCodeAndPersonId(String subjectCode, Long personId);
 }

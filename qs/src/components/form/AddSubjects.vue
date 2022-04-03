@@ -40,7 +40,7 @@
 <script>
 import { Form, Field, ErrorMessage} from 'vee-validate'
 import axios from "axios";
-import authHeader from "@/services/header-token";
+import authHeader from "../../services/header-token";
 
 export default {
   name: "AddSubject",
@@ -62,9 +62,6 @@ export default {
       const subject = {
         "subjectCode": value.subjectCode,
         "subjectName": value.subjectName,
-        "teachers": value.teachers,
-        "studentAssistants": value.studentAssistants,
-        "enrolledStudents": value.enrolledStudents,
         "assignments": value.assignments
       }
 
