@@ -3,23 +3,23 @@
   <div class="form-container">
     <h1>Pålogging</h1>
     <Form @submit="onSubmit" v-slot="{ meta }">
-      <div class="input-container">
-        <label>Brukernavn</label>
-        <Field class="input" rules="required|alpha_num" name="username" type="text" placeholder="brukernavn" validateOnInput/>
-      </div>
-      <div class="input-container">
-        <label>Passord</label>
-        <Field class="input" rules="required" name="password" type="password" placeholder="passord" validateOnInput/>
-      </div>
-      <button class="button" :disabled="!(meta.valid)">Logg inn</button>
+
+      <TextInput label="Brukernavn" name="username" placeholder="brukernavn" type="text"
+                 rules="required|alpha_num" error-message="Brukernavn kan ikke inneholde spesielle tegn" validate-on-input/>
+
+      <TextInput label="Passord" name="password" placeholder="passord" type="password"
+                 rules="required" error-message="Du må skrive et passord" validate-on-input/>
+
+      <button :disabled="!(meta.valid)">Logg inn</button>
     </Form>
-    <p v-if="!this.correctPassword" style="color: red">Incorrect credentials</p>
+    <p v-if="!this.correctPassword" style="color: red">Feil brukernavn eller passord</p>
     <p style="margin-bottom: 10px">Har du ikke en bruker? <router-link as="a" class="link" to="register">Registrer deg</router-link></p>
   </div>
 </template>
 
 <script>
-import { Form, Field} from 'vee-validate'
+import { Form} from 'vee-validate'
+import TextInput from "../components/form/TextInput";
 
 export default {
   name: "Login",
@@ -32,7 +32,7 @@ export default {
 
   components: {
     Form,
-    Field,
+    TextInput,
   },
 
   methods: {

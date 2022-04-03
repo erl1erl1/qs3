@@ -6,9 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
+/**
+ * Service implementation for Person. The service is used for business functionalities.
+ * The @Service tag lets Spring context autodetect the class.
+ */
 @Service
 public class PersonServiceImpl implements PersonService {
     @Autowired
@@ -16,11 +19,13 @@ public class PersonServiceImpl implements PersonService {
 
     Logger logger = LoggerFactory.getLogger("LOGGER");
 
+    // Saves a person entity in the person repository.
     @Override
     public Person createPerson(Person person) {
         return personRepository.save(person);
     }
 
+    // Finds a person by ID. If an exception is sent, it wil log it.
     @Override
     public Person findPersonById(Long personId) {
         Person person = null;
@@ -32,11 +37,13 @@ public class PersonServiceImpl implements PersonService {
         return person;
     }
 
+    //Finds a person by ID.
     @Override
     public Person findPersonByUsername(String username) {
         return personRepository.getByUsername(username);
     }
 
+    // Authentication. Uses login credentials to check if username and password are correct.
     @Override
     public Boolean authenticate(String username, String password) {
         Person person = null;
@@ -51,12 +58,13 @@ public class PersonServiceImpl implements PersonService {
         return false;
     }
 
-
+    // Fetches person list.
     @Override
     public List<Person> fetchPersonList() {
         return personRepository.findAll();
     }
 
+    // Updates name and role for a person entity.
     @Override
     public Person updatePerson(Person person, Long personId) {
         Person _person = personRepository.getById(personId);
@@ -69,6 +77,7 @@ public class PersonServiceImpl implements PersonService {
         return personRepository.save(_person);
     }
 
+    // Uses a persons ID to delete a person entity.
     @Override
     public void deletePersonById(Long personId) {
         try{
@@ -76,6 +85,5 @@ public class PersonServiceImpl implements PersonService {
         } catch (Exception e){
             logger.info(e.toString());
         }
-
     }
 }

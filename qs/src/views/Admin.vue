@@ -2,22 +2,19 @@
   <div id="inputs">
     <AddSubjects/>
     <AddStudentOrTeacher/>
-    <SaveSubject/>
     <DeleteSubject/>
   </div>
 </template>
 <script>
-import AddSubjects from "@/components/adminComponents/AddSubjects";
-import AddStudentOrTeacher from "@/components/adminComponents/AddStudentOrTeacher";
-import SaveSubject from "@/components/adminComponents/SaveSubject";
-import DeleteSubject from "@/components/adminComponents/DeleteSubject";
+import AddSubjects from "../components/form/AddSubjects";
+import AddStudentOrTeacher from "../components/form/AddStudentOrTeacher";
+import DeleteSubject from "../components/form/DeleteSubject";
 
 export default {
   name: "Admin",
   components: {
     AddSubjects,
     AddStudentOrTeacher,
-    SaveSubject,
     DeleteSubject,
   }
 }

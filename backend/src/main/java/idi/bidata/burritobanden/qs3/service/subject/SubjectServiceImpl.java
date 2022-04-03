@@ -22,7 +22,11 @@ public class SubjectServiceImpl implements SubjectService{
 
     @Override
     public Subject createSubject(Subject subject) {
-        return subjectRepository.save(subject);
+        Subject subject1 = new Subject();
+        subject1.setSubjectCode(subject.getSubjectCode());
+        subject1.setSubjectName(subject.getSubjectName());
+        subject1.setAssignments(subject.getAssignments());
+        return subjectRepository.save(subject1);
     }
 
     @Override
@@ -68,5 +72,31 @@ public class SubjectServiceImpl implements SubjectService{
     @Override
     public Person findPersonById(Long personId) {
         return personService.findPersonById(personId);
+    }
+
+    @Override
+    public Person findPersonByUsername(String username) {
+        return personService.findPersonByUsername(username);
+    }
+
+    @Override
+    public Subject enrollPersonId(String username, String role, String subjectCode ) {
+        Person person;
+        Subject subject = null;
+        try {
+            person = findPersonByUsername(username);
+            person.setRole(role);
+            subject = subjectRepository.findBySubjectCode(subjectCode);
+            subject.enrollPerson(person);
+            person.addSubject(subject);
+        } catch (Exception e) {
+            logger.info(e.toString());
+        }
+        return subject;
+    }
+
+    @Override
+    public void deleteSubjectByCode(String subjectCode) {
+        subjectRepository.delete(subjectRepository.findBySubjectCode(subjectCode));
     }
 }

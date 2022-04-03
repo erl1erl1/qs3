@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * The Queue entity represents an item in a queue. Lombok tags are used
+ * for constructor, getters and setters.
+ */
 @Entity
 @Data
 @NoArgsConstructor
