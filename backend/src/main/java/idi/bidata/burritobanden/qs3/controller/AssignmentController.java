@@ -3,7 +3,6 @@ package idi.bidata.burritobanden.qs3.controller;
 import idi.bidata.burritobanden.qs3.entity.Assignment;
 import idi.bidata.burritobanden.qs3.service.assignment.AssignmentService;
 import java.util.List;
-// Importing required classes
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

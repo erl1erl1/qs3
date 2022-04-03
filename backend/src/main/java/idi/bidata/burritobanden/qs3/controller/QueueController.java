@@ -1,13 +1,9 @@
 package idi.bidata.burritobanden.qs3.controller;
 
 import idi.bidata.burritobanden.qs3.entity.Queue;
-import idi.bidata.burritobanden.qs3.model.compositeKeys.QueueId;
 import idi.bidata.burritobanden.qs3.service.queue.QueueService;
-
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
-// Importing required classes
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +31,7 @@ public class QueueController {
         return queueService.fetchQueueList();
     }
 
+    //Get operation. Returns queue object based on subject code.
     @GetMapping("/queues/{subjectCode}")
     public List<Queue> getQueueByCode(@PathVariable String subjectCode){
         return queueService.getQueueByCode(subjectCode);

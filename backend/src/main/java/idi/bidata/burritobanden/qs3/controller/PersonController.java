@@ -4,9 +4,7 @@ import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.model.authentication.AuthenticationRequest;
 import idi.bidata.burritobanden.qs3.service.person.PersonService;
 import java.util.List;
-// Importing required classes
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,7 @@ public class PersonController {
         return personService.createPerson(person);
     }
 
+    // Login request. Checks if authentication and login credentials checks out.
     @PostMapping("persons/login")
     public Person getUser(@RequestBody AuthenticationRequest req){
         Person person = personService.findPersonByUsername(req.getUsername());
@@ -45,6 +44,7 @@ public class PersonController {
         return personService.fetchPersonList();
     }
 
+    // Get operation. Returns a persons name, based on the id.
     @GetMapping("/persons/{id}/name")
     public String getName(@PathVariable Long id){
         Person person = personService.findPersonById(id);
@@ -72,6 +72,7 @@ public class PersonController {
         return "Deleted Successfully";
     }
 
+    // Get operation. Returns the user id based on a persons username.
     @GetMapping("/persons/{username}")
     public Long getUserId(@PathVariable String username) {
             Person req = personService.findPersonByUsername(username);

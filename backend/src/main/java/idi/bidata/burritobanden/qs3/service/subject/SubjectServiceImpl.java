@@ -22,7 +22,11 @@ public class SubjectServiceImpl implements SubjectService{
 
     @Override
     public Subject createSubject(Subject subject) {
-        return subjectRepository.save(subject);
+        Subject subject1 = new Subject();
+        subject1.setSubjectCode(subject.getSubjectCode());
+        subject1.setSubjectName(subject.getSubjectName());
+        subject1.setAssignments(subject.getAssignments());
+        return subjectRepository.save(subject1);
     }
 
     @Override
