@@ -1,20 +1,21 @@
 <template>
   <div class="form-container">
-    <h2>Sett brukertype</h2>
-    <Form>
-      <div class="input-container">
-        <label>Brukernavn</label>
-        <Field name="studentMail" type="email" placeholder="Email" validateOnInput/>
-      </div>
+    <h2>Gi rettigheter</h2>
+    <Form @submit="onSubmit" v-slot="{ meta }">
+
+      <TextInput label="Brukernavn" name="username" placeholder="Brukernavn" type="text"
+                 rules="required|alpha_num" error-message="Du må skrive et brukernavn"/>
+
       <div class="input-container">
         <label>Rolle</label>
-        <Field as="select" name="role" validateOnInput>
+        <Field as="select" name="role" rules="required" validateOnInput>
           <option value="Student" selected>Student</option>
           <option value="Øvingslærer">Øvingslærer</option>
           <option value="Emneansvarlig">Emneansvarlig</option>
         </Field>
       </div>
-      <button>Gi rettigheter</button>
+
+      <button :disabled="!(meta.valid)">Gi rettigheter</button>
     </Form>
     <p v-if="this.SUBMIT_FAIL" style="color: red">Klarte ikke å legge til</p>
     <hr/>
@@ -22,6 +23,7 @@
 </template>
 <script>
 import { Form, Field } from 'vee-validate'
+import TextInput from "./TextInput";
 // import axios from "axios";
 // import authHeader from "../../services/header-token";
 
@@ -36,6 +38,7 @@ export default {
   },
 
   components: {
+    TextInput,
     Form,
     Field,
   },

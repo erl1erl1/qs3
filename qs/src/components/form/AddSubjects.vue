@@ -51,14 +51,10 @@ export default {
 
   methods: {
     onSubmit(value) {
-      const subject = {
-        "subjectCode": value.subjectCode,
-        "subjectName": value.subjectName,
-        "assignments": value.assignments
-      }
-
       axios.post("http://localhost:8080/subjects",
-          {subject},
+          {"subjectCode": value.subjectCode,
+            "subjectName": value.subjectName,
+            "assignments": value.assignments},
           {headers: authHeader()}
       ).then(response => {
         console.log(response)

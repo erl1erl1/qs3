@@ -4,9 +4,7 @@ import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.entity.Subject;
 import idi.bidata.burritobanden.qs3.service.subject.SubjectService;
 import java.util.List;
-// Importing required classes
 import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +26,7 @@ public class SubjectController {
         return subjectService.createSubject(subject);
     }
 
+    // Get operation
     @GetMapping("/subjects/{subjectCode}")
     public Subject getSubject(@PathVariable String subjectCode){
         return subjectService.findSubjectByCode(subjectCode);
@@ -39,6 +38,7 @@ public class SubjectController {
         return subjectService.fetchSubjectList();
     }
 
+    // Enrolls student to a subject
     @PutMapping("/{subjectCode}/students/{personId}")
     public Subject enrollStudent(
             @PathVariable String subjectCode,
@@ -50,6 +50,7 @@ public class SubjectController {
         return subjectService.enrollStudent(subjectCode, personId);
     }
 
+    // Used to enroll a person to a subject.
     @PutMapping("/{username}/{role}/{subjectCode}")
     public Subject enrollPersonId(
             @PathVariable String username,
@@ -59,7 +60,8 @@ public class SubjectController {
         return subjectService.enrollPersonId(username, role, subjectCode);
     }
 
-    @DeleteMapping("/{subjectCode}")
+    // Delete operation.
+    @DeleteMapping("/subjects/{subjectCode}")
     public String deleteSubject(
             @PathVariable String subjectCode
     ) {
@@ -69,6 +71,6 @@ public class SubjectController {
         } catch (Exception e) {
             logger.info(e.toString());
         }
-        return null;
+        return subjectCode;
     }
 }
