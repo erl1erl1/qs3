@@ -24,11 +24,12 @@
 <script>
 import { Form, Field } from 'vee-validate'
 import TextInput from "./TextInput";
-// import axios from "axios";
+import axios from "axios";
+import authHeader from "../../services/header-token";
 // import authHeader from "../../services/header-token";
 
 export default {
-  name: "AddSubject",
+  name: "GrantRights",
 
 
   data() {
@@ -44,8 +45,15 @@ export default {
   },
 
   methods: {
-    onSubmit() {
-
+    onSubmit(value) {
+      axios.put("http://localhost:8080/persons/" + value.username + "/" + value.role,
+          {}, {headers: authHeader()})
+      .then(response => {
+        console.log(response)
+      }).catch(error => {
+        this.SUBMIT_FAIL = true;
+        console.log(error)
+      })
     }
   },
 

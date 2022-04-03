@@ -20,4 +20,6 @@ public interface PersonService {
     Person updatePerson(Person person, Long personId);
 
     void deletePersonById(Long personId);
+
+    Person updatePersonByUsername(String username, String role);
 }
