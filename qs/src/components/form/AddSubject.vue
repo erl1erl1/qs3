@@ -20,6 +20,7 @@
   </div>
   <hr/>
 </template>
+
 <script>
 import { Form, Field } from 'vee-validate'
 import axios from "axios";

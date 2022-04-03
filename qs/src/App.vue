@@ -1,10 +1,11 @@
 <template>
-  <div v-show="activeUser !== null" id="nav">
+  <div v-show="user !== null" id="nav">
     <div id="item-container">
       <img alt="logo" src="@/assets/qs-light.svg" id="nav-logo"/>
       <div id="user">
-        <font-awesome-icon id="user-icon" :icon="icon" :size="iconSize" fixed-width/>
-        <p style="color: #f7a81b">NicolaiSivesind</p>
+        <font-awesome-icon id="user-icon" :icon="icon" :size="iconSize" fixed-width @click="signOut"/>
+        <p v-if="this.user" style="color: #f7a81b">{{this.user.name}}</p>
+        <p v-else></p>
       </div>
     </div>
   </div>
@@ -18,19 +19,38 @@ import { DESKTOP_BP } from "@/utils/constants";
 
 export default {
   created() {
-    this.$store.commit('SET_ACTIVE_USER', {username: "username", password: "password"})
+    //this.$store.commit('SET_ACTIVE_USER', {username: "username", password: "password"})
     // ^^^ Comment out this line before production ^^^
-
-    if (this.activeUser === null) {
-      this.$router.push('/signin')
+    if (this.user == null || this.user == 'undefined') {
+      this.$router.push("/signin")
+    } else{
+      this.$router.push("/")
     }
+  },
+
+  computed: {
+    ...mapState([
+      'user',
+    ]),
   },
 
   data() {
     return {
       onMobile: Boolean,
       iconSize: "xs",
-      icon: "user"
+      icon: "user",
+      currentUser: null,
+      pageOffset: window.pageYOffset,
+    }
+  },
+
+  watch: {
+    pageOffset(newPos, oldPos) {
+      if (newPos > oldPos) {
+        document.getElementById("nav").style.top = "-70px";
+      } else {
+        document.getElementById("nav").style.top = "0";
+      }
     }
   },
 
@@ -39,13 +59,25 @@ export default {
     window.addEventListener('resize', () => {
       this.onMobile = (window.innerWidth < DESKTOP_BP)
     })
+
+    // Scroll eventlistener
+    window.addEventListener("scroll", this.onScroll)
   },
 
-  computed: {
-    ...mapState([
-      'activeUser'
-    ]),
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.onScroll, true)
+  },
+
+  methods: {
+    onScroll() {
+      this.pageOffset = window.pageYOffset
+    },
+    signOut(){
+      this.$store.dispatch('signOut');
+      this.$router.push("/signin")
+    }  
   }
+
 }
 </script>
 <style>
@@ -54,9 +86,11 @@ export default {
 <style scoped>
 #nav {
   position: fixed;
+  top: 0;
   background-color: #102c40;
   height: 70px;
   width: 100vw;
+  transition: top 0.2s;
 }
 
 #item-container {

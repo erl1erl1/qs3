@@ -2,8 +2,9 @@ import axios from 'axios';
 import { createStore as vuexCreateStore } from 'vuex'
 import authService from '../services/auth.service';
 import authHeader from '../services/header-token';
+import createPersistedState from 'vuex-persistedstate';
 
-const user = localStorage.getItem('token');
+const user = localStorage.getItem('user');
 const initialState = user
   ? {status: { loggedIn: true }, user, subject: null}
   : {status: { loggedIn: false }, user: null, subject: null};
@@ -11,6 +12,7 @@ const initialState = user
 // Helpers
 const storeConfiguration = {
   state: initialState,
+
   mutations: {
     SIGN_IN_SUCCESS(state, user){
       state.status.loggedIn = true;
@@ -68,6 +70,11 @@ const storeConfiguration = {
       )
     },
 
+    signOut(context){
+      authService.signOut();
+      context.commit('SIGN_OUT');
+    },
+
     setSubject(context, payload){
       return axios.get("http://localhost:8080/subjects/" + payload.subjectCode, {headers: authHeader()}).then(
         response => {
@@ -95,6 +102,10 @@ const storeConfiguration = {
 
     deleteQueueItem(context, payload){  
       return axios.delete("http://localhost:8080/queues/" + payload.subjectCode + "/" + payload.personId, { headers: authHeader() });
+    },
+
+    submitQueueItem(context, payload){
+      return axios.post("http://localhost:8080/queues", payload, { headers: authHeader() })
     }
   },
 
@@ -110,8 +121,7 @@ const storeConfiguration = {
     }
   },
 
-  modules: {
-  }
+  plugins: [createPersistedState()]
 }
 
 const defaultOverrides = {

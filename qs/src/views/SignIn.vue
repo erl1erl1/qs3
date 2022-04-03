@@ -3,13 +3,10 @@
   <div class="form-container">
     <h1>Pålogging</h1>
     <Form @submit="onSubmit" v-slot="{ meta }">
-
       <TextInput label="Brukernavn" name="username" placeholder="brukernavn" type="text"
                  rules="required|alpha_num" error-message="Brukernavn kan ikke inneholde spesielle tegn" validate-on-input/>
-
       <TextInput label="Passord" name="password" placeholder="passord" type="password"
                  rules="required" error-message="Du må skrive et passord" validate-on-input/>
-
       <button :disabled="!(meta.valid)">Logg inn</button>
     </Form>
     <p v-if="!this.correctPassword" style="color: red">Feil brukernavn eller passord</p>
