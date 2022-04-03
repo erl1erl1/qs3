@@ -4,9 +4,9 @@
     <Form>
       <div class="input-container">
         <label>Fagkode</label>
-        <Field class="input" rules="required|alpha_num" name="subjectCodeSave" type="number" placeholder="Fagkode" validateOnInput/>
+        <Field rules="required|alpha_num" name="subjectCodeSave" type="number" placeholder="Fagkode" validateOnInput/>
       </div>
-      <button class="button">Slett</button>
+      <button>Slett</button>
     </Form>
     <hr/>
   </div>

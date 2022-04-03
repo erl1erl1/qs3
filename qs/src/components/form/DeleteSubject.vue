@@ -4,7 +4,7 @@
     <Form @submit="onSubmit" v-slot="{ meta }">
       <div class="input-container">
         <label>Fagkode</label>
-        <Field class="input" rules="required|alpha_num" name="subjectCode" type="alpha_num" placeholder="Fagkode" validateOnInput/>
+        <Field rules="required|alpha_num" name="subjectCode" type="alpha_num" placeholder="Fagkode" validateOnInput/>
       </div>
       <button class="button" :disabled="!(meta.valid)">Slett</button>
     </Form>
