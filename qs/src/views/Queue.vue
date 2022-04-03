@@ -2,10 +2,11 @@
   <div id="container">
     <div v-show="showJoinQueue" id="jq-container">
       <div id="jq-bg" @click="toggleJoinQueue"></div>
-      <JoinQueue :task-amount=taskAmount />
+      <JoinQueue :task-amount="getActiveSubject.assignments" :personId="getUser.personId" :subjectCode="getActiveSubject.subjectCode" />
     </div>
     <div id="header">
-      <h2>{{ this.subjectCode }}</h2>
+      <h2>{{ getActiveSubject.subjectCode }}</h2>
+      <h2>{{ getActiveSubject.subjectName }}</h2>
     </div>
     <hr>
     <section>
@@ -14,7 +15,7 @@
       <div  id="size-nums">
         <div v-if="inQueue">
           <font-awesome-icon icon="hashtag" size="4x"/>
-          <p class="pos-num">{{  this.queueItems.map(function(e) { return e.personId}).indexOf(this.currentUser.personId)  }} / {{  this.queueItems.length  }}</p>
+          <p class="pos-num">{{  this.queueItems.map(function(e) { return e.personId}).indexOf(this.currentUser.personId) + 1  }} / {{  this.queueItems.length  }}</p>
         </div>
         <p v-else class="pos-num">{{  this.queueItems.length  }}</p>
       </div>
@@ -49,13 +50,13 @@ export default {
       subjectCode: null,
       currentUser: null,
       showJoinQueue: false,
-      taskAmount: 8,
     }
   },
 
   computed: {
     ...mapGetters([
       'getUser',
+      'getActiveSubject'
     ]),
   },
 
@@ -66,6 +67,7 @@ export default {
   },
 
   created() {
+    this.getQueue();
     setInterval(() =>
       this.updateQueue(), 15000);
   },
@@ -80,14 +82,9 @@ export default {
         this.checkIfUserInQueue();
         return;
       }
-
-      //Check if current user is in queue
-      //<QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17 min" task="2" type="Godkjenning" position="2"/>
-      //<QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7 min" task=5 type="Hjelp" position="3"/>
-      //<QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1 min" task="2" type="Godkjenning" position="4"/>
     },
     async setUser(){
-      await this.$store.dispatch('getUser').then(resp => this.currentUser = resp);
+      this.currentUser = await this.$store.dispatch('getUser')
     },
     async deleteQueueItem(){
       let details = {
@@ -96,10 +93,10 @@ export default {
       }
       await this.$store.dispatch('deleteQueueItem', details);
       this.updateQueue();
+      this.inQueue = false;
     },
     async getQueue(){
       await this.$store.dispatch('getQueue').then(resp => this.queueItems = resp.data);
-      this.subjectCode = this.queueItems[0].subjectCode;
     },
     async getNames(){
       for(let i = 0; i < this.queueItems.length; i++){
@@ -118,18 +115,6 @@ export default {
         this.inQueue = false;
       }
     },
-
-    onSubmit(value){
-      const queueItem = {
-        "personId": this.currentUser.personId,
-        "subjectCode": this.subjectCode,
-        "assignmentId": value.assignmentId,
-        "location": value.location,
-        "type": value.type
-      }
-      console.log(queueItem)
-    },
-
     toggleJoinQueue() {
       this.showJoinQueue = !this.showJoinQueue
     }

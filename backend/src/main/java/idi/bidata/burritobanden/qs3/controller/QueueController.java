@@ -20,7 +20,7 @@ public class QueueController {
             @Valid @RequestBody Queue queue)
     {
         queue.setTime(LocalTime.now().toString());
-        queue.setApproved(false);
+        queue.setBeingHelped(false);
         return queueService.saveQueue(queue);
     }
 
