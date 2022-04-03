@@ -30,7 +30,18 @@ export default {
     return {
       onMobile: Boolean,
       iconSize: "xs",
-      icon: "user"
+      icon: "user",
+      pageOffset: window.pageYOffset,
+    }
+  },
+
+  watch: {
+    pageOffset(newPos, oldPos) {
+      if (newPos > oldPos) {
+        document.getElementById("nav").style.top = "-70px";
+      } else {
+        document.getElementById("nav").style.top = "0";
+      }
     }
   },
 
@@ -39,13 +50,27 @@ export default {
     window.addEventListener('resize', () => {
       this.onMobile = (window.innerWidth < DESKTOP_BP)
     })
+
+    // Scroll eventlistener
+    window.addEventListener("scroll", this.onScroll)
+  },
+
+  beforeUnmount() {
+    window.removeEventListener("scroll", this.onScroll, true)
   },
 
   computed: {
     ...mapState([
       'activeUser'
     ]),
+  },
+
+  methods: {
+    onScroll() {
+      this.pageOffset = window.pageYOffset
+    }
   }
+
 }
 </script>
 <style>
@@ -54,9 +79,11 @@ export default {
 <style scoped>
 #nav {
   position: fixed;
+  top: 0;
   background-color: #102c40;
   height: 70px;
   width: 100vw;
+  transition: top 0.2s;
 }
 
 #item-container {

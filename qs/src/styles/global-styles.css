@@ -37,8 +37,7 @@ label {
 
 input, .input, select, .select {
     outline: none;
-    border-style: solid;
-    border-color: lightgray;
+    border: solid 1px lightgray;
     border-radius: 5px;
     text-decoration: none;
     min-height: 35px;
@@ -77,6 +76,7 @@ button:disabled, .button:disabled, button:disabled:hover, .button:disabled:hover
 }
 
 select, .select {
+    height: 40px;
     position: relative;
     color: #102c40;
 }

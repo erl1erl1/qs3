@@ -6,14 +6,14 @@
                  rules="required|alpha_num" error-message="Du må skrive et brukernavn"/>
       <div class="input-container">
         <label>Rolle</label>
-        <Field as="select" name="role" rules="required" validateOnInput>
+        <Field as="select" class="input select" name="role" rules="required" validateOnInput>
           <option value="Student" selected>Student</option>
           <option value="Øvingslærer">Øvingslærer</option>
           <option value="Emneansvarlig">Emneansvarlig</option>
         </Field>
       </div>
 
-      <button :disabled="!(meta.valid)">Gi rettigheter</button>
+      <button class="button" :disabled="!(meta.valid)">Gi rettigheter</button>
     </Form>
     <p v-if="this.SUBMIT_FAIL" style="color: red">Klarte ikke å legge til</p>
     <hr/>
