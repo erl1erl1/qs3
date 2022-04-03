@@ -12,7 +12,6 @@
       <TextInput label="Bekreft passord" name="confirm" placeholder="passord" type="password"
                  rules="required|confirmed:@password" error-message="Passordene samstemmer ikke" validate-on-input
       />
-
       <button :disabled="!(meta.valid)">Registrer deg</button>
     </Form>
     <p style="margin-bottom: 10px">Har du allerede en bruker? <router-link as="a" class="link" to="/signin">Log inn</router-link></p>

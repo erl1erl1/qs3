@@ -50,7 +50,11 @@ input, select {
     padding: 2px 0 2px 0;
 }
 
-button {
+input[type=file] {
+    border: none;
+}
+
+button, .button, input[type=file]::file-selector-button {
     padding: 10px 15px 10px 15px;
     background-color: #f7a81b;
     border: none;
@@ -93,7 +97,6 @@ select {
     width: 300px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: left;
 }
 
 .logo {
