@@ -10,8 +10,7 @@
       <TextInput label="Passord" name="password" placeholder="passord" type="password"
                  rules="required" error-message="Passord kan ikke være tomt"/>
       <TextInput label="Bekreft passord" name="confirm" placeholder="passord" type="password"
-                 rules="required|confirmed:@password" error-message="Passordene samstemmer ikke" validate-on-input
-      />
+                 rules="required|confirmed:@password" error-message="Passordene samstemmer ikke" validate-on-input/>
 
       <button :disabled="!(meta.valid)">Registrer deg</button>
     </Form>
