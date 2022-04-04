@@ -1,8 +1,10 @@
 package idi.bidata.burritobanden.qs3.person.subject;
 
 import com.opencsv.CSVReader;
+import idi.bidata.burritobanden.qs3.entity.Assignment;
 import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.entity.Subject;
+import idi.bidata.burritobanden.qs3.person.assignment.AssignmentService;
 import idi.bidata.burritobanden.qs3.repository.SubjectRepository;
 import idi.bidata.burritobanden.qs3.person.person.PersonService;
 import org.slf4j.Logger;
@@ -15,6 +17,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

@@ -10,6 +10,9 @@ public interface AssignmentService {
     // Save operation
     Assignment saveAssignment(Assignment assignment);
 
+    // Give assignments
+    void updateAssignments(String subjectCode);
+
     // Read operation
     List<Assignment> fetchAssignmentList();
 

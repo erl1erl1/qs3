@@ -22,7 +22,7 @@
 <script>
 import {Form} from 'vee-validate'
 import axios from "axios";
-import  authHeaderCSV from "../../services/header-token";
+import authHeader, { authHeaderCSV }  from "../../services/header-token";
 import TextInput from "@/components/form/TextInput";
 
 export default {
@@ -60,6 +60,8 @@ export default {
         this.SUBMIT_FAIL = true;
         console.log(error)
       })
+
+      axios.get("http://localhost:8080/assignments/update/" + value.SubjectCode, { headers: authHeader() });
     },
 
     handleFile({ target: { files } }) {
