@@ -15,7 +15,7 @@
       <div>
         <div v-if="inQueue" id="size-nums">
           <font-awesome-icon icon="hashtag" size="4x"/>
-          <p class="pos-num">{{  this.queueItems.map(function(e) { return e.personId}).indexOf(this.currentUser.personId) + 1  }} / {{  this.queueItems.length  }}</p>
+          <p class="pos-num">{{  this.queueItems.map(function(e) { return e.personId}).indexOf(this.currentUser.personId) + 1  }}/{{  this.queueItems.length  }}</p>
         </div>
         <p v-else class="pos-num">{{  this.queueItems.length  }}</p>
       </div>

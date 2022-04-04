@@ -19,9 +19,6 @@ import { DESKTOP_BP } from "@/utils/constants";
 
 export default {
   created() {
-    // this.$store.commit('SET_ACTIVE_USER', {username: "username", password: "password"})
-    // ^^^ Comment out this line before production ^^^
-
     if (this.user == null || this.user === 'undefined') {
       this.$router.push("/signin")
     }
