@@ -5,7 +5,11 @@ import idi.bidata.burritobanden.qs3.person.queue.QueueService;
 import java.time.LocalTime;
 import java.util.List;
 import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class QueueController {
 
     @Autowired private QueueService queueService;
+    Logger logger = LoggerFactory.getLogger("LOGGER");
 
     // Save operation
     @PostMapping("/queues")
@@ -20,7 +25,7 @@ public class QueueController {
             @Valid @RequestBody Queue queue)
     {
         queue.setTime(LocalTime.now().toString());
-        queue.setApproved(false);
+        queue.setBeingHelped(false);
         return queueService.saveQueue(queue);
     }
 
@@ -53,5 +58,11 @@ public class QueueController {
     {
         queueService.deleteQueue(subjectCode, personId);
         return "Deleted Successfully";
+    }
+
+    @PostMapping("/queues/{subjectCode}/{personId}")
+    public void setGettingHelp(@PathVariable("subjectCode") String subjectCode, @PathVariable("personId") Long personId)
+    {
+        queueService.setGettingHelp(subjectCode, personId);
     }
 }

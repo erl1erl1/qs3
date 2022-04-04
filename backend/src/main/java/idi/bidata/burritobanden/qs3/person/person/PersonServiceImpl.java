@@ -22,7 +22,6 @@ public class PersonServiceImpl implements PersonService {
     // Saves a person entity in the person repository.
     @Override
     public Person createPerson(Person person) {
-        // If exists
         Person existingPerson = personRepository.getByUsername(person.getUsername());
         return existingPerson != null ? existingPerson : personRepository.save(person);
     }

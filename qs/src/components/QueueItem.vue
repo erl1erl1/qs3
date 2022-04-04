@@ -6,7 +6,7 @@
       <section>
         <div class="field">
           <font-awesome-icon icon="list-check" class="field-icon" size="sm"/>
-          <p>Øving{{ task }}</p>
+          <p>{{ task }}</p>
         </div>
         <div class="field">
           <font-awesome-icon icon="handshake" class="field-icon" size="sm"/>
@@ -25,20 +25,21 @@
       </section>
     </div>
   </div>
-  <div id="item-position" @click="toggleToolBox">
+  <div id="item-position">
     <font-awesome-icon id="leave" icon="hashtag" size="lg"/>
     <p id="item-num">{{ position }}</p>
   </div>
-  <div v-show="toolsOpen" id="tools">
-    <font-awesome-icon id="check" icon="square-check" size="2x"/>
-    <font-awesome-icon v-if="gettingHelp" id="hand" icon="circle-stop" size="2x"/>
-    <font-awesome-icon v-else id="hand" icon="hand-holding-medical" size="2x"/>
-    <font-awesome-icon id="x-mark" icon="right-from-bracket" size="2x"/>
+  <div v-show="isAssistant" id="tools">
+    <font-awesome-icon id="check" icon="square-check" size="2x" @click="approveAssignment"/>
+    <font-awesome-icon v-if="gettingHelp" id="hand" icon="circle-stop" size="2x" @click="setHelping"/>
+    <font-awesome-icon v-else id="hand" icon="hand-holding-medical" size="2x" @click="setHelping"/>
+    <font-awesome-icon id="x-mark" icon="right-from-bracket" size="2x" @click="approveAssignment"/>
   </div>
 </div>
 </template>
 
-<script>
+<script>import { mapGetters } from "vuex"
+
 export default {
   name: "QueueItem",
 
@@ -56,20 +57,33 @@ export default {
     type: String,
     position: Number,
     gettingHelp: Boolean,
-    isAssistant: Boolean
+    isAssistant: Boolean,
+    personId: Number
   },
 
-  data() {
-    return {
-      toolsOpen: false
-    }
+  computed: {
+    ...mapGetters([
+      'getActiveSubject'
+    ])
   },
 
   methods: {
-    toggleToolBox() {
-      if (this.isAssistant) {
-        this.toolsOpen = !this.toolsOpen
+    async approveAssignment(){
+      let details = {
+        "subjectCode": this.getActiveSubject.subjectCode,
+        "personId": this.personId
       }
+      await this.$store.dispatch('deleteQueueItem', details);
+      this.$emit("clickFromQueueItem");
+      // set approved i db
+    },
+    async setHelping(){
+      let details = {
+        "subjectCode": this.getActiveSubject.subjectCode,
+        "personId": this.personId
+      }
+      await this.$store.dispatch('setHelping', details);
+      this.$emit("clickFromQueueItem");
     }
   }
 }

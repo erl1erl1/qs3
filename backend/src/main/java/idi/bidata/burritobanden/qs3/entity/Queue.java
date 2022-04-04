@@ -29,5 +29,5 @@ public class Queue {
     private Long assignmentId;
     private String location;
     private String type;
-    private boolean approved;
+    private boolean beingHelped;
 }

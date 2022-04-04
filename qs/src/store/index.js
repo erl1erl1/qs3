@@ -4,7 +4,7 @@ import authService from '../services/auth.service';
 import authHeader from '../services/header-token';
 import createPersistedState from 'vuex-persistedstate';
 
-const user = localStorage.getItem('user');
+const user = sessionStorage.getItem('user');
 const initialState = user
   ? {status: { loggedIn: true }, user, subject: null}
   : {status: { loggedIn: false }, user: null, subject: null};
@@ -76,7 +76,7 @@ const storeConfiguration = {
     },
 
     setSubject(context, payload){
-      return axios.get("http://localhost:8080/subjects/" + payload.subjectCode, {headers: authHeader()}).then(
+      return axios.get("http://localhost:8080/subjects/" + payload.subjectCode, { headers: authHeader() }).then(
         response => {
           context.commit('SET_SUBJECT', response.data);
           return Promise.resolve(response.data);
@@ -89,15 +89,15 @@ const storeConfiguration = {
     },
 
     getQueue(context){
-      return axios.get("http://localhost:8080/queues/" + context.state.subject.subjectCode, { headers: authHeader() }).then(resp => resp);
+      return axios.get("http://localhost:8080/queues/" + context.state.subject.subjectCode, { headers: authHeader(), }).then(resp => resp);
     },
 
     getName(context, userId){
       return axios.get("http://localhost:8080/persons/" + userId + "/name", { headers: authHeader() }).then(resp => resp.data);
     },
 
-    getUser(context){
-      return context.state.user;
+    getUserId(context, username){
+      return axios.get("http://localhost:8080/persons/" + username + "/id",  { headers: authHeader() }).then(resp => resp.data);
     },
 
     deleteQueueItem(context, payload){  
@@ -106,6 +106,15 @@ const storeConfiguration = {
 
     submitQueueItem(context, payload){
       return axios.post("http://localhost:8080/queues", payload, { headers: authHeader() })
+    },
+
+    setHelping(context, payload){
+      var config = {
+        method: 'post',
+        url: 'http://localhost:8080/queues/' + payload.subjectCode + '/' + payload.personId,
+        headers: authHeader()
+      };
+      return axios(config);
     }
   },
 

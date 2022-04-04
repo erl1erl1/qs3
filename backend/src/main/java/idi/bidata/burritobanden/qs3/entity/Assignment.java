@@ -32,4 +32,6 @@ public class Assignment {
 
     @Column(name = "assignment_num", nullable = false)
     private int assignmentNum;
+
+    private boolean approved;
 }

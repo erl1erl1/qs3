@@ -2,34 +2,34 @@
   <div id="container">
     <div v-show="showJoinQueue" id="jq-container">
       <div id="jq-bg" @click="toggleJoinQueue"></div>
-      <JoinQueue :task-amount=taskAmount />
+      <JoinQueue :task-amount="getActiveSubject.assignments" :personId="getUser.personId" :subjectCode="getActiveSubject.subjectCode" />
     </div>
     <div id="header">
-      <h2>{{ this.subjectCode }}</h2>
+      <h2>{{ getActiveSubject.subjectCode }}</h2>
+      <h2>{{ getActiveSubject.subjectName }}</h2>
     </div>
     <hr>
     <section>
       <p v-if="inQueue">Din posisjon:</p>
-      <p v-else>Antall personer i køen:</p>
+        <p v-else>Antall personer i køen:</p>
       <div  id="size-nums">
         <div v-if="inQueue">
           <font-awesome-icon icon="hashtag" size="4x"/>
-          <p class="pos-num">{{  this.queueItems.map(function(e) { return e.personId}).indexOf(this.currentUser.personId)  }} / {{  this.queueItems.length  }}</p>
+          <p class="pos-num">{{  this.queueItems.map(function(e) { return e.personId}).indexOf(this.currentUser.personId) + 1  }} / {{  this.queueItems.length  }}</p>
         </div>
         <p v-else class="pos-num">{{  this.queueItems.length  }}</p>
       </div>
     </section>
     <section id="buttons">
-      <button v-if="!inQueue" class="button" id="join" @click="toggleJoinQueue">Bli med i kø</button>
-      <button v-else class="button" id="leave" @click="deleteQueueItem">Forlat kø</button>
-      <button class="button">Øvinger</button>
+      <button v-if="!inQueue" class="button" id="join" @click="toggleJoinQueue" :disabled="isAssistant">Bli med i kø</button>
+      <button v-else class="button" id="leave" @click="deleteQueueItem" :disabled="isAssistant">Forlat kø</button>
+      <button class="button" :disabled="isAssistant">Øvinger</button>
     </section>
     <section id="queue">
-      <QueueItem v-for="(q, index) in queueItems" v-bind:key="q.personId"
-                 :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type" :position="index+1"/>
-      <QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17" task="2" type="Godkjenning" position="2" getting-help is-assistant/>
-      <QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7" task=5 type="Hjelp" position="3" is-assistant/>
-      <QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1" task="2" type="Godkjenning" position="4" is-assistant/>
+      <QueueItem v-for="(q, index) in queueItems" v-bind:key="this.componentKey + index"
+                 :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type" 
+                 :position="index+1" :getting-help="q.beingHelped" :is-assistant="isAssistant" :personId="q.personId"
+                 @clickFromQueueItem="updateQueue"/>
     </section>
   </div>
 </template>
@@ -52,13 +52,15 @@ export default {
       subjectCode: null,
       currentUser: null,
       showJoinQueue: false,
-      taskAmount: 8,
+      isAssistant: false,
+      componentKey: 0,
     }
   },
 
   computed: {
     ...mapGetters([
       'getUser',
+      'getActiveSubject'
     ]),
   },
 
@@ -66,9 +68,11 @@ export default {
     this.setUser();
     this.getQueue();
     this.updateQueue();
+    this.isAssistant = this.getUser.role === 'Øvingslærer';
   },
 
   created() {
+    this.getQueue();
     setInterval(() =>
       this.updateQueue(), 15000);
   },
@@ -81,36 +85,36 @@ export default {
         this.queueItems = this.newQueueItems;
         this.getNames();
         this.checkIfUserInQueue();
+        console.log(this.queueItems[0].beingHelped)
+        this.forceUpdate();
         return;
       }
-
-      //Check if current user is in queue
-      //<QueueItem name="Nicolai Thorer Sivesind" location="Bord 3" queue-time="17 min" task="2" type="Godkjenning" position="2"/>
-      //<QueueItem name="Erlend Rønning" location="Bord 14" queue-time="7 min" task=5 type="Hjelp" position="3"/>
-      //<QueueItem name="Aleksander Brekke Røed" location="Bord 3" queue-time="1 min" task="2" type="Godkjenning" position="4"/>
     },
     async setUser(){
-      await this.$store.dispatch('getUser').then(resp => this.currentUser = resp);
+      this.currentUser = this.getUser;
     },
 
     async deleteQueueItem(){
       let details = {
-        "subjectCode": this.subjectCode,
+        "subjectCode": this.getActiveSubject.subjectCode,
         "personId": this.currentUser.personId
       }
       await this.$store.dispatch('deleteQueueItem', details);
       this.updateQueue();
+      this.inQueue = false;
     },
     async getQueue(){
       await this.$store.dispatch('getQueue').then(resp => this.queueItems = resp.data);
-      this.subjectCode = this.queueItems[0].subjectCode;
     },
     async getNames(){
       for(let i = 0; i < this.queueItems.length; i++){
-          if(!(typeof this.queueItems[i].name == 'string')){
-            await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => this.queueItems[i].name = resp);
-          }
+        if(!(typeof this.queueItems[i].name == 'string')){
+          await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => this.queueItems[i].name = resp);
         }
+      } 
+    },
+    forceUpdate(){
+      this.componentKey++;
     },
 
     checkIfUserInQueue(){
@@ -122,18 +126,6 @@ export default {
         this.inQueue = false;
       }
     },
-
-    onSubmit(value){
-      const queueItem = {
-        "personId": this.currentUser.personId,
-        "subjectCode": this.subjectCode,
-        "assignmentId": value.assignmentId,
-        "location": value.location,
-        "type": value.type
-      }
-      console.log(queueItem)
-    },
-
     toggleJoinQueue() {
       this.showJoinQueue = !this.showJoinQueue
     }

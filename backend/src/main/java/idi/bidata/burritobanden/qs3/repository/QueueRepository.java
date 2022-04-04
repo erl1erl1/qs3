@@ -19,6 +19,8 @@ import java.util.List;
 public interface QueueRepository extends JpaRepository<Queue, Long> {
     List<Queue> findAllBySubjectCode(String subjectCode);
 
+    Queue findBySubjectCodeAndPersonId(String subjectCode, Long personId);
+
     @Modifying
     @Transactional
     @Query(value = "DELETE from Queue q WHERE q.subjectCode = :subjectCode AND q.personId = :personId")

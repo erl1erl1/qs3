@@ -22,7 +22,6 @@ public class PersonController {
     public Person saveUser(
             @Valid @RequestBody Person person)
     {
-        logger.info("New request: " + person);
         return personService.createPerson(person);
     }
 
@@ -49,6 +48,13 @@ public class PersonController {
     public String getName(@PathVariable Long id){
         Person person = personService.findPersonById(id);
         return person.getName();
+    }
+
+    // Get operation. Returns a persons name, based on the id.
+    @GetMapping("/persons/{username}/id")
+    public Long getName(@PathVariable String username){
+        Person person = personService.findPersonByUsername(username);
+        return person.getPersonId();
     }
 
 

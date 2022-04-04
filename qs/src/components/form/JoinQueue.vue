@@ -1,52 +1,69 @@
 <template>
 <div id="jq">
   <h2>Bli med i kø</h2>
-  <Form :initial-values="initialValues">
+  <Form>
     <div class="input-container">
       <label>Øving</label>
-      <Field as="select" class="input select" name="task" rules="required">
-        <option v-for="taskNum in taskAmount" :value="'Øving ' + taskNum" :key=taskNum>Øving {{ taskNum }}</option>
-      </Field>
+      <select class="input select" v-model="task" name="task" rules="required">
+        <option v-for="taskNum in taskAmount" :value= "taskNum" :key=taskNum>Øving {{ taskNum }}</option>
+      </select>
     </div>
     <div class="input-container">
       <label>Type hjelp</label>
-      <Field name="type" as="select" class="input select"  rules="required">
+      <select name="queueType" v-model="queueType" class="input select" rules="required">
         <option value="Godkjenning">Godkjenning</option>
         <option value="Veiledning">Veiledning</option>
-      </Field>
+      </select>
     </div>
     <div class="input-container">
       <label>Plassering</label>
-      <Field name="location" as="select" class="input select" rules="required">
-        <option value="Discord">Discord</option>
-      </Field>
+      <select name="location" v-model="location" class="input select" rules="required">
+        <option>Discord</option>
+        <option v-for="n in 18" :key="n">{{n}}</option>
+      </select>
     </div>
-    <button class="input button">Bli med i kø</button>
+    <button class="input button" @click="onSubmit">Bli med i kø</button>
   </Form>
 </div>
 </template>
 
 <script>
-import { Form, Field } from 'vee-validate'
+import { Form } from 'vee-validate'
 
 export default {
   name: "JoinQueue",
   components: {
     Form,
-    Field
   },
 
   props: {
-    taskAmount: Number
+    taskAmount: Number,
+    personId: Number,
+    subjectCode: String
   },
 
   data() {
     return {
-      initialValues: {
-        task: "Øving 1",
-        type: "Godkjenning",
-        location: "Discord",
+      task: "",
+      queueType: "",
+      location: "",
+    }
+  },
+
+  methods: {
+    async onSubmit(){
+      const queueItem = {
+        "personId": this.personId,
+        "subjectCode": this.subjectCode,
+        "assignmentId": this.task,
+        "location": this.location,
+        "type": this.queueType
       }
+      
+      await this.$store.dispatch('submitQueueItem', queueItem);
+      this.$router.push("/queue");
+      console.log(queueItem);
+      
     }
   }
 }

@@ -9,6 +9,8 @@ import java.util.List;
 public interface QueueService {
     Queue saveQueue(Queue queue);
 
+    void setGettingHelp(String subjectCode, Long personId);
+
     List<Queue> fetchQueueList();
 
     List<Queue> getQueueByCode(String subjectCode);

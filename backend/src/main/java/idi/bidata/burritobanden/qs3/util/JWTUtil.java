@@ -18,7 +18,7 @@ import java.util.function.Function;
 public class JWTUtil {
 
     private final String SECRET = "asdhasdhasdhasdhasdhasdhasdhasdhasdhasdhasdhas";
-    private final int TOKEN_EXPIRATION_TIME = 1000 * 60 * 60 * 10;
+    private final int TOKEN_EXPIRATION_TIME = 1000 * 60 * 60 * 30;
 
     public String extractUsername(String token){
         return extractClaim(token, Claims::getSubject);
