@@ -60,6 +60,9 @@ public class QueueController {
         return "Deleted Successfully";
     }
 
+    /*
+    Updates weather a student gets help or not.
+     */
     @PostMapping("/queues/{subjectCode}/{personId}")
     public void setGettingHelp(@PathVariable("subjectCode") String subjectCode, @PathVariable("personId") Long personId)
     {

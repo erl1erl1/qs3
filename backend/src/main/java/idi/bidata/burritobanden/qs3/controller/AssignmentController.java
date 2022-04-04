@@ -4,9 +4,6 @@ import idi.bidata.burritobanden.qs3.entity.Assignment;
 import idi.bidata.burritobanden.qs3.person.assignment.AssignmentService;
 import java.util.List;
 import javax.validation.Valid;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 public class AssignmentController {
 
-    Logger logger = LoggerFactory.getLogger("LOGGER");
 
     @Autowired private AssignmentService assignmentService;
 
@@ -45,12 +41,18 @@ public class AssignmentController {
         return "Deleted Successfully";
     }
 
+    /*
+    Gives students assignments based on what subject.
+     */
     @PostMapping("/assignments/{personId}/{subjectCode}")
     public Assignment giveStudentAssignments(@PathVariable("personId") Long personId,
                                              @PathVariable("subjectCode") String subjectCode) {
         return assignmentService.giveStudentAssignments(personId, subjectCode);
     }
 
+    /*
+    Used to approve students assignments.
+     */
     @PostMapping("/assignments/{personId}/{subjectCode}/{assignmentNumber}")
     public Assignment approveAssignment(@PathVariable("personId") Long personId,
                                         @PathVariable("subjectCode") String subjectCode,
