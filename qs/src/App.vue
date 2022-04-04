@@ -3,7 +3,7 @@
     <div id="item-container">
       <img alt="logo" src="@/assets/qs-light.svg" id="nav-logo"/>
       <div id="user">
-        <font-awesome-icon id="user-icon" :icon="icon" :size="iconSize" fixed-width @click="signOut"/>
+        <font-awesome-icon id="log-out" :icon="icon" :size="iconSize" fixed-width @click="signOut"/>
         <p v-if="this.user" style="color: #f7a81b">{{this.user.name}}</p>
         <p v-else></p>
       </div>
@@ -34,7 +34,7 @@ export default {
     return {
       onMobile: Boolean,
       iconSize: "xs",
-      icon: "user",
+      icon: "right-from-bracket",
       currentUser: null,
       pageOffset: window.pageYOffset,
     }
@@ -108,7 +108,8 @@ export default {
   cursor: pointer;
 }
 
-#user-icon {
+#log-out {
+  color: #bd2452;
   align-self: center;
   margin: 0 3px 0 3px;
 }
