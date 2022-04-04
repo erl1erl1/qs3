@@ -30,6 +30,13 @@ public class QueueServiceImpl implements QueueService{
         return queueRepository.save(queue);
     }
 
+    @Override
+    public void setGettingHelp(String subjectCode, Long personId) {
+        Queue queue = queueRepository.findBySubjectCodeAndPersonId(subjectCode, personId);
+        queue.setBeingHelped(!queue.isBeingHelped());
+        queueRepository.save(queue);
+    }
+
     // Fetches list of Queues.
     @Override
     public List<Queue> fetchQueueList() {

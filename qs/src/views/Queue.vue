@@ -26,9 +26,10 @@
       <button class="button" :disabled="isAssistant">Øvinger</button>
     </section>
     <section id="queue">
-      <QueueItem v-for="(q, index) in queueItems" v-bind:key="q.personId"
+      <QueueItem v-for="(q, index) in queueItems" v-bind:key="this.componentKey + index"
                  :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type" 
-                 :position="index+1" :getting-help="q.beingHelped" :is-assistant="isAssistant" :personId="q.personId"/>
+                 :position="index+1" :getting-help="q.beingHelped" :is-assistant="isAssistant" :personId="q.personId"
+                 @clickFromQueueItem="updateQueue"/>
     </section>
   </div>
 </template>
@@ -51,7 +52,8 @@ export default {
       subjectCode: null,
       currentUser: null,
       showJoinQueue: false,
-      isAssistant: false
+      isAssistant: false,
+      componentKey: 0,
     }
   },
 
@@ -72,7 +74,7 @@ export default {
   created() {
     this.getQueue();
     setInterval(() =>
-      this.updateQueue(), 5000);
+      this.updateQueue(), 15000);
   },
 
   methods: {
@@ -83,6 +85,8 @@ export default {
         this.queueItems = this.newQueueItems;
         this.getNames();
         this.checkIfUserInQueue();
+        console.log(this.queueItems[0].beingHelped)
+        this.forceUpdate();
         return;
       }
     },
@@ -103,10 +107,13 @@ export default {
     },
     async getNames(){
       for(let i = 0; i < this.queueItems.length; i++){
-          if(!(typeof this.queueItems[i].name == 'string')){
-            await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => this.queueItems[i].name = resp);
-          }
+        if(!(typeof this.queueItems[i].name == 'string')){
+          await this.$store.dispatch('getName', this.queueItems[i].personId).then(resp => this.queueItems[i].name = resp);
         }
+      } 
+    },
+    forceUpdate(){
+      this.componentKey++;
     },
 
     checkIfUserInQueue(){
