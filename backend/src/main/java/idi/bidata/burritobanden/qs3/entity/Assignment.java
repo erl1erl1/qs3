@@ -1,11 +1,13 @@
 package idi.bidata.burritobanden.qs3.entity;
 
 import javax.persistence.*;
-
+import idi.bidata.burritobanden.qs3.model.compositeKeys.AssignmentKey;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.io.Serializable;
+import java.util.List;
 
 /**
  * The Assignment entity represents an assignment, "øving", in the backend. Lombok tags are used for constructor,
@@ -13,25 +15,21 @@ import lombok.NoArgsConstructor;
  */
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
-@Table(name = "assignment")
-public class Assignment {
-    // Generate id for the object and define it as the primary key.
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "assignment_id", nullable = false)
-    private Long assignmentId;
+@NoArgsConstructor
+@Table(name = "ASSIGNMENTS")
+@IdClass(AssignmentKey.class)
+public class Assignment implements Serializable {
 
+    @Id
     @Column(name = "person_id")
     private Long personId;
 
-    @Column(name = "subject_id", nullable = false)
-    private Long subjectId;
+    @Id
+    @Column(name = "subject_code")
+    private String subjectCode;
 
-    @Column(name = "assignment_num", nullable = false)
-    private int assignmentNum;
+    @ElementCollection
+    private List<Boolean> assignments;
 
-    private boolean approved;
 }
