@@ -88,10 +88,11 @@ export default {
     },
     async setUser(){
       this.currentUser = await this.$store.dispatch('getUser')
+      console.log(this.currentUser)
     },
     async deleteQueueItem(){
       let details = {
-        "subjectCode": this.subjectCode,
+        "subjectCode": this.getActiveSubject.subjectCode,
         "personId": this.currentUser.personId
       }
       await this.$store.dispatch('deleteQueueItem', details);
