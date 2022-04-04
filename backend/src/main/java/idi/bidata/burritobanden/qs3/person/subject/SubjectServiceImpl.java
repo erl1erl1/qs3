@@ -129,8 +129,8 @@ public class SubjectServiceImpl implements SubjectService{
 
             while ((nextRecord = csvReader.readNext()) != null) {
                 Person person = new Person();
-                person.setName(nextRecord[1] + " " + nextRecord[0]);
-                person.setUsername(nextRecord[2].split("@")[0]);
+                person.setName(nextRecord[1].trim() + " " + nextRecord[0].trim());
+                person.setUsername(nextRecord[2].split("@")[0].trim());
                 person.setPassword("1");
                 person.setRole("student");
                 System.out.println(person);

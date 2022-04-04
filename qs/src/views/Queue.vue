@@ -12,8 +12,8 @@
     <section>
       <p v-if="inQueue">Din posisjon:</p>
         <p v-else>Antall personer i køen:</p>
-      <div  id="size-nums">
-        <div v-if="inQueue">
+      <div>
+        <div v-if="inQueue" id="size-nums">
           <font-awesome-icon icon="hashtag" size="4x"/>
           <p class="pos-num">{{  this.queueItems.map(function(e) { return e.personId}).indexOf(this.currentUser.personId) + 1  }} / {{  this.queueItems.length  }}</p>
         </div>
