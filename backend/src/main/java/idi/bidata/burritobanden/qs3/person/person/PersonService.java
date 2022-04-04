@@ -17,7 +17,7 @@ public interface PersonService {
 
     List<Person> fetchPersonList();
 
-    Person updatePerson(Person person, Long personId);
+    Person updatePerson(Person person);
 
     void deletePersonById(Long personId);
 

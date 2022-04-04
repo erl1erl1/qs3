@@ -30,7 +30,11 @@ public class Subject {
     private Set<Person> enrolledStudents = new HashSet<>();
     private int assignments;
 
-
+    public Subject(String subjectCode, String subjectName, int assignments) {
+        this.subjectCode = subjectCode;
+        this.subjectName = subjectName;
+        this.assignments = assignments;
+    }
 
     public void enrollStudent(Person person){
         enrolledStudents.add(person);

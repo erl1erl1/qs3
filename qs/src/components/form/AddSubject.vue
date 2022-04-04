@@ -5,12 +5,10 @@
       <TextInput label="Fagkode" name="subjectCode" placeholder="Fagkode" type="text"
                  rules="required|alpha_num" error-message="Fag må ha en fagkode"/>
       <TextInput label="Fagnavn" name="subjectName" placeholder="Fagnavn" type="text"
-                 rules="required|alpha_spaces" error-message="Fag må ha en fagkode"/>
+                 rules="required|alpha_spaces" error-message="Fag må ha navn"/>
       <div class="input-container" id="csv">
         <label>Studenter</label>
-        <Field name="file" v-slot="{ handleChange, handleBlur }">
-          <input type="file" accept=".csv" name="csvInput" id="csv-button" @change="handleChange" @blur="handleBlur">
-        </Field>
+        <input type="file" accept=".csv" name="csvInput" id="csv-button" @change="handleFile">
       </div>
       <TextInput label="Antalløvinger" name="assignments" placeholder="Øvinger" type="number"
                  rules="required|numeric" error-message="Må være ett tall"/>
@@ -22,9 +20,9 @@
 </template>
 
 <script>
-import { Form, Field } from 'vee-validate'
+import {Form} from 'vee-validate'
 import axios from "axios";
-import authHeader from "../../services/header-token";
+import  authHeaderCSV from "../../services/header-token";
 import TextInput from "@/components/form/TextInput";
 
 export default {
@@ -32,26 +30,30 @@ export default {
 
   data() {
     return {
-      SUBMIT_FAIL: false
+      SUBMIT_FAIL: false,
+      file: Blob
     }
   },
 
   components: {
     TextInput,
-    Form,
-    Field,
+    Form
   },
 
   methods: {
     onSubmit(value) {
-      axios.post("http://localhost:8080/subjects",
-          {"subjectCode": value.subjectCode,
-            "subjectName": value.subjectName,
-            "assignments": value.assignments,
-            "Students": this.csvToArray(value.csvInput)
-          },
+      // Add File to Request
+      const formData = new FormData()
+      formData.append('file', this.file)
+      console.log(value.subjectCode, value.subjectName, value.assignments)
 
-          {headers: authHeader()}
+      axios.post("http://localhost:8080/addSubject/" +
+          value.subjectCode + "/" +
+          value.subjectName + "/" +
+          value.assignments,
+          formData, {
+        headers: authHeaderCSV()
+      }
       ).then(response => {
         console.log(response)
       }).catch(error => {
@@ -60,32 +62,16 @@ export default {
       })
     },
 
-    csvToArray(csvFile) {
-      console.log(csvFile)
-      // Read file
-      const input = csvFile.files[0];
-      const reader = new FileReader();
+    handleFile({ target: { files } }) {
+      console.log("File Change " + files.length)
+      this.file = files[0]
+      const reader = new FileReader()
 
-      reader.onload = function (e) {
-        const text = e.target.result;
-        document.write(text);
-      };
-      reader.readAsText(input);
-
-      // Convert to Array
-      const result = reader.result
-      console.log(result)
-      const delim = ", "
-      const headers = result.slice(0, result.indexOf("\n")).split(delim);
-      const rows = result.slice(result.indexOf("\n") + 1).split("\n");
-
-      return rows.map(function (row) {
-        const values = row.split(delim);
-        return headers.reduce(function (object, header, index) {
-          object[header] = values[index];
-          return object;
-        }, {});
-      })
+      // Log output
+      reader.readAsText(this.file)
+      reader.onload = () => {
+        console.log(reader.result)
+      }
     }
   }
 }

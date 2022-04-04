@@ -53,13 +53,9 @@ public class PersonController {
 
 
     // Update operation
-    @PutMapping("/persons/{id}")
-    public Person
-    updateUser(@RequestBody Person person,
-               @PathVariable("id") Long personId)
-    {
-        return personService.updatePerson(
-                person, personId);
+    @PostMapping("/persons/update")
+    public Person updateUser(@RequestBody Person person) {
+        return personService.updatePerson(person);
     }
 
     // Update persons role based on the username.

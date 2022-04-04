@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 
@@ -26,11 +27,21 @@ public class SubjectController {
         return subjectService.createSubject(subject);
     }
 
+    // Add subject
+    @PostMapping("/addSubject/{subjectCode}/{subjectName}/{assignments}")
+    public Subject addSubject(@PathVariable("subjectCode") String subjectCode,
+                              @PathVariable("subjectName") String subjectName,
+                              @PathVariable("assignments") int assignments,
+                              @RequestBody MultipartFile file) {
+        return subjectService.addSubject(subjectCode, subjectName, assignments, file);
+    }
+
     // Get operation
     @GetMapping("/subjects/{subjectCode}")
     public Subject getSubject(@PathVariable String subjectCode){
         return subjectService.findSubjectByCode(subjectCode);
     }
+
     // Read operation
     @GetMapping("/subjects")
     public List<Subject> fetchSubjectList()

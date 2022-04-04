@@ -22,7 +22,9 @@ public class PersonServiceImpl implements PersonService {
     // Saves a person entity in the person repository.
     @Override
     public Person createPerson(Person person) {
-        return personRepository.save(person);
+        // If exists
+        Person existingPerson = personRepository.getByUsername(person.getUsername());
+        return existingPerson != null ? existingPerson : personRepository.save(person);
     }
 
     // Finds a person by ID. If an exception is sent, it wil log it.
@@ -66,15 +68,8 @@ public class PersonServiceImpl implements PersonService {
 
     // Updates name and role for a person entity.
     @Override
-    public Person updatePerson(Person person, Long personId) {
-        Person _person = personRepository.getById(personId);
-        try{
-            _person.setName(person.getName());
-            _person.setRole(person.getRole());
-        } catch (Exception e){
-            logger.info(e.toString());
-        }
-        return personRepository.save(_person);
+    public Person updatePerson(Person person) {
+        return personRepository.save(person);
     }
 
     // Uses a persons ID to delete a person entity.

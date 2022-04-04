@@ -92,6 +92,7 @@ export default {
     async setUser(){
       await this.$store.dispatch('getUser').then(resp => this.currentUser = resp);
     },
+
     async deleteQueueItem(){
       let details = {
         "subjectCode": this.subjectCode,

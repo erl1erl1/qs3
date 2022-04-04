@@ -66,7 +66,7 @@ button, .button, input[type=file]::file-selector-button {
 }
 
 button:hover, .button:hover {
-    background-color: #7875D7;
+    background-color: #f7a81b;
 }
 
 button:disabled, .button:disabled, button:disabled:hover, .button:disabled:hover {

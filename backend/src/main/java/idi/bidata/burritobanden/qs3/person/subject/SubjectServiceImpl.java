@@ -1,5 +1,6 @@
 package idi.bidata.burritobanden.qs3.person.subject;
 
+import com.opencsv.CSVReader;
 import idi.bidata.burritobanden.qs3.entity.Person;
 import idi.bidata.burritobanden.qs3.entity.Subject;
 import idi.bidata.burritobanden.qs3.repository.SubjectRepository;
@@ -8,6 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -102,6 +110,36 @@ public class SubjectServiceImpl implements SubjectService{
             person.addSubject(subject);
         } catch (Exception e) {
             logger.info(e.toString());
+        }
+        return subject;
+    }
+
+    @Override
+    public Subject addSubject(String subjectCode, String subjectName, int assignments, MultipartFile file) {
+        Subject subject = new Subject();
+        subject.setSubjectCode(subjectCode);
+        subject.setSubjectCode(subjectCode);
+        subject.setAssignments(assignments);
+
+        // Parse csv
+        try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+            CSVReader csvReader = new CSVReader(reader);
+            String[] nextRecord;
+
+            while ((nextRecord = csvReader.readNext()) != null) {
+                Person person = new Person();
+                person.setName(nextRecord[1] + " " + nextRecord[0]);
+                person.setUsername(nextRecord[2].split("@")[0]);
+                person.setPassword("1");
+                person.setRole("student");
+                System.out.println(person);
+
+                // Save and enroll
+                personService.createPerson(person);
+                person.addSubject(subject);
+            }
+        } catch (Exception ex) {
+           return null;
         }
         return subject;
     }
