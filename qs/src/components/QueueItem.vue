@@ -71,8 +71,10 @@ export default {
     async approveAssignment(){
       let details = {
         "subjectCode": this.getActiveSubject.subjectCode,
-        "personId": this.personId
+        "personId": this.personId,
+        "assignmentId": this.task
       }
+      await this.$store.dispatch('approveAssignment', details);
       await this.$store.dispatch('deleteQueueItem', details);
       this.$emit("clickFromQueueItem");
       // set approved i db

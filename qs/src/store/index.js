@@ -116,6 +116,15 @@ const storeConfiguration = {
       };
       return axios(config);
     },
+
+    approveAssignment(context, payload){
+      var config = {
+        method: 'post',
+        url: 'http://localhost8080/assignments/' + payload.personId + '/' + payload.subjectCode + '/' + payload.assignmentId,
+        headers: authHeader()
+      };
+      return axios(config)
+    }
   },
 
   getters: {
