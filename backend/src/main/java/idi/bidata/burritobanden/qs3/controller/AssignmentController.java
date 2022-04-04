@@ -50,4 +50,11 @@ public class AssignmentController {
                                              @PathVariable("subjectCode") String subjectCode) {
         return assignmentService.giveStudentAssignments(personId, subjectCode);
     }
+
+    @PostMapping("/assignments/{personId}/{subjectCode}/{assignmentNumber}")
+    public Assignment approveAssignment(@PathVariable("personId") Long personId,
+                                        @PathVariable("subjectCode") String subjectCode,
+                                        @PathVariable("assignmentNumber") int assignmentNumber) {
+        return assignmentService.approveAssignment(personId, subjectCode, assignmentNumber);
+    }
 }

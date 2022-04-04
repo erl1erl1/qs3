@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface AssignmentRepository extends JpaRepository<Assignment, Long> {
+    public Assignment findAssignmentByPersonIdAndSubjectCode(Long personId, String subjectCode);
 }

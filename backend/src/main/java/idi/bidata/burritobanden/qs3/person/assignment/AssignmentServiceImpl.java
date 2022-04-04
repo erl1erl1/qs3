@@ -2,6 +2,7 @@ package idi.bidata.burritobanden.qs3.person.assignment;
 
 import idi.bidata.burritobanden.qs3.entity.Assignment;
 import idi.bidata.burritobanden.qs3.entity.Subject;
+import idi.bidata.burritobanden.qs3.model.compositeKeys.AssignmentKey;
 import idi.bidata.burritobanden.qs3.person.subject.SubjectService;
 import idi.bidata.burritobanden.qs3.repository.AssignmentRepository;
 
@@ -64,5 +65,23 @@ public class AssignmentServiceImpl implements AssignmentService {
         Assignment assignment = new Assignment(personId, subjectCode, assignments);
 
         return assignmentRepository.save(assignment);
+    }
+
+    @Override
+    public Assignment approveAssignment(Long personId, String subjectCode, int assignmentNumber) {
+
+        Assignment asDB = assignmentRepository.findAssignmentByPersonIdAndSubjectCode(personId, subjectCode);
+
+        try{
+            List<Boolean> listDB = asDB.getAssignments();
+            listDB.set(assignmentNumber-1, true);
+
+            asDB.setAssignments(listDB);
+
+            assignmentRepository.save(asDB);
+        } catch (Exception e) {
+            logger.info(e.toString());
+        }
+        return asDB;
     }
 }

@@ -19,4 +19,6 @@ public interface AssignmentService {
 
     // Gives a student assignments.
     Assignment giveStudentAssignments(Long personId, String subjectCode);
+
+    Assignment approveAssignment(Long personId, String subjectCode, int assignmentNumber);
 }
