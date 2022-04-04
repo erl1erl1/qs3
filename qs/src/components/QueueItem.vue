@@ -1,5 +1,5 @@
 <template>
-<div id="queue-container">
+<div id="queue-container" :style="'background-color: ' + bgColor + ';'">
   <div id="queue-info" @click="toggleToolBox">
     <h3 id="name">{{ name }}</h3>
     <div id="content">
@@ -43,12 +43,6 @@
 export default {
   name: "QueueItem",
 
-  mounted() {
-    if (this.gettingHelp) {
-      document.getElementById("queue-container").style.backgroundColor = "#cce6ff"
-    }
-  },
-
   props: {
     name: String,
     location: String,
@@ -64,7 +58,11 @@ export default {
   computed: {
     ...mapGetters([
       'getActiveSubject'
-    ])
+    ]),
+
+    bgColor() {
+      return this.gettingHelp ? "#cce6ff" : "whitesmoke"
+    }
   },
 
   methods: {

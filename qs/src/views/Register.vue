@@ -13,7 +13,7 @@
                  rules="required|confirmed:@password" error-message="Passordene samstemmer ikke" validate-on-input/>
       <button class="button" :disabled="!(meta.valid)">Registrer deg</button>
     </Form>
-    <p style="margin-bottom: 10px">Har du allerede en bruker? <router-link as="a" class="link" to="/signin">Log inn</router-link></p>
+    <p style="margin-bottom: 10px">Har du allerede en bruker? <router-link as="a" class="link" to="/signin">Logg inn</router-link></p>
   </div>
 </template>
 
