@@ -85,7 +85,6 @@ export default {
         this.queueItems = this.newQueueItems;
         this.getNames();
         this.checkIfUserInQueue();
-        console.log(this.queueItems[0].beingHelped)
         this.forceUpdate();
         return;
       }
