@@ -115,7 +115,7 @@ const storeConfiguration = {
         headers: authHeader()
       };
       return axios(config);
-    }
+    },
   },
 
   getters: {
