@@ -1,7 +1,11 @@
 package idi.bidata.burritobanden.qs3.person.assignment;
 
 import idi.bidata.burritobanden.qs3.entity.Assignment;
+import idi.bidata.burritobanden.qs3.entity.Subject;
+import idi.bidata.burritobanden.qs3.person.subject.SubjectService;
 import idi.bidata.burritobanden.qs3.repository.AssignmentRepository;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +19,13 @@ import org.slf4j.LoggerFactory;
 @Service
 public class AssignmentServiceImpl implements AssignmentService {
 
+    Logger logger = LoggerFactory.getLogger("LOGGER");
+
     @Autowired
     private AssignmentRepository assignmentRepository;
 
-    Logger logger = LoggerFactory.getLogger("LOGGER");
+    @Autowired
+    SubjectService subjectService;
 
 
     // Creates an assignment.
@@ -34,25 +41,28 @@ public class AssignmentServiceImpl implements AssignmentService {
                 assignmentRepository.findAll();
     }
 
-    // Updates an assignment by the assignment ID.
-    @Override
-    public Assignment updateAssignment(Assignment assignment, Long assignmentId) {
-
-        Assignment assDB = assignmentRepository.findById(assignmentId).get();
-        try{
-            assDB.setPersonId(assignment.getPersonId());
-            assDB.setSubjectId(assignment.getSubjectId());
-            assDB.setAssignmentNum(assignment.getAssignmentNum());
-        } catch (Exception e) {
-            logger.info(e.toString());
-        }
-
-        return assignmentRepository.save(assDB);
-    }
 
     // Deletes an assignment by ID.
     @Override
     public void deleteAssignmentById(Long assignmentId) {
         assignmentRepository.deleteById(assignmentId);
+    }
+
+    /*
+    Gives a student assignments based on how many assignments the subject has.
+     */
+    @Override
+    public Assignment giveStudentAssignments(Long personId, String subjectCode) {
+        Subject subject = subjectService.findSubjectByCode(subjectCode);
+
+        List<Boolean> assignments = new ArrayList<>();
+
+        for(int i = 0; i < subject.getAssignments(); i++){
+            assignments.add(false);
+        }
+
+        Assignment assignment = new Assignment(personId, subjectCode, assignments);
+
+        return assignmentRepository.save(assignment);
     }
 }

@@ -3,7 +3,7 @@
     <h2>Slett fag</h2>
 
     <Form @submit="onSubmit" v-slot="{ meta }">
-      <TextInput label="Fagkode" name="subjectCode" placeholder="Fagkode" type="text"
+      <TextInput label="Fagkode" name="subjectCode" placeholder="Fagkode" type="alpha_num"
                  rules="required|alpha_num" error-message="Navn kan kun inneholde bokstaver"/>
 
       <button class="button" :disabled="!(meta.valid)">Slett</button>

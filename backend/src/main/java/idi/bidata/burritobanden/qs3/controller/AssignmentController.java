@@ -4,12 +4,17 @@ import idi.bidata.burritobanden.qs3.entity.Assignment;
 import idi.bidata.burritobanden.qs3.person.assignment.AssignmentService;
 import java.util.List;
 import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 
 public class AssignmentController {
+
+    Logger logger = LoggerFactory.getLogger("LOGGER");
 
     @Autowired private AssignmentService assignmentService;
 
@@ -29,15 +34,6 @@ public class AssignmentController {
     }
 
 
-    // Update operation
-    @PutMapping("/assignments/{id}")
-    public Assignment
-    updateUser(@RequestBody Assignment assignment,
-               @PathVariable("id") Long assignmentId)
-    {
-        return assignmentService.updateAssignment(
-                assignment, assignmentId);
-    }
 
     // Delete operation
     @DeleteMapping("/assignments/{id}")
@@ -47,5 +43,11 @@ public class AssignmentController {
         assignmentService.deleteAssignmentById(
                 assignmentId);
         return "Deleted Successfully";
+    }
+
+    @PostMapping("/assignments/{personId}/{subjectCode}")
+    public Assignment giveStudentAssignments(@PathVariable("personId") Long personId,
+                                             @PathVariable("subjectCode") String subjectCode) {
+        return assignmentService.giveStudentAssignments(personId, subjectCode);
     }
 }
