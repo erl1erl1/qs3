@@ -21,7 +21,7 @@ import java.util.Set;
 @Table(name = "subject")
 public class Subject {
     @Id
-    @Column(name = "subject_id")
+    @Column(name = "subject_code")
     private String subjectCode;
     private String subjectName;
 
@@ -35,6 +35,8 @@ public class Subject {
         this.subjectName = subjectName;
         this.assignments = assignments;
     }
+
+    public Subject() {}
 
     public void enrollStudent(Person person){
         enrolledStudents.add(person);

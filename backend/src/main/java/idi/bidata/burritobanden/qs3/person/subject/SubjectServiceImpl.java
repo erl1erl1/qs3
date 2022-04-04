@@ -118,8 +118,9 @@ public class SubjectServiceImpl implements SubjectService{
     public Subject addSubject(String subjectCode, String subjectName, int assignments, MultipartFile file) {
         Subject subject = new Subject();
         subject.setSubjectCode(subjectCode);
-        subject.setSubjectCode(subjectCode);
+        subject.setSubjectName(subjectName);
         subject.setAssignments(assignments);
+        subjectRepository.save(subject);
 
         // Parse csv
         try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
@@ -135,8 +136,9 @@ public class SubjectServiceImpl implements SubjectService{
                 System.out.println(person);
 
                 // Save and enroll
-                personService.createPerson(person);
-                person.addSubject(subject);
+                Person returned = personService.createPerson(person);
+                returned.addSubject(subject);
+                personService.updatePerson(person);
             }
         } catch (Exception ex) {
            return null;
