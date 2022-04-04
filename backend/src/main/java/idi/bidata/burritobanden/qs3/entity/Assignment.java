@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * The Assignment entity represents an assignment, "øving", in the backend. Lombok tags are used for constructor,
- * getters and setters.
+ * getters and setters. This class has a composite key between person ID and subject code.
  */
 @Entity
 @Data
@@ -21,10 +21,16 @@ import java.util.List;
 @IdClass(AssignmentKey.class)
 public class Assignment implements Serializable {
 
+    /*
+    Primary key
+     */
     @Id
     @Column(name = "person_id")
     private Long personId;
 
+    /*
+    Primary key.
+     */
     @Id
     @Column(name = "subject_code")
     private String subjectCode;

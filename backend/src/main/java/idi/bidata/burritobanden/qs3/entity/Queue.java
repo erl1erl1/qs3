@@ -10,7 +10,7 @@ import java.util.Date;
 
 /**
  * The Queue entity represents an item in a queue. Lombok tags are used
- * for constructor, getters and setters.
+ * for constructor, getters and setters. This entity has a composite key.
  */
 @Entity
 @Data
