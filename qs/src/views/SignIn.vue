@@ -21,12 +21,6 @@ import TextInput from "../components/form/TextInput";
 export default {
   name: "Login",
 
-  mounted() {
-    if (this.user != null || this.user !== 'undefined')  {
-      this.$router.push("/")
-    }
-  },
-
   data() {
     return {
       correctPassword: true

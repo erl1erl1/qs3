@@ -24,23 +24,6 @@ import TextInput from "@/components/form/TextInput";
 export default {
   name: "Login",
 
-  mounted() {
-    if (this.user != null || this.user !== 'undefined')  {
-      this.$router.push("/")
-    }
-  },
-
-  data() {
-    return {
-      initialErrors: {
-        name: "Navn kan kun inneholde bokstaver",
-        username: "Brukernavn må være mellom 3 og 16 karakterer langt",
-        password: "Passord kan ikke være tomt",
-        confirm: "Passordene samstemmer ikke",
-      }
-    }
-  },
-
   components: {
     TextInput,
     Form,
