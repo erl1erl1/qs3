@@ -4,12 +4,12 @@
     <h1>Pålogging</h1>
     <Form @submit="onSubmit" v-slot="{ meta }">
       <TextInput label="Brukernavn" name="username" placeholder="brukernavn" type="text"
-                 rules="required|alpha_num" error-message="Brukernavn kan ikke inneholde spesielle tegn" validate-on-input/>
+                 rules="required" error-message="Du må skrive et brukernavn" validate-on-input/>
       <TextInput label="Passord" name="password" placeholder="passord" type="password"
                  rules="required" error-message="Du må skrive et passord" validate-on-input/>
       <button :disabled="!(meta.valid)">Logg inn</button>
     </Form>
-    <p v-if="!this.correctPassword" style="color: red">Feil brukernavn eller passord</p>
+    <p v-if="!this.correctPassword" style="color: red">Feil brukernavn eller passor</p>
     <p style="margin-bottom: 10px">Har du ikke en bruker? <router-link as="a" class="link" to="register">Registrer deg</router-link></p>
   </div>
 </template>
