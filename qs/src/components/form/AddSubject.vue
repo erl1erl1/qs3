@@ -10,7 +10,7 @@
         <label>Studenter</label>
         <input type="file" accept=".csv" name="csvInput" id="csv-button" @change="handleFile">
       </div>
-      <TextInput label="Antalløvinger" name="assignments" placeholder="Øvinger" type="number"
+      <TextInput label="Antall øvinger" name="assignments" placeholder="Øvinger" type="number"
                  rules="required|numeric" error-message="Må være ett tall"/>
       <button class="button" :disabled="!(meta.valid)">Legg til</button>
     </Form>
