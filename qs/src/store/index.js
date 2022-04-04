@@ -89,7 +89,7 @@ const storeConfiguration = {
     },
 
     getQueue(context){
-      return axios.get("http://localhost:8080/queues/" + context.state.subject.subjectCode, { headers: authHeader(), }).then(resp => resp);
+      return axios.get("http://localhost:8080/queues/" + context.state.subject.subjectCode, { headers: authHeader() }).then(resp => resp);
     },
 
     getName(context, userId){

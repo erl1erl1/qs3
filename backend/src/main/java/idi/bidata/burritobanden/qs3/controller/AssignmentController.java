@@ -29,7 +29,10 @@ public class AssignmentController {
         return assignmentService.fetchAssignmentList();
     }
 
-
+    @GetMapping("/assignments/update/{subjectCode}")
+    public void updateAssignments(@PathVariable("subjectCode") String subjectCode){
+        assignmentService.updateAssignments(subjectCode);
+    }
 
     // Delete operation
     @DeleteMapping("/assignments/{id}")
