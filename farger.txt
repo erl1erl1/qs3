@@ -1,9 +1,0 @@
-Blå:
-	Vanlig: #102c40
-
-Oransje:
-	Vanlig:	#f7a81b
-	Lys:	#f9cc7e
-
-Rød:
-	Vanlig:	#bd2452

@@ -27,7 +27,7 @@
     </section>
     <section id="queue">
       <QueueItem v-for="(q, index) in queueItems" v-bind:key="this.componentKey + index"
-                 :name="q.name" :location="q.location" :queue-time="q.time" :task="q.assignmentId" :type="q.type" 
+                 :name="q.name" :location="'Bord '+ q.location" :queue-time="q.time" :task="'Øving ' + q.assignmentId" :type="q.type"
                  :position="index+1" :getting-help="q.beingHelped" :is-assistant="isAssistant" :personId="q.personId"
                  @clickFromQueueItem="updateQueue"/>
     </section>

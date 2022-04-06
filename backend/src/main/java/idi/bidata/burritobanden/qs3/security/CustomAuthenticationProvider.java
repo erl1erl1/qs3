@@ -26,8 +26,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
         // get user and password info from the request
-        final String username = authentication.getName();
-        final String password = authentication.getCredentials().toString();
+        final String username;
+        final String password;
+
+        try {
+            username = authentication.getName();
+            password = authentication.getCredentials().toString();
+        } catch (Exception e) {
+            System.out.println("Person is null");
+            return null;
+        }
 
         // check credentials
         Person person = personService.findPersonByUsername(authentication.getName());
